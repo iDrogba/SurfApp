@@ -20,6 +20,11 @@
 		0A4AF0E329B232960034E5D0 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4AF0E229B232960034E5D0 /* SnapKit */; };
 		0A4AF0E529B232F10034E5D0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0E429B232F10034E5D0 /* MainViewController.swift */; };
 		0A4AF0ED29B2348D0034E5D0 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0EC29B2348D0034E5D0 /* MainViewModel.swift */; };
+		0A4AF0F129B237B30034E5D0 /* MKRegionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0F029B237B30034E5D0 /* MKRegionModel.swift */; };
+		0A4AF0F529B238520034E5D0 /* StormglassNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0F429B238520034E5D0 /* StormglassNetworking.swift */; };
+		0A4AF0FB29B23B950034E5D0 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0FA29B23B950034E5D0 /* APIKey.swift */; };
+		0A4AF0FD29B23EFC0034E5D0 /* StormglassResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0FC29B23EFC0034E5D0 /* StormglassResponse.swift */; };
+		0A4AF10029B243F90034E5D0 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0FF29B243F90034E5D0 /* Date+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +58,11 @@
 		0A4AF0CC29B231C00034E5D0 /* SurfAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0A4AF0E429B232F10034E5D0 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0A4AF0EC29B2348D0034E5D0 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		0A4AF0F029B237B30034E5D0 /* MKRegionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKRegionModel.swift; sourceTree = "<group>"; };
+		0A4AF0F429B238520034E5D0 /* StormglassNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormglassNetworking.swift; sourceTree = "<group>"; };
+		0A4AF0FA29B23B950034E5D0 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		0A4AF0FC29B23EFC0034E5D0 /* StormglassResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormglassResponse.swift; sourceTree = "<group>"; };
+		0A4AF0FF29B243F90034E5D0 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +117,7 @@
 		0A4AF0A829B231BF0034E5D0 /* SurfApp */ = {
 			isa = PBXGroup;
 			children = (
+				0A4AF0FA29B23B950034E5D0 /* APIKey.swift */,
 				0A4AF0E629B234190034E5D0 /* Sources */,
 				0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */,
 				0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */,
@@ -137,6 +148,9 @@
 		0A4AF0E629B234190034E5D0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0A4AF0FE29B243ED0034E5D0 /* Extension */,
+				0A4AF0EF29B237630034E5D0 /* Model */,
+				0A4AF0EE29B2372C0034E5D0 /* NetWorking */,
 				0A4AF0E729B234300034E5D0 /* MainScene */,
 			);
 			path = Sources;
@@ -155,8 +169,9 @@
 		0A4AF0E829B234440034E5D0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0A4AF0F229B238030034E5D0 /* ViewController */,
+				0A4AF0F329B238140034E5D0 /* Components */,
 				0A4AF0EB29B234660034E5D0 /* Cell */,
-				0A4AF0E429B232F10034E5D0 /* MainViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -181,6 +196,46 @@
 			children = (
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		0A4AF0EE29B2372C0034E5D0 /* NetWorking */ = {
+			isa = PBXGroup;
+			children = (
+				0A4AF0F429B238520034E5D0 /* StormglassNetworking.swift */,
+				0A4AF0FC29B23EFC0034E5D0 /* StormglassResponse.swift */,
+			);
+			path = NetWorking;
+			sourceTree = "<group>";
+		};
+		0A4AF0EF29B237630034E5D0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0A4AF0F029B237B30034E5D0 /* MKRegionModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0A4AF0F229B238030034E5D0 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0A4AF0E429B232F10034E5D0 /* MainViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		0A4AF0F329B238140034E5D0 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		0A4AF0FE29B243ED0034E5D0 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0A4AF0FF29B243F90034E5D0 /* Date+.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,8 +379,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A4AF10029B243F90034E5D0 /* Date+.swift in Sources */,
+				0A4AF0F129B237B30034E5D0 /* MKRegionModel.swift in Sources */,
+				0A4AF0FD29B23EFC0034E5D0 /* StormglassResponse.swift in Sources */,
+				0A4AF0FB29B23B950034E5D0 /* APIKey.swift in Sources */,
 				0A4AF0AA29B231BF0034E5D0 /* AppDelegate.swift in Sources */,
 				0A4AF0AC29B231BF0034E5D0 /* SceneDelegate.swift in Sources */,
+				0A4AF0F529B238520034E5D0 /* StormglassNetworking.swift in Sources */,
 				0A4AF0E529B232F10034E5D0 /* MainViewController.swift in Sources */,
 				0A4AF0ED29B2348D0034E5D0 /* MainViewModel.swift in Sources */,
 			);
