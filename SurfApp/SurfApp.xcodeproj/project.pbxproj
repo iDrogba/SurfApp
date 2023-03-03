@@ -9,13 +9,16 @@
 /* Begin PBXBuildFile section */
 		0A4AF0AA29B231BF0034E5D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */; };
 		0A4AF0AC29B231BF0034E5D0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */; };
-		0A4AF0AE29B231BF0034E5D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0AD29B231BF0034E5D0 /* ViewController.swift */; };
-		0A4AF0B129B231BF0034E5D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A4AF0AF29B231BF0034E5D0 /* Main.storyboard */; };
 		0A4AF0B329B231C00034E5D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A4AF0B229B231C00034E5D0 /* Assets.xcassets */; };
 		0A4AF0B629B231C00034E5D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A4AF0B429B231C00034E5D0 /* LaunchScreen.storyboard */; };
 		0A4AF0C129B231C00034E5D0 /* SurfAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0C029B231C00034E5D0 /* SurfAppTests.swift */; };
 		0A4AF0CB29B231C00034E5D0 /* SurfAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0CA29B231C00034E5D0 /* SurfAppUITests.swift */; };
 		0A4AF0CD29B231C00034E5D0 /* SurfAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0CC29B231C00034E5D0 /* SurfAppUITestsLaunchTests.swift */; };
+		0A4AF0DB29B2322E0034E5D0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4AF0DA29B2322E0034E5D0 /* Alamofire */; };
+		0A4AF0DE29B232690034E5D0 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4AF0DD29B232690034E5D0 /* RxCocoa */; };
+		0A4AF0E029B232690034E5D0 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4AF0DF29B232690034E5D0 /* RxSwift */; };
+		0A4AF0E329B232960034E5D0 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4AF0E229B232960034E5D0 /* SnapKit */; };
+		0A4AF0E529B232F10034E5D0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0E429B232F10034E5D0 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,8 +42,6 @@
 		0A4AF0A629B231BF0034E5D0 /* SurfApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0A4AF0AD29B231BF0034E5D0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		0A4AF0B029B231BF0034E5D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0A4AF0B229B231C00034E5D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A4AF0B529B231C00034E5D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A4AF0B729B231C00034E5D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +50,7 @@
 		0A4AF0C629B231C00034E5D0 /* SurfAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurfAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A4AF0CA29B231C00034E5D0 /* SurfAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfAppUITests.swift; sourceTree = "<group>"; };
 		0A4AF0CC29B231C00034E5D0 /* SurfAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0A4AF0E429B232F10034E5D0 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A4AF0E029B232690034E5D0 /* RxSwift in Frameworks */,
+				0A4AF0E329B232960034E5D0 /* SnapKit in Frameworks */,
+				0A4AF0DE29B232690034E5D0 /* RxCocoa in Frameworks */,
+				0A4AF0DB29B2322E0034E5D0 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,11 +107,10 @@
 			children = (
 				0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */,
 				0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */,
-				0A4AF0AD29B231BF0034E5D0 /* ViewController.swift */,
-				0A4AF0AF29B231BF0034E5D0 /* Main.storyboard */,
 				0A4AF0B229B231C00034E5D0 /* Assets.xcassets */,
 				0A4AF0B429B231C00034E5D0 /* LaunchScreen.storyboard */,
 				0A4AF0B729B231C00034E5D0 /* Info.plist */,
+				0A4AF0E429B232F10034E5D0 /* MainViewController.swift */,
 			);
 			path = SurfApp;
 			sourceTree = "<group>";
@@ -143,6 +148,12 @@
 			dependencies = (
 			);
 			name = SurfApp;
+			packageProductDependencies = (
+				0A4AF0DA29B2322E0034E5D0 /* Alamofire */,
+				0A4AF0DD29B232690034E5D0 /* RxCocoa */,
+				0A4AF0DF29B232690034E5D0 /* RxSwift */,
+				0A4AF0E229B232960034E5D0 /* SnapKit */,
+			);
 			productName = SurfApp;
 			productReference = 0A4AF0A629B231BF0034E5D0 /* SurfApp.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +226,11 @@
 				Base,
 			);
 			mainGroup = 0A4AF09D29B231BF0034E5D0;
+			packageReferences = (
+				0A4AF0D929B2322E0034E5D0 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				0A4AF0DC29B232690034E5D0 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				0A4AF0E129B232960034E5D0 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 0A4AF0A729B231BF0034E5D0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -233,7 +249,6 @@
 			files = (
 				0A4AF0B629B231C00034E5D0 /* LaunchScreen.storyboard in Resources */,
 				0A4AF0B329B231C00034E5D0 /* Assets.xcassets in Resources */,
-				0A4AF0B129B231BF0034E5D0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,9 +273,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A4AF0AE29B231BF0034E5D0 /* ViewController.swift in Sources */,
 				0A4AF0AA29B231BF0034E5D0 /* AppDelegate.swift in Sources */,
 				0A4AF0AC29B231BF0034E5D0 /* SceneDelegate.swift in Sources */,
+				0A4AF0E529B232F10034E5D0 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +312,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		0A4AF0AF29B231BF0034E5D0 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0A4AF0B029B231BF0034E5D0 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		0A4AF0B429B231C00034E5D0 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -442,7 +449,6 @@
 				INFOPLIST_FILE = SurfApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -452,9 +458,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SurfApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -470,7 +479,6 @@
 				INFOPLIST_FILE = SurfApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -480,9 +488,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SurfApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -602,6 +613,56 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0A4AF0D929B2322E0034E5D0 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.1;
+			};
+		};
+		0A4AF0DC29B232690034E5D0 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 6.5.0;
+			};
+		};
+		0A4AF0E129B232960034E5D0 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0A4AF0DA29B2322E0034E5D0 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A4AF0D929B2322E0034E5D0 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		0A4AF0DD29B232690034E5D0 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A4AF0DC29B232690034E5D0 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		0A4AF0DF29B232690034E5D0 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A4AF0DC29B232690034E5D0 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		0A4AF0E229B232960034E5D0 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A4AF0E129B232960034E5D0 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0A4AF09E29B231BF0034E5D0 /* Project object */;
 }
