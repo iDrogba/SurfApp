@@ -25,6 +25,10 @@
 		0A4AF0FB29B23B950034E5D0 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0FA29B23B950034E5D0 /* APIKey.swift */; };
 		0A4AF0FD29B23EFC0034E5D0 /* StormglassResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0FC29B23EFC0034E5D0 /* StormglassResponse.swift */; };
 		0A4AF10029B243F90034E5D0 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0FF29B243F90034E5D0 /* Date+.swift */; };
+		0A4AF10229B316C50034E5D0 /* FavoriteRegionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF10129B316C50034E5D0 /* FavoriteRegionCollectionView.swift */; };
+		0A4AF10429B31C510034E5D0 /* SearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF10329B31C510034E5D0 /* SearchTableView.swift */; };
+		0A4AF10629B323710034E5D0 /* UICollectionViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF10529B323710034E5D0 /* UICollectionViewCell+.swift */; };
+		0A4AF10829B323850034E5D0 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF10729B323850034E5D0 /* UITableViewCell+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +67,10 @@
 		0A4AF0FA29B23B950034E5D0 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		0A4AF0FC29B23EFC0034E5D0 /* StormglassResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormglassResponse.swift; sourceTree = "<group>"; };
 		0A4AF0FF29B243F90034E5D0 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		0A4AF10129B316C50034E5D0 /* FavoriteRegionCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRegionCollectionView.swift; sourceTree = "<group>"; };
+		0A4AF10329B31C510034E5D0 /* SearchTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableView.swift; sourceTree = "<group>"; };
+		0A4AF10529B323710034E5D0 /* UICollectionViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+.swift"; sourceTree = "<group>"; };
+		0A4AF10729B323850034E5D0 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +234,8 @@
 		0A4AF0F329B238140034E5D0 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				0A4AF10129B316C50034E5D0 /* FavoriteRegionCollectionView.swift */,
+				0A4AF10329B31C510034E5D0 /* SearchTableView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -234,6 +244,8 @@
 			isa = PBXGroup;
 			children = (
 				0A4AF0FF29B243F90034E5D0 /* Date+.swift */,
+				0A4AF10529B323710034E5D0 /* UICollectionViewCell+.swift */,
+				0A4AF10729B323850034E5D0 /* UITableViewCell+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -379,13 +391,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A4AF10229B316C50034E5D0 /* FavoriteRegionCollectionView.swift in Sources */,
 				0A4AF10029B243F90034E5D0 /* Date+.swift in Sources */,
 				0A4AF0F129B237B30034E5D0 /* MKRegionModel.swift in Sources */,
 				0A4AF0FD29B23EFC0034E5D0 /* StormglassResponse.swift in Sources */,
 				0A4AF0FB29B23B950034E5D0 /* APIKey.swift in Sources */,
 				0A4AF0AA29B231BF0034E5D0 /* AppDelegate.swift in Sources */,
+				0A4AF10629B323710034E5D0 /* UICollectionViewCell+.swift in Sources */,
 				0A4AF0AC29B231BF0034E5D0 /* SceneDelegate.swift in Sources */,
 				0A4AF0F529B238520034E5D0 /* StormglassNetworking.swift in Sources */,
+				0A4AF10429B31C510034E5D0 /* SearchTableView.swift in Sources */,
+				0A4AF10829B323850034E5D0 /* UITableViewCell+.swift in Sources */,
 				0A4AF0E529B232F10034E5D0 /* MainViewController.swift in Sources */,
 				0A4AF0ED29B2348D0034E5D0 /* MainViewModel.swift in Sources */,
 			);

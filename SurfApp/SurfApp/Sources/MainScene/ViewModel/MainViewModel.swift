@@ -6,7 +6,20 @@
 //
 
 import Foundation
+import MapKit
+import RxCocoa
+import RxSwift
 
 class MainViewModel {
+    var searchCompleter: MKLocalSearchCompleter = MKLocalSearchCompleter()
+    var searchResults = PublishSubject<[MKLocalSearchCompletion]>()
     
+    init() {
+        setSearchCompleter()
+    }
+    
+    func setSearchCompleter() {
+        searchCompleter.resultTypes = .pointOfInterest
+        searchCompleter.pointOfInterestFilter = MKPointOfInterestFilter.init(including: [.beach])
+    }
 }
