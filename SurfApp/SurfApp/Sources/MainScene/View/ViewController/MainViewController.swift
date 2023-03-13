@@ -59,21 +59,34 @@ class MainViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-//        searchTableView.rx.itemSelected
-//            .map {
-//                self.searchController.searchBar.resignFirstResponder()
-//                self.searchController.dismiss(animated: true)
-//                self.searchController.searchBar.text = nil
-//                self.animateHideSearchTableView(true)
-//                return $0.row
-//            }
-//            .withLatestFrom(viewModel.filteredCities) {index, cities in
-//                return cities[index]
-//            }
-//            .subscribe(onNext:{ city in
-//                self.viewModel.coordinates.onNext(city.getCityCoord())
-//            })
-//            .disposed(by: disposeBag)
+        searchTableView.rx.itemSelected
+            .map {
+                self.searchController.searchBar.resignFirstResponder()
+                self.searchController.dismiss(animated: true)
+                self.searchController.searchBar.text = nil
+                self.animateHideSearchTableView(true)
+                
+                return $0.row
+            }
+            .withLatestFrom(viewModel.searchResults) { index, searchResults in
+                searchResults[index]
+            }
+            .subscribe(onNext: { mkLocalSearchCompletion in
+                let searchRequest = MKLocalSearch.Request(completion: mkLocalSearchCompletion)
+                let search = MKLocalSearch(request: searchRequest)
+                
+                search.start { response, error in
+                    guard let response = response else {
+                        print("Error: \(error?.localizedDescription ?? "Unknown error").")
+                        return
+                    }
+                    if let placeMark = response.mapItems.first?.placemark {
+                        let viewController = DetailWeatherViewController(mkPlaceMark: placeMark)
+                        self.present(viewController, animated: true)
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 

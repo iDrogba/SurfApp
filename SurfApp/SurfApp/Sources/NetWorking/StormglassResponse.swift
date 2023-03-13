@@ -10,10 +10,15 @@ import Foundation
 struct StormglassResponse: Codable {
     let weather: [Weather]
     let meta: Meta
+    
+    enum CodingKeys: String, CodingKey {
+        case weather = "hours"
+        case meta
+    }
 }
 
 struct Weather: Codable {
-    let time: String
+    let time: Date
     let airTemperature, waveHeight, wavePeriod, waveDirection, windSpeed, cloudCover, precipitation, snowDepth: [String: Double]?
 }
 

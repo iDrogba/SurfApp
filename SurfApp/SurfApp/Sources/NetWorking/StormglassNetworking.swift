@@ -8,34 +8,40 @@
 import Foundation
 import Alamofire
 import RxSwift
+import MapKit
 
 class StormglassNetworking {
     static let shared = StormglassNetworking()
     
     private let url = "https://api.stormglass.io/v2/weather/point"
-    private var parameters = ["params": "airTemperature, waveHeight, wavePeriod, waveDirection, windSpeed, cloudCover, precipitation, snowDepth"]
-    
-    func requestWeather(region: MKRegionModel) -> Observable<StormglassResponse> {
+    private var parameters = ["params": "airTemperature,waveHeight,wavePeriod,waveDirection,windSpeed,cloudCover,precipitation,snowDepth"]
+
+    func requestWeather(mkPlaceMark: MKPlacemark) -> Observable<StormglassResponse> {
         
         return Observable.create { observer in
             self.parameters["start"] = Date.yesterdayUTC.timeIntervalSince1970.description
-            self.parameters["lat"] = region.latitude
-            self.parameters["lng"] = region.longitude
+            self.parameters["lat"] = mkPlaceMark.coordinate.latitude.description
+            self.parameters["lng"] = mkPlaceMark.coordinate.longitude.description
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            let customDecoder = JSONDecoder()
+            customDecoder.dateDecodingStrategy = .formatted(dateFormatter)
             
             let task = AF.request(self.url,
                                   method: .get,
                                   parameters: self.parameters,
                                   encoding: URLEncoding.default,
-                                  headers: ["Authorization": APIKey().stormGlassAPIKey, "Content-Type":"application/json", "Accept":"application/json"])
-                .validate(statusCode: 200..<300)
-                .responseDecodable(of: StormglassResponse.self) { response in
+                                  headers: ["Authorization": APIKey().stormGlassAPIKey])
+                .validate(statusCode: 200..<500)
+                .responseDecodable(of: StormglassResponse.self, decoder: customDecoder) { response in
                     switch response.result {
                     case .success(let response):
                         observer.onNext(response)
                     case .failure(let error):
                         observer.onError(error)
                     }
-                    
                     observer.onCompleted()
                 }
             
@@ -43,6 +49,44 @@ class StormglassNetworking {
             
             return Disposables.create {
                 task.cancel()
+            }
+        }
+        
+    }
+    
+    func requestWeather(mkPlaceMarkArray: [MKPlacemark]) -> Observable<[StormglassResponse]> {
+        
+        return Observable.create { observer in
+            var stormglassResponse: [StormglassResponse] = []
+            
+            self.parameters["start"] = Date.yesterdayUTC.timeIntervalSince1970.description
+            
+            mkPlaceMarkArray.forEach {
+                var parameters = self.parameters
+                parameters["lat"] = $0.coordinate.latitude.description
+                parameters["lng"] = $0.coordinate.longitude.description
+                
+                AF.request(self.url,
+                           method: .get,
+                           parameters: self.parameters,
+                           encoding: URLEncoding.default,
+                           headers: ["Authorization": APIKey().stormGlassAPIKey, "Content-Type":"application/json", "Accept":"application/json"])
+                .validate(statusCode: 200..<300)
+                .responseDecodable(of: StormglassResponse.self) { response in
+                    switch response.result {
+                    case .success(let response):
+                        stormglassResponse.append(response)
+                    case .failure(let error):
+                        observer.onError(error)
+                    }
+                    observer.onCompleted()
+                }
+                .resume()
+            }
+            
+            observer.onNext(stormglassResponse)
+            
+            return Disposables.create {
             }
         }
         
