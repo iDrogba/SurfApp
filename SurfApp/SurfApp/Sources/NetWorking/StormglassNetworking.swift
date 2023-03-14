@@ -26,7 +26,7 @@ class StormglassNetworking {
         return customDecoder
     }()
     
-    func requestWeather(region: RegionModel) -> Observable<StormglassResponse> {
+    func requestWeather(region: RegionModel) -> Observable<[WeatherModel]> {
         
         return Observable.create { observer in
             self.parameters["start"] = Date.yesterdayUTC.timeIntervalSince1970.description
@@ -42,7 +42,10 @@ class StormglassNetworking {
                 .responseDecodable(of: StormglassResponse.self, decoder: self.customDecoder) { response in
                     switch response.result {
                     case .success(let response):
-                        observer.onNext(response)
+                        let weatherModel = response.weather.map {
+                            WeatherModel(region, $0)
+                        }
+                        observer.onNext(weatherModel)
                     case .failure(let error):
                         observer.onError(error)
                     }
@@ -58,17 +61,17 @@ class StormglassNetworking {
         
     }
     
-    func requestWeather(region: [RegionModel]) -> Observable<[StormglassResponse]> {
+    func requestWeather(regions: [RegionModel]) -> Observable<[RegionModel:[WeatherModel]]> {
         
         return Observable.create { observer in
-            var stormglassResponse: [StormglassResponse] = []
+            var weatherDictionary: [RegionModel:[WeatherModel]] = [:]
             
             self.parameters["start"] = Date.yesterdayUTC.timeIntervalSince1970.description
             
-            region.forEach {
+            regions.forEach { region in
                 var parameters = self.parameters
-                parameters["lat"] = $0.latitude
-                parameters["lng"] = $0.longitude
+                parameters["lat"] = region.latitude
+                parameters["lng"] = region.longitude
                 
                 AF.request(self.url,
                            method: .get,
@@ -79,7 +82,10 @@ class StormglassNetworking {
                 .responseDecodable(of: StormglassResponse.self, decoder: self.customDecoder) { response in
                     switch response.result {
                     case .success(let response):
-                        stormglassResponse.append(response)
+                        let weatherModels = response.weather.map {
+                            WeatherModel(region, $0)
+                        }
+                        weatherDictionary[region] = weatherModels
                     case .failure(let error):
                         observer.onError(error)
                     }
@@ -88,7 +94,7 @@ class StormglassNetworking {
                 .resume()
             }
             
-            observer.onNext(stormglassResponse)
+            observer.onNext(weatherDictionary)
             
             return Disposables.create {
             }

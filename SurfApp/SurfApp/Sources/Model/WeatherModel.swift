@@ -9,7 +9,7 @@ import Foundation
 import MapKit
 
 struct WeatherModel {
-    var regionModel: MKPlacemark!
+    var regionModel: RegionModel
     var date: Date = Date()
     var airTemperature: Double = 0
     var waveHeight: Double = 0
@@ -20,7 +20,7 @@ struct WeatherModel {
     var precipitation: Double = 0 //강수량
     var snowDepth: Double = 0
 
-    init(_ regionModel: MKPlacemark, _ weather: Weather) {
+    init(_ regionModel: RegionModel, _ weather: Weather) {
         self.regionModel = regionModel
         self.date = weather.time
         self.airTemperature = averageVal(data: weather.airTemperature, rounder: 10)
