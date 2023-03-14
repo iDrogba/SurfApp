@@ -19,14 +19,15 @@ class DetailWeatherViewController: UIViewController {
         return label
     }()
     
-    init(mkPlaceMark: MKPlacemark) {
-        viewModel = DetailWeatherViewModel(mkPlaceMark: mkPlaceMark)
+    init(region: RegionModel) {
+        viewModel = DetailWeatherViewModel(region: region)
 
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
-        viewModel = DetailWeatherViewModel(mkPlaceMark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 37.5, longitude: 127)))
+        let defaultRegionPlaceMark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 37.5, longitude: 128))
+        viewModel = DetailWeatherViewModel(region: RegionModel(placeMark: defaultRegionPlaceMark))
         
         super.init(coder: coder)
     }
@@ -54,8 +55,8 @@ class DetailWeatherViewModel {
     let disposeBag = DisposeBag()
     var stormglassResponse = PublishSubject<StormglassResponse>()
     
-    init(mkPlaceMark: MKPlacemark) {
-        StormglassNetworking.shared.requestWeather(mkPlaceMark: mkPlaceMark)
+    init(region: RegionModel) {
+        StormglassNetworking.shared.requestWeather(region: region)
             .bind(to: self.stormglassResponse)
             .disposed(by: disposeBag)
     }

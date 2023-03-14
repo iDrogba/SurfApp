@@ -20,7 +20,7 @@
 		0A4AF0E329B232960034E5D0 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4AF0E229B232960034E5D0 /* SnapKit */; };
 		0A4AF0E529B232F10034E5D0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0E429B232F10034E5D0 /* MainViewController.swift */; };
 		0A4AF0ED29B2348D0034E5D0 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0EC29B2348D0034E5D0 /* MainViewModel.swift */; };
-		0A4AF0F129B237B30034E5D0 /* MKRegionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0F029B237B30034E5D0 /* MKRegionModel.swift */; };
+		0A4AF0F129B237B30034E5D0 /* RegionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0F029B237B30034E5D0 /* RegionModel.swift */; };
 		0A4AF0F529B238520034E5D0 /* StormglassNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0F429B238520034E5D0 /* StormglassNetworking.swift */; };
 		0A4AF0FB29B23B950034E5D0 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0FA29B23B950034E5D0 /* APIKey.swift */; };
 		0A4AF0FD29B23EFC0034E5D0 /* StormglassResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0FC29B23EFC0034E5D0 /* StormglassResponse.swift */; };
@@ -31,6 +31,8 @@
 		0A4AF10829B323850034E5D0 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF10729B323850034E5D0 /* UITableViewCell+.swift */; };
 		0A4AF10B29B332050034E5D0 /* DetailWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF10A29B332050034E5D0 /* DetailWeatherViewController.swift */; };
 		0A4AF11229BC5D4D0034E5D0 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF11129BC5D4D0034E5D0 /* WeatherModel.swift */; };
+		0AE0E23929BFF4E800F5F0D6 /* SavedRegionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0E23829BFF4E800F5F0D6 /* SavedRegionManager.swift */; };
+		0AE0E23B29C07D0F00F5F0D6 /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0E23A29C07D0F00F5F0D6 /* Sequence+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +66,7 @@
 		0A4AF0CC29B231C00034E5D0 /* SurfAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0A4AF0E429B232F10034E5D0 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0A4AF0EC29B2348D0034E5D0 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		0A4AF0F029B237B30034E5D0 /* MKRegionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKRegionModel.swift; sourceTree = "<group>"; };
+		0A4AF0F029B237B30034E5D0 /* RegionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionModel.swift; sourceTree = "<group>"; };
 		0A4AF0F429B238520034E5D0 /* StormglassNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormglassNetworking.swift; sourceTree = "<group>"; };
 		0A4AF0FA29B23B950034E5D0 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		0A4AF0FC29B23EFC0034E5D0 /* StormglassResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormglassResponse.swift; sourceTree = "<group>"; };
@@ -75,6 +77,8 @@
 		0A4AF10729B323850034E5D0 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		0A4AF10A29B332050034E5D0 /* DetailWeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWeatherViewController.swift; sourceTree = "<group>"; };
 		0A4AF11129BC5D4D0034E5D0 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
+		0AE0E23829BFF4E800F5F0D6 /* SavedRegionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRegionManager.swift; sourceTree = "<group>"; };
+		0AE0E23A29C07D0F00F5F0D6 /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A0CBB1F29BFF3E0002B6AE3 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0AE0E23829BFF4E800F5F0D6 /* SavedRegionManager.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		0A4AF09D29B231BF0034E5D0 = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +172,7 @@
 		0A4AF0E629B234190034E5D0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0A0CBB1F29BFF3E0002B6AE3 /* Classes */,
 				0A4AF0FE29B243ED0034E5D0 /* Extension */,
 				0A4AF0EF29B237630034E5D0 /* Model */,
 				0A4AF0EE29B2372C0034E5D0 /* NetWorking */,
@@ -215,7 +228,7 @@
 		0A4AF0EF29B237630034E5D0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				0A4AF0F029B237B30034E5D0 /* MKRegionModel.swift */,
+				0A4AF0F029B237B30034E5D0 /* RegionModel.swift */,
 				0A4AF11129BC5D4D0034E5D0 /* WeatherModel.swift */,
 			);
 			path = Model;
@@ -244,6 +257,7 @@
 				0A4AF0FF29B243F90034E5D0 /* Date+.swift */,
 				0A4AF10529B323710034E5D0 /* UICollectionViewCell+.swift */,
 				0A4AF10729B323850034E5D0 /* UITableViewCell+.swift */,
+				0AE0E23A29C07D0F00F5F0D6 /* Sequence+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -439,14 +453,16 @@
 			files = (
 				0A4AF10229B316C50034E5D0 /* FavoriteRegionCollectionView.swift in Sources */,
 				0A4AF10029B243F90034E5D0 /* Date+.swift in Sources */,
-				0A4AF0F129B237B30034E5D0 /* MKRegionModel.swift in Sources */,
+				0A4AF0F129B237B30034E5D0 /* RegionModel.swift in Sources */,
 				0A4AF0FD29B23EFC0034E5D0 /* StormglassResponse.swift in Sources */,
 				0A4AF11229BC5D4D0034E5D0 /* WeatherModel.swift in Sources */,
+				0AE0E23929BFF4E800F5F0D6 /* SavedRegionManager.swift in Sources */,
 				0A4AF0FB29B23B950034E5D0 /* APIKey.swift in Sources */,
 				0A4AF0AA29B231BF0034E5D0 /* AppDelegate.swift in Sources */,
 				0A4AF10B29B332050034E5D0 /* DetailWeatherViewController.swift in Sources */,
 				0A4AF10629B323710034E5D0 /* UICollectionViewCell+.swift in Sources */,
 				0A4AF0AC29B231BF0034E5D0 /* SceneDelegate.swift in Sources */,
+				0AE0E23B29C07D0F00F5F0D6 /* Sequence+.swift in Sources */,
 				0A4AF0F529B238520034E5D0 /* StormglassNetworking.swift in Sources */,
 				0A4AF10429B31C510034E5D0 /* SearchTableView.swift in Sources */,
 				0A4AF10829B323850034E5D0 /* UITableViewCell+.swift in Sources */,

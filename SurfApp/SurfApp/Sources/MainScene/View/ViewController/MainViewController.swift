@@ -33,7 +33,8 @@ class MainViewController: UIViewController {
     }
     
     private func setNavigationBar() {
-        searchController.searchBar.placeholder = "해변 이름으로 검색"
+        let placeHolder = "해변 이름으로 검색"
+        searchController.searchBar.placeholder = placeHolder
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.delegate = self
         
@@ -81,7 +82,8 @@ class MainViewController: UIViewController {
                         return
                     }
                     if let placeMark = response.mapItems.first?.placemark {
-                        let viewController = DetailWeatherViewController(mkPlaceMark: placeMark)
+                        let region = RegionModel(placeMark: placeMark)
+                        let viewController = DetailWeatherViewController(region: region)
                         self.present(viewController, animated: true)
                     }
                 }
