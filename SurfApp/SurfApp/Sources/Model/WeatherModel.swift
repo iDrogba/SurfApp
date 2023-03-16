@@ -42,6 +42,17 @@ struct WeatherModel {
         sum = round(sum * rounder) / rounder
         return sum
     }
+    
+    func isSameDate(_ dateComponents: DateComponents) -> Bool {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day, .month, .year], from: self.date)
+        
+        if components == dateComponents {
+            return true
+        } else {
+            return false
+        }
+    }
 }
 
 //class UpdatedWeatherForecastModelManager {

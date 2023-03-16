@@ -33,6 +33,7 @@
 		0A4AF11229BC5D4D0034E5D0 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF11129BC5D4D0034E5D0 /* WeatherModel.swift */; };
 		0AE0E23929BFF4E800F5F0D6 /* SavedRegionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0E23829BFF4E800F5F0D6 /* SavedRegionManager.swift */; };
 		0AE0E23B29C07D0F00F5F0D6 /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0E23A29C07D0F00F5F0D6 /* Sequence+.swift */; };
+		3F343CA529C337F3006C8FE8 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F343CA429C337F3006C8FE8 /* Array+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		0A4AF11129BC5D4D0034E5D0 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		0AE0E23829BFF4E800F5F0D6 /* SavedRegionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRegionManager.swift; sourceTree = "<group>"; };
 		0AE0E23A29C07D0F00F5F0D6 /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
+		3F343CA429C337F3006C8FE8 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +260,7 @@
 				0A4AF10529B323710034E5D0 /* UICollectionViewCell+.swift */,
 				0A4AF10729B323850034E5D0 /* UITableViewCell+.swift */,
 				0AE0E23A29C07D0F00F5F0D6 /* Sequence+.swift */,
+				3F343CA429C337F3006C8FE8 /* Array+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				0A4AF0AC29B231BF0034E5D0 /* SceneDelegate.swift in Sources */,
 				0AE0E23B29C07D0F00F5F0D6 /* Sequence+.swift in Sources */,
 				0A4AF0F529B238520034E5D0 /* StormglassNetworking.swift in Sources */,
+				3F343CA529C337F3006C8FE8 /* Array+.swift in Sources */,
 				0A4AF10429B31C510034E5D0 /* SearchTableView.swift in Sources */,
 				0A4AF10829B323850034E5D0 /* UITableViewCell+.swift in Sources */,
 				0A4AF0E529B232F10034E5D0 /* MainViewController.swift in Sources */,
