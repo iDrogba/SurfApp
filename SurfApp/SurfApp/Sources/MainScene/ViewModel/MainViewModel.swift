@@ -17,11 +17,21 @@ class MainViewModel {
     let disposeBag = DisposeBag()
     let favoriteRegionWeathers = PublishSubject<[RegionModel:[WeatherModel]]>()
     let favoriteRegionTodayWeathers = PublishSubject<[RegionModel:[WeatherModel]]>()
+    let minMaxWaveHeights = PublishSubject<[RegionModel:(min:Double, max:Double)]>()
     
     init() {
         setSearchCompleter()
         setFavoriteRegionWeathers()
         setFavoriteRegionTodayWeathers()
+        
+        favoriteRegionWeathers
+            .map {
+                self.convertWeathersToMinMaxWaveHeight(weathers: $0)
+            }
+            .bind(to: minMaxWaveHeights)
+            .disposed(by: disposeBag)
+        
+        
     }
     
     private func setSearchCompleter() {
@@ -47,5 +57,28 @@ class MainViewModel {
             }
             .bind(to: favoriteRegionTodayWeathers)
             .disposed(by: disposeBag)
+    }
+    
+    private func convertWeathersToMinMaxWaveHeight(weathers: [RegionModel:[WeatherModel]]) -> [RegionModel:(min:Double, max:Double)] {
+        var returnDic: [RegionModel:(min:Double, max:Double)] = [:]
+        
+        weathers.forEach {
+            guard let tempWaveHeight = $0.value.first?.waveHeight else {
+                return
+            }
+            var minMaxWaveHeight: (min:Double, max:Double) = (min: tempWaveHeight, max: tempWaveHeight)
+            $0.value.forEach {
+                let waveHeight = $0.waveHeight
+                if minMaxWaveHeight.min > waveHeight {
+                    minMaxWaveHeight.min = waveHeight
+                }
+                if minMaxWaveHeight.max < waveHeight {
+                    minMaxWaveHeight.max = waveHeight
+                }
+            }
+            returnDic[$0.key] = minMaxWaveHeight
+        }
+        
+        return returnDic
     }
 }

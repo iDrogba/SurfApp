@@ -11,6 +11,7 @@ import RxSwift
 import SnapKit
 
 class DetailWeatherViewController: UIViewController {
+    let disposeBag = DisposeBag()
     let viewModel: DetailWeatherViewModel
     
     var label: UILabel = {
@@ -42,10 +43,11 @@ class DetailWeatherViewController: UIViewController {
         }
         
         viewModel.stormglassResponse
-            .map { response in
-                response.weather.first?.waveHeight?.description
+            .map { weathers in
+                weathers.first?.waveHeight.description
             }
             .bind(to: label.rx.text)
+            .disposed(by: self.disposeBag)
     }
     
 
@@ -53,7 +55,7 @@ class DetailWeatherViewController: UIViewController {
 
 class DetailWeatherViewModel {
     let disposeBag = DisposeBag()
-    var stormglassResponse = PublishSubject<StormglassResponse>()
+    var stormglassResponse = PublishSubject<[WeatherModel]>()
     
     init(region: RegionModel) {
         StormglassNetworking.shared.requestWeather(region: region)
