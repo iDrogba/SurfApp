@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A39B87F29C9D8E4003B58DB /* BarGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B87E29C9D8E4003B58DB /* BarGraph.swift */; };
+		0A39B88129C9EB96003B58DB /* DetailWeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B88029C9EB96003B58DB /* DetailWeatherViewModel.swift */; };
+		0A39B88329C9EDB1003B58DB /* BarGraphModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B88229C9EDB1003B58DB /* BarGraphModel.swift */; };
 		0A4AF0AA29B231BF0034E5D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */; };
 		0A4AF0AC29B231BF0034E5D0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */; };
 		0A4AF0B329B231C00034E5D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A4AF0B229B231C00034E5D0 /* Assets.xcassets */; };
@@ -54,6 +57,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A39B87E29C9D8E4003B58DB /* BarGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraph.swift; sourceTree = "<group>"; };
+		0A39B88029C9EB96003B58DB /* DetailWeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWeatherViewModel.swift; sourceTree = "<group>"; };
+		0A39B88229C9EDB1003B58DB /* BarGraphModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraphModel.swift; sourceTree = "<group>"; };
 		0A4AF0A629B231BF0034E5D0 /* SurfApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -287,6 +293,7 @@
 		0A4AF10D29B332140034E5D0 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				0A39B88029C9EB96003B58DB /* DetailWeatherViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -294,6 +301,7 @@
 		0A4AF10E29B3321A0034E5D0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0A39B88229C9EDB1003B58DB /* BarGraphModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -301,6 +309,7 @@
 		0A4AF10F29B332240034E5D0 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				0A39B87E29C9D8E4003B58DB /* BarGraph.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -458,8 +467,10 @@
 				0A4AF10029B243F90034E5D0 /* Date+.swift in Sources */,
 				0A4AF0F129B237B30034E5D0 /* RegionModel.swift in Sources */,
 				0A4AF0FD29B23EFC0034E5D0 /* StormglassResponse.swift in Sources */,
+				0A39B88329C9EDB1003B58DB /* BarGraphModel.swift in Sources */,
 				0A4AF11229BC5D4D0034E5D0 /* WeatherModel.swift in Sources */,
 				0AE0E23929BFF4E800F5F0D6 /* SavedRegionManager.swift in Sources */,
+				0A39B87F29C9D8E4003B58DB /* BarGraph.swift in Sources */,
 				0A4AF0FB29B23B950034E5D0 /* APIKey.swift in Sources */,
 				0A4AF0AA29B231BF0034E5D0 /* AppDelegate.swift in Sources */,
 				0A4AF10B29B332050034E5D0 /* DetailWeatherViewController.swift in Sources */,
@@ -467,6 +478,7 @@
 				0A4AF0AC29B231BF0034E5D0 /* SceneDelegate.swift in Sources */,
 				0AE0E23B29C07D0F00F5F0D6 /* Sequence+.swift in Sources */,
 				0A4AF0F529B238520034E5D0 /* StormglassNetworking.swift in Sources */,
+				0A39B88129C9EB96003B58DB /* DetailWeatherViewModel.swift in Sources */,
 				3F343CA529C337F3006C8FE8 /* Array+.swift in Sources */,
 				0A4AF10429B31C510034E5D0 /* SearchTableView.swift in Sources */,
 				0A4AF10829B323850034E5D0 /* UITableViewCell+.swift in Sources */,

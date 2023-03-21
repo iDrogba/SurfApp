@@ -19,4 +19,19 @@ extension Array where Element == WeatherModel {
         
         return sortedWeather
     }
+    
+    func getToday3HourWeather() -> [WeatherModel] {
+        let date = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day, .month, .year], from: date)
+        
+        var sortedWeather = self.filter {
+            $0.isSameDate(components)
+        }
+        sortedWeather = sortedWeather.filter {
+            $0.isDateMultiplyOf(hour: 3)
+        }
+        
+        return sortedWeather
+    }
 }

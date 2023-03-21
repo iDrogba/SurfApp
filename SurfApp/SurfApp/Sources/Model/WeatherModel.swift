@@ -53,6 +53,17 @@ struct WeatherModel {
             return false
         }
     }
+    
+    func isDateMultiplyOf(hour: Int) -> Bool {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.hour], from: self.date)
+        
+        if let modelHour = components.hour, modelHour % hour == 0 {
+            return true
+        } else {
+            return false
+        }
+    }
 }
 
 //class UpdatedWeatherForecastModelManager {

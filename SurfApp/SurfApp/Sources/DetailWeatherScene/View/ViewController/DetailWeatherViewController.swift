@@ -8,17 +8,14 @@
 import UIKit
 import MapKit
 import RxSwift
+import RxCocoa
 import SnapKit
 
 class DetailWeatherViewController: UIViewController {
     let disposeBag = DisposeBag()
     let viewModel: DetailWeatherViewModel
     
-    var label: UILabel = {
-        let label = UILabel()
-        
-        return label
-    }()
+    var waveBarGraph = BarGraph()
     
     init(region: RegionModel) {
         viewModel = DetailWeatherViewModel(region: region)
@@ -36,31 +33,21 @@ class DetailWeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(label)
+        view.addSubview(waveBarGraph)
         
-        label.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        waveBarGraph.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.top.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(1)
         }
         
-        viewModel.stormglassResponse
-            .map { weathers in
-                weathers.first?.waveHeight.description
+        viewModel.waveGraphModels.asObservable()
+            .bind(to: waveBarGraph.rx.items(cellIdentifier: BarGraphCell.identifier, cellType: BarGraphCell.self)) { item, element, cell in
+                cell.setUI(barGraphModel: element)
             }
-            .bind(to: label.rx.text)
-            .disposed(by: self.disposeBag)
-    }
-    
-
-}
-
-class DetailWeatherViewModel {
-    let disposeBag = DisposeBag()
-    var stormglassResponse = PublishSubject<[WeatherModel]>()
-    
-    init(region: RegionModel) {
-        StormglassNetworking.shared.requestWeather(region: region)
-            .bind(to: self.stormglassResponse)
             .disposed(by: disposeBag)
+            
     }
     
+
 }
