@@ -32,7 +32,7 @@ class BarGraph: UICollectionView {
 // MARK: CollectionViewDelegate
 extension BarGraph: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = collectionView.bounds.width / 7
+        let cellWidth = collectionView.bounds.width / 8
         let cellHeight = collectionView.bounds.height
         
         return CGSize(width: cellWidth, height: cellHeight)
@@ -40,6 +40,7 @@ extension BarGraph: UICollectionViewDelegateFlowLayout {
 }
 
 class BarGraphCell: UICollectionViewCell {
+    
     let bar: UIView = {
         let bar = UIView()
         

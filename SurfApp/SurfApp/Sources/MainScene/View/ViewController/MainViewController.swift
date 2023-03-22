@@ -28,6 +28,7 @@ class MainViewController: UIViewController {
         addSubViews()
         setLayOut()
         bindSearch()
+        bindFavoriteRegionCollectionView()
         
         viewModel.searchCompleter.delegate = self
     }
@@ -46,7 +47,7 @@ class MainViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = appearance
     }
     
-    func bindSearch() {
+    private func bindSearch() {
         searchController.searchBar.rx.text
             .orEmpty
             .debounce(RxTimeInterval.microseconds(10), scheduler: MainScheduler.instance)
@@ -88,6 +89,14 @@ class MainViewController: UIViewController {
                     }
                 }
             })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindFavoriteRegionCollectionView() {
+        viewModel.favoriteRegionTodayWeathers
+            .bind(to: favoriteRegionCollectionView.rx.items(cellIdentifier: FavoriteRegionCollectionViewCell.identifier, cellType: FavoriteRegionCollectionViewCell.self)) { item, element, cell in
+                cell.setData(weather: element.value.first!)
+            }
             .disposed(by: disposeBag)
     }
 }

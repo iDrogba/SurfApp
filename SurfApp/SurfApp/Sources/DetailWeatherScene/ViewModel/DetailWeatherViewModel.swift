@@ -16,6 +16,8 @@ class DetailWeatherViewModel {
     let waveGraphModels = PublishSubject<[BarGraphModel]>()
     
     init(region: RegionModel) {
+//        SavedRegionManager.shared.saveRegion(region)
+
         StormglassNetworking.shared.requestWeather(region: region)
             .bind(to: self.stormglassResponse)
             .disposed(by: disposeBag)

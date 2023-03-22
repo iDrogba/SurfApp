@@ -31,7 +31,6 @@ class MainViewModel {
             .bind(to: minMaxWaveHeights)
             .disposed(by: disposeBag)
         
-        
     }
     
     private func setSearchCompleter() {
@@ -41,6 +40,7 @@ class MainViewModel {
     
     private func setFavoriteRegionWeathers() {
         let regions = SavedRegionManager.shared.sortSavedRegions()
+
         StormglassNetworking.shared.requestWeather(regions: regions)
             .bind(to: favoriteRegionWeathers)
             .disposed(by: disposeBag)
@@ -55,6 +55,7 @@ class MainViewModel {
                 }
                 return sortedWeathers
             }
+            .debug()
             .bind(to: favoriteRegionTodayWeathers)
             .disposed(by: disposeBag)
     }

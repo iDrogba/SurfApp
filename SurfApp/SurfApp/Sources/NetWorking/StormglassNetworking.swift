@@ -62,22 +62,23 @@ class StormglassNetworking {
     }
     
     func requestWeather(regions: [RegionModel]) -> Observable<[RegionModel:[WeatherModel]]> {
+        let dispatchGroup = DispatchGroup()
+        var weatherDictionary: [RegionModel:[WeatherModel]] = [:]
+        
+        self.parameters["start"] = Date.yesterdayUTC.timeIntervalSince1970.description
         
         return Observable.create { observer in
-            var weatherDictionary: [RegionModel:[WeatherModel]] = [:]
-            
-            self.parameters["start"] = Date.yesterdayUTC.timeIntervalSince1970.description
             
             regions.forEach { region in
                 var parameters = self.parameters
                 parameters["lat"] = region.latitude
                 parameters["lng"] = region.longitude
                 
-                AF.request(self.url,
+                let task = AF.request(self.url,
                            method: .get,
-                           parameters: self.parameters,
+                           parameters: parameters,
                            encoding: URLEncoding.default,
-                           headers: ["Authorization": APIKey().stormGlassAPIKey, "Content-Type":"application/json", "Accept":"application/json"])
+                           headers: ["Authorization": APIKey().stormGlassAPIKey])
                 .validate(statusCode: 200..<500)
                 .responseDecodable(of: StormglassResponse.self, decoder: self.customDecoder) { response in
                     switch response.result {
@@ -86,16 +87,21 @@ class StormglassNetworking {
                             WeatherModel(region, $0)
                         }
                         weatherDictionary[region] = weatherModels
+                        dispatchGroup.leave()
                     case .failure(let error):
                         observer.onError(error)
+                        dispatchGroup.leave()
                     }
-                    observer.onCompleted()
                 }
-                .resume()
+                task.resume()
+                dispatchGroup.enter()
             }
             
-            observer.onNext(weatherDictionary)
-            
+            dispatchGroup.notify(queue: .main) {
+                observer.onNext(weatherDictionary)
+//                observer.onCompleted()
+            }
+
             return Disposables.create {
             }
         }
