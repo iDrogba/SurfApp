@@ -22,7 +22,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = .lightGray
 
         setNavigationBar()
         addSubViews()
@@ -93,9 +93,9 @@ class MainViewController: UIViewController {
     }
     
     private func bindFavoriteRegionCollectionView() {
-        viewModel.favoriteRegionTodayWeathers
+        viewModel.FavoriteRegionCurrentWeathers
             .bind(to: favoriteRegionCollectionView.rx.items(cellIdentifier: FavoriteRegionCollectionViewCell.identifier, cellType: FavoriteRegionCollectionViewCell.self)) { item, element, cell in
-                cell.setData(weather: element.value.first!)
+                cell.setData(weather: element.value)
             }
             .disposed(by: disposeBag)
     }
@@ -110,7 +110,9 @@ extension MainViewController {
     
     func setLayOut() {
         favoriteRegionCollectionView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.centerX.equalToSuperview()
+            make.verticalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.width.equalToSuperview().multipliedBy(0.88)
         }
         
         searchTableView.snp.makeConstraints { make in

@@ -18,7 +18,7 @@ class FavoriteRegionCollectionView: UICollectionView {
         
         super.init(frame: frame, collectionViewLayout: layout)
         delegate = self
-        backgroundColor = .blue
+        backgroundColor = .clear
         self.register(FavoriteRegionCollectionViewCell.self, forCellWithReuseIdentifier: FavoriteRegionCollectionViewCell.identifier)
     }
     
@@ -31,22 +31,34 @@ class FavoriteRegionCollectionView: UICollectionView {
 // MARK: CollectionViewDelegate
 extension FavoriteRegionCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = collectionView.bounds.width * 0.88
-        let cellHeight = (collectionView.bounds.height - 80) / 4.5
+        let cellWidth = collectionView.bounds.width
+        let cellHeight = (collectionView.bounds.height - 60) / 4
         
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }
 
 class FavoriteRegionCollectionViewCell: UICollectionViewCell {
-    let rootStackView: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .leading, distribution: .fillProportionally, spacing: 5, color: .clear)
+    let rootStackView: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .leading, distribution: .fillProportionally, spacing: 5, layoutMargin: nil, color: .clear)
     let localityLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 22, weight: .bold))
     let subLocalityLabel: UILabel = .makeLabel(color: .gray, font: .systemFont(ofSize: 13, weight: .bold))
-    let waveWindStackView: UIStackView = .makeDefaultStackView(axis: .horizontal, alignment: .fill, distribution: .fill, spacing: 5, color: .white)
-    let waveImageView: UIImageView = UIImageView(image: UIImage(named: "wave"))
+    let waveWindStackView: UIStackView = .makeDefaultStackView(axis: .horizontal, alignment: .leading, distribution: .fill, spacing: 5, layoutMargin: nil , color: .white)
     let waveLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 13, weight: .bold))
-    let windImageView: UIImageView = UIImageView(image: UIImage(named: "wind"))
     let windLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 13, weight: .bold))
+    
+    let waveImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "wave"))
+        imageView.contentMode = .scaleAspectFit
+        
+        return imageView
+    }()
+    
+    let windImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "wind"))
+        imageView.contentMode = .scaleAspectFit
+        
+        return imageView
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,12 +71,17 @@ class FavoriteRegionCollectionViewCell: UICollectionViewCell {
     }
     
     func setUI() {
+        DispatchQueue.main.async { [weak self] in
+            self?.backgroundColor = .white
+            self?.layer.cornerRadius = 18
+        }
+        
         contentView.addSubview(rootStackView)
         
         rootStackView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(24)
             make.top.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.65)
+            make.height.equalToSuperview().multipliedBy(0.8)
         }
     }
     

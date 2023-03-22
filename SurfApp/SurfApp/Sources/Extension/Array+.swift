@@ -8,25 +8,37 @@
 import Foundation
 
 extension Array where Element == WeatherModel {
+    func getCurrentWeather() -> WeatherModel? {
+        let date = Date()
+        let calendar = Calendar.current
+        let calendarComponenets: Set<Calendar.Component> = [.hour, .day, .month, .year]
+        let components = calendar.dateComponents(calendarComponenets, from: date)
+        let sortedWeather = self.first(where: { $0.isSameDate(components, calendarComponents: calendarComponenets) })
+
+        return sortedWeather
+    }
+    
     func getTodayWeather() -> [WeatherModel] {
         let date = Date()
         let calendar = Calendar.current
-        let components = calendar.dateComponents([.day, .month, .year], from: date)
+        let calendarComponenets: Set<Calendar.Component> = [.day, .month, .year]
+        let components = calendar.dateComponents(calendarComponenets, from: date)
         
         let sortedWeather = self.filter {
-            $0.isSameDate(components)
+            $0.isSameDate(components, calendarComponents: calendarComponenets)
         }
-        
+
         return sortedWeather
     }
     
     func getToday3HourWeather() -> [WeatherModel] {
         let date = Date()
         let calendar = Calendar.current
-        let components = calendar.dateComponents([.day, .month, .year], from: date)
+        let calendarComponenets: Set<Calendar.Component> = [.day, .month, .year]
+        let components = calendar.dateComponents(calendarComponenets, from: date)
         
         var sortedWeather = self.filter {
-            $0.isSameDate(components)
+            $0.isSameDate(components, calendarComponents: calendarComponenets)
         }
         sortedWeather = sortedWeather.filter {
             $0.isDateMultiplyOf(hour: 3)

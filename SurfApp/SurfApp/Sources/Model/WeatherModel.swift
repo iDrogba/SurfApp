@@ -43,9 +43,9 @@ struct WeatherModel {
         return sum
     }
     
-    func isSameDate(_ dateComponents: DateComponents) -> Bool {
+    func isSameDate(_ dateComponents: DateComponents, calendarComponents: Set<Calendar.Component>) -> Bool {
         let calendar = Calendar.current
-        let components = calendar.dateComponents([.day, .month, .year], from: self.date)
+        let components = calendar.dateComponents(calendarComponents, from: self.date)
         
         if components == dateComponents {
             return true

@@ -17,19 +17,21 @@ class MainViewModel {
     let disposeBag = DisposeBag()
     let favoriteRegionWeathers = PublishSubject<[RegionModel:[WeatherModel]]>()
     let favoriteRegionTodayWeathers = PublishSubject<[RegionModel:[WeatherModel]]>()
-    let minMaxWaveHeights = PublishSubject<[RegionModel:(min:Double, max:Double)]>()
+    let FavoriteRegionCurrentWeathers = PublishSubject<[RegionModel:WeatherModel]>()
+//    let minMaxWaveHeights = PublishSubject<[RegionModel:(min:Double, max:Double)]>()
     
     init() {
         setSearchCompleter()
         setFavoriteRegionWeathers()
         setFavoriteRegionTodayWeathers()
+        setFavoriteRegionCurrentWeathers()
         
-        favoriteRegionWeathers
-            .map {
-                self.convertWeathersToMinMaxWaveHeight(weathers: $0)
-            }
-            .bind(to: minMaxWaveHeights)
-            .disposed(by: disposeBag)
+//        favoriteRegionWeathers
+//            .map {
+//                self.convertWeathersToMinMaxWaveHeight(weathers: $0)
+//            }
+//            .bind(to: minMaxWaveHeights)
+//            .disposed(by: disposeBag)
         
     }
     
@@ -55,8 +57,21 @@ class MainViewModel {
                 }
                 return sortedWeathers
             }
-            .debug()
             .bind(to: favoriteRegionTodayWeathers)
+            .disposed(by: disposeBag)
+    }
+    
+    private func setFavoriteRegionCurrentWeathers() {
+        favoriteRegionWeathers
+            .map {
+                var sortedWeathers: [RegionModel:WeatherModel] = [:]
+                $0.forEach {
+                    sortedWeathers[$0.key] = $0.value.getCurrentWeather()
+                }
+
+                return sortedWeathers
+            }
+            .bind(to: FavoriteRegionCurrentWeathers)
             .disposed(by: disposeBag)
     }
     
