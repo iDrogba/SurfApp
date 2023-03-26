@@ -17,8 +17,8 @@ class MainViewModel {
     let disposeBag = DisposeBag()
     let favoriteRegionWeathers = PublishSubject<[RegionModel:[WeatherModel]]>()
     let favoriteRegionTodayWeathers = PublishSubject<[RegionModel:[WeatherModel]]>()
-    let FavoriteRegionCurrentWeathers = PublishSubject<[RegionModel:WeatherModel]>()
-//    let minMaxWaveHeights = PublishSubject<[RegionModel:(min:Double, max:Double)]>()
+    let favoriteRegionCurrentWeathers = PublishSubject<[RegionModel:WeatherModel]>()
+    let favoriteRegionCellData = PublishSubject<[RegionModel:FavoriteRegionCellData]>()
     
     init() {
         setSearchCompleter()
@@ -26,12 +26,12 @@ class MainViewModel {
         setFavoriteRegionTodayWeathers()
         setFavoriteRegionCurrentWeathers()
         
-//        favoriteRegionWeathers
-//            .map {
-//                self.convertWeathersToMinMaxWaveHeight(weathers: $0)
-//            }
-//            .bind(to: minMaxWaveHeights)
-//            .disposed(by: disposeBag)
+        favoriteRegionTodayWeathers
+            .map {
+                self.convertToFavoriteRegionCellData(weathers: $0)
+            }
+            .bind(to: favoriteRegionCellData)
+            .disposed(by: disposeBag)
         
     }
     
@@ -71,18 +71,19 @@ class MainViewModel {
 
                 return sortedWeathers
             }
-            .bind(to: FavoriteRegionCurrentWeathers)
+            .bind(to: favoriteRegionCurrentWeathers)
             .disposed(by: disposeBag)
     }
     
-    private func convertWeathersToMinMaxWaveHeight(weathers: [RegionModel:[WeatherModel]]) -> [RegionModel:(min:Double, max:Double)] {
-        var returnDic: [RegionModel:(min:Double, max:Double)] = [:]
+    private func convertToFavoriteRegionCellData(weathers: [RegionModel:[WeatherModel]]) -> [RegionModel:FavoriteRegionCellData] {
+        var returnDic: [RegionModel:FavoriteRegionCellData] = [:]
         
         weathers.forEach {
-            guard let tempWaveHeight = $0.value.first?.waveHeight else {
+            guard let currentWeather = $0.value.getCurrentWeather() else {
                 return
             }
-            var minMaxWaveHeight: (min:Double, max:Double) = (min: tempWaveHeight, max: tempWaveHeight)
+            
+            var minMaxWaveHeight: (min:Double, max:Double) = (min: currentWeather.waveHeight, max: currentWeather.waveHeight)
             $0.value.forEach {
                 let waveHeight = $0.waveHeight
                 if minMaxWaveHeight.min > waveHeight {
@@ -92,7 +93,8 @@ class MainViewModel {
                     minMaxWaveHeight.max = waveHeight
                 }
             }
-            returnDic[$0.key] = minMaxWaveHeight
+            
+            returnDic[$0.key] = FavoriteRegionCellData(region: currentWeather.regionModel, minMaxWaveHeight: minMaxWaveHeight, windSpeed: currentWeather.windSpeed, cloudCover: currentWeather.cloudCover, precipitation: currentWeather.precipitation, temparature: currentWeather.airTemperature)
         }
         
         return returnDic

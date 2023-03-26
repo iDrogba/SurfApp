@@ -10,26 +10,17 @@ import RxSwift
 
 class DetailWeatherViewModel {
     let disposeBag = DisposeBag()
-    let stormglassResponse = PublishSubject<[WeatherModel]>()
+    let weathers = PublishSubject<[WeatherModel]>()
     let todayWeathers = PublishSubject<[WeatherModel]>()
     let today3HourWeathers = PublishSubject<[WeatherModel]>()
     let waveGraphModels = PublishSubject<[BarGraphModel]>()
     
-    init(region: RegionModel) {
-//        SavedRegionManager.shared.saveRegion(region)
-
-        StormglassNetworking.shared.requestWeather(region: region)
-            .bind(to: self.stormglassResponse)
+    init(weathers: PublishSubject<[WeatherModel]>) {
+        weathers
+            .bind(to: self.weathers)
             .disposed(by: disposeBag)
         
-        stormglassResponse
-            .map{
-                $0.getTodayWeather()
-            }
-            .bind(to: todayWeathers)
-            .disposed(by: disposeBag)
-        
-        stormglassResponse
+        self.weathers
             .map { weathers in
                 weathers.getToday3HourWeather()
             }

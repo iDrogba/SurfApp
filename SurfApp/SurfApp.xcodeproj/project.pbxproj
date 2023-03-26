@@ -12,6 +12,8 @@
 		0A39B88329C9EDB1003B58DB /* BarGraphModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B88229C9EDB1003B58DB /* BarGraphModel.swift */; };
 		0A39B88529CB3058003B58DB /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B88429CB3058003B58DB /* UILabel+.swift */; };
 		0A39B88729CB30F9003B58DB /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B88629CB30F9003B58DB /* UIStackView+.swift */; };
+		0A39B88929D03158003B58DB /* FavoriteRegionCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B88829D03158003B58DB /* FavoriteRegionCellData.swift */; };
+		0A39B88B29D0858A003B58DB /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B88A29D0858A003B58DB /* UIColor+.swift */; };
 		0A4AF0AA29B231BF0034E5D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */; };
 		0A4AF0AC29B231BF0034E5D0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */; };
 		0A4AF0B329B231C00034E5D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A4AF0B229B231C00034E5D0 /* Assets.xcassets */; };
@@ -64,6 +66,8 @@
 		0A39B88229C9EDB1003B58DB /* BarGraphModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraphModel.swift; sourceTree = "<group>"; };
 		0A39B88429CB3058003B58DB /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		0A39B88629CB30F9003B58DB /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
+		0A39B88829D03158003B58DB /* FavoriteRegionCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRegionCellData.swift; sourceTree = "<group>"; };
+		0A39B88A29D0858A003B58DB /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		0A4AF0A629B231BF0034E5D0 /* SurfApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -224,6 +228,7 @@
 		0A4AF0EA29B234530034E5D0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0A39B88829D03158003B58DB /* FavoriteRegionCellData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -273,6 +278,7 @@
 				3F343CA429C337F3006C8FE8 /* Array+.swift */,
 				0A39B88429CB3058003B58DB /* UILabel+.swift */,
 				0A39B88629CB30F9003B58DB /* UIStackView+.swift */,
+				0A39B88A29D0858A003B58DB /* UIColor+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -483,6 +489,7 @@
 				0A4AF10B29B332050034E5D0 /* DetailWeatherViewController.swift in Sources */,
 				0A4AF10629B323710034E5D0 /* UICollectionViewCell+.swift in Sources */,
 				0A4AF0AC29B231BF0034E5D0 /* SceneDelegate.swift in Sources */,
+				0A39B88B29D0858A003B58DB /* UIColor+.swift in Sources */,
 				0AE0E23B29C07D0F00F5F0D6 /* Sequence+.swift in Sources */,
 				0A4AF0F529B238520034E5D0 /* StormglassNetworking.swift in Sources */,
 				0A39B88129C9EB96003B58DB /* DetailWeatherViewModel.swift in Sources */,
@@ -490,6 +497,7 @@
 				0A4AF10429B31C510034E5D0 /* SearchTableView.swift in Sources */,
 				0A4AF10829B323850034E5D0 /* UITableViewCell+.swift in Sources */,
 				0A4AF0E529B232F10034E5D0 /* MainViewController.swift in Sources */,
+				0A39B88929D03158003B58DB /* FavoriteRegionCellData.swift in Sources */,
 				0A4AF0ED29B2348D0034E5D0 /* MainViewModel.swift in Sources */,
 				0A39B88729CB30F9003B58DB /* UIStackView+.swift in Sources */,
 			);

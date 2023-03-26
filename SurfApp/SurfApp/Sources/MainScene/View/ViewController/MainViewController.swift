@@ -22,7 +22,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .white
 
         setNavigationBar()
         addSubViews()
@@ -40,7 +40,7 @@ class MainViewController: UIViewController {
         searchController.delegate = self
         
         navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.hidesSearchBarWhenScrolling = true
         
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
@@ -93,7 +93,7 @@ class MainViewController: UIViewController {
     }
     
     private func bindFavoriteRegionCollectionView() {
-        viewModel.FavoriteRegionCurrentWeathers
+        viewModel.favoriteRegionCellData
             .bind(to: favoriteRegionCollectionView.rx.items(cellIdentifier: FavoriteRegionCollectionViewCell.identifier, cellType: FavoriteRegionCollectionViewCell.self)) { item, element, cell in
                 cell.setData(weather: element.value)
             }
@@ -112,7 +112,7 @@ extension MainViewController {
         favoriteRegionCollectionView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.verticalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.width.equalToSuperview().multipliedBy(0.88)
+            make.horizontalEdges.equalToSuperview().inset(24)
         }
         
         searchTableView.snp.makeConstraints { make in
