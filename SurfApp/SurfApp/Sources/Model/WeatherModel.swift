@@ -66,6 +66,11 @@ struct WeatherModel {
     }
 }
 
+class WeatherModelManager {
+    static let shared = WeatherModelManager()
+    var weatherModels: [RegionModel:[WeatherModel]] = [:]
+}
+
 //class UpdatedWeatherForecastModelManager {
 //    static let shared = UpdatedWeatherForecastModelManager()
 //    /**

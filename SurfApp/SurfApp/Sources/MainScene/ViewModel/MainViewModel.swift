@@ -99,4 +99,11 @@ class MainViewModel {
         
         return returnDic
     }
+
+    func getRegionWeathers(region: RegionModel) -> Observable<[WeatherModel]> {
+        favoriteRegionWeathers
+            .map {
+                $0[region]!
+            }
+    }
 }

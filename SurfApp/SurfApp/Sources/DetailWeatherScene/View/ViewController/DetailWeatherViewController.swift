@@ -19,7 +19,7 @@ class DetailWeatherViewController: UIViewController {
     
     init(region: RegionModel) {
         viewModel = DetailWeatherViewModel(region: region)
-
+        
         super.init(nibName: nil, bundle: nil)
     }
     

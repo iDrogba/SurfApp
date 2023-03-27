@@ -13,13 +13,37 @@ class DetailWeatherViewModel {
     let weathers = PublishSubject<[WeatherModel]>()
     let todayWeathers = PublishSubject<[WeatherModel]>()
     let today3HourWeathers = PublishSubject<[WeatherModel]>()
-    let waveGraphModels = PublishSubject<[BarGraphModel]>()
-    
-    init(weathers: PublishSubject<[WeatherModel]>) {
-        weathers
+    let waveGraphModels = ReplaySubject<[BarGraphModel]>.create(bufferSize: 1)
+
+    init(region: RegionModel) {
+        //        SavedRegionManager.shared.saveRegion(region)
+        setTodayWeathers()
+        set3HourWeathers()
+        
+        if let weathers = WeatherModelManager.shared.weatherModels[region] {
+            Observable.create { observer in
+                observer.onNext(weathers)
+                return Disposables.create { }
+            }
             .bind(to: self.weathers)
             .disposed(by: disposeBag)
-        
+        } else {
+            StormglassNetworking.shared.requestWeather(region: region)
+                .bind(to: self.weathers)
+                .disposed(by: disposeBag)
+        }
+    }
+    
+    private func setTodayWeathers() {
+        weathers
+            .map{
+                $0.getTodayWeather()
+            }
+            .bind(to: todayWeathers)
+            .disposed(by: disposeBag)
+    }
+    
+    private func set3HourWeathers() {
         self.weathers
             .map { weathers in
                 weathers.getToday3HourWeather()
@@ -51,11 +75,8 @@ class DetailWeatherViewModel {
                     return BarGraphModel(color: .black, topPoint: topPoint, bottomPoint: bottomPoint, width: 0.8)
                 }
             }
+            .debug()
             .bind(to: waveGraphModels)
             .disposed(by: disposeBag)
-            
     }
-    
-    
-    
 }

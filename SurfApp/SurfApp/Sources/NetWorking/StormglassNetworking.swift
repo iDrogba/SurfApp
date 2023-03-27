@@ -42,10 +42,12 @@ class StormglassNetworking {
                 .responseDecodable(of: StormglassResponse.self, decoder: self.customDecoder) { response in
                     switch response.result {
                     case .success(let response):
-                        let weatherModel = response.weather.map {
+                        let weatherModels = response.weather.map {
                             WeatherModel(region, $0)
                         }
-                        observer.onNext(weatherModel)
+                        
+                        WeatherModelManager.shared.weatherModels[region] = weatherModels
+                        observer.onNext(weatherModels)
                     case .failure(let error):
                         observer.onError(error)
                     }
@@ -86,6 +88,8 @@ class StormglassNetworking {
                         let weatherModels = response.weather.map {
                             WeatherModel(region, $0)
                         }
+                        
+                        WeatherModelManager.shared.weatherModels[region] = weatherModels
                         weatherDictionary[region] = weatherModels
                         dispatchGroup.leave()
                     case .failure(let error):

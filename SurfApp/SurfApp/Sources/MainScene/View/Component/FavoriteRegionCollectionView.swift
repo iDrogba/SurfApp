@@ -42,6 +42,7 @@ extension FavoriteRegionCollectionView: UICollectionViewDelegateFlowLayout {
 }
 
 class FavoriteRegionCollectionViewCell: UICollectionViewCell {
+    var region: RegionModel!
     // 지역 설명 views
     let regionStackView: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .leading, distribution: .fillProportionally, spacing: 5, layoutMargin: nil, color: .clear)
     let regionNameLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 22, weight: .bold))
@@ -173,9 +174,9 @@ class FavoriteRegionCollectionViewCell: UICollectionViewCell {
     }
     
     func setData(weather: FavoriteRegionCellData) {
-        let region = weather.region
-        regionNameLabel.text = region.regionName
-        localityLabel.text = region.locality
+        self.region = weather.region
+        regionNameLabel.text = weather.region.regionName
+        localityLabel.text = weather.region.locality
         
         let minWaveHeight = weather.minMaxWaveHeight.min
         let maxWaveHeight = weather.minMaxWaveHeight.max

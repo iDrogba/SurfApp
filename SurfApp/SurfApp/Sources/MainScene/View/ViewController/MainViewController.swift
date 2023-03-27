@@ -85,6 +85,7 @@ class MainViewController: UIViewController {
                     if let placeMark = response.mapItems.first?.placemark {
                         let region = RegionModel(placeMark: placeMark)
                         let viewController = DetailWeatherViewController(region: region)
+                        viewController.modalPresentationStyle = .fullScreen
                         self.present(viewController, animated: true)
                     }
                 }
@@ -97,6 +98,17 @@ class MainViewController: UIViewController {
             .bind(to: favoriteRegionCollectionView.rx.items(cellIdentifier: FavoriteRegionCollectionViewCell.identifier, cellType: FavoriteRegionCollectionViewCell.self)) { item, element, cell in
                 cell.setData(weather: element.value)
             }
+            .disposed(by: disposeBag)
+        
+        favoriteRegionCollectionView.rx.itemSelected
+            .subscribe(onNext: { [unowned self] indexPath in
+                if let cell = self.favoriteRegionCollectionView.cellForItem(at: indexPath) as? FavoriteRegionCollectionViewCell {
+                    let region = cell.region!
+                    let viewController = DetailWeatherViewController(region: region)
+                    viewController.modalPresentationStyle = .fullScreen
+                    self.present(viewController, animated: true)
+                }
+            })
             .disposed(by: disposeBag)
     }
 }
