@@ -27,4 +27,9 @@ extension UIColor {
         let color = UIColor(named: "customGray")!
         return color
     }
+    
+    static var customLightGray: UIColor {
+        let color = UIColor(named: "customLightGray")!
+        return color
+    }
 }

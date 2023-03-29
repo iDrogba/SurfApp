@@ -13,12 +13,14 @@ class DetailWeatherViewModel {
     let weathers = PublishSubject<[WeatherModel]>()
     let todayWeathers = PublishSubject<[WeatherModel]>()
     let today3HourWeathers = PublishSubject<[WeatherModel]>()
+    let currentWeathers = ReplaySubject<WeatherModel>.create(bufferSize: 1)
     let waveGraphModels = ReplaySubject<[BarGraphModel]>.create(bufferSize: 1)
 
     init(region: RegionModel) {
         //        SavedRegionManager.shared.saveRegion(region)
         setTodayWeathers()
         set3HourWeathers()
+        setCurrentWeathers()
         
         if let weathers = WeatherModelManager.shared.weatherModels[region] {
             Observable.create { observer in
@@ -77,6 +79,15 @@ class DetailWeatherViewModel {
             }
             .debug()
             .bind(to: waveGraphModels)
+            .disposed(by: disposeBag)
+    }
+    
+    private func setCurrentWeathers() {
+        self.weathers
+            .map { weathers in
+                weathers.getCurrentWeather()!
+            }
+            .bind(to: currentWeathers)
             .disposed(by: disposeBag)
     }
 }
