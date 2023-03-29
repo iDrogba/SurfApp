@@ -20,4 +20,13 @@ extension Date {
         return resultDate
     }
     
+    func convertToKoreanDate() -> String {
+        let df = DateFormatter()
+        df.locale = Locale(identifier: "ko_KR")
+        df.timeZone = TimeZone(abbreviation: "KST")
+        df.dateFormat = "M.d(E) aHH시"
+
+        return df.string(from: self)
+    }
+    
 }
