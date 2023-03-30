@@ -34,10 +34,10 @@ class DetailWeatherViewController: UIViewController {
         
         return label
     }()
-    let detailWeatherTopStackView: UIStackView = .makeDefaultStackView(axis: .horizontal, alignment: .center, distribution: .fillEqually, spacing: 30, layoutMargin: nil, color: .clear)
+    let detailWeatherTopStackView: UIStackView = .makeDefaultStackView(axis: .horizontal, alignment: .center, distribution: .fillEqually, spacing: 0, layoutMargin: nil, color: .clear)
     let temparatureView: DetailCurrentWeatherView = DetailCurrentWeatherView(iconImage: UIImage(named: "wind")!, title: "온도")
     let waveHeightView: DetailCurrentWeatherView = DetailCurrentWeatherView(iconImage: UIImage(named: "wind")!, title: "파고")
-    let detailWeatherBottomStackView: UIStackView = .makeDefaultStackView(axis: .horizontal, alignment: .center, distribution: .fillEqually, spacing: 30, layoutMargin: nil, color: .clear)
+    let detailWeatherBottomStackView: UIStackView = .makeDefaultStackView(axis: .horizontal, alignment: .center, distribution: .fillEqually, spacing: 0, layoutMargin: nil, color: .clear)
     let wavePeriodView: DetailCurrentWeatherView = DetailCurrentWeatherView(iconImage: UIImage(named: "wind")!, title: "너울주기")
     let windSpeedView: DetailCurrentWeatherView = DetailCurrentWeatherView(iconImage: UIImage(named: "wind")!, title: "풍속")
     let surfConditionLabel: UILabel = {
@@ -135,7 +135,7 @@ class DetailWeatherViewController: UIViewController {
     
     private func setUI() {
         view.addSubview(localityStackVeiw)
-        view.addSubview(detailWeatherBackgroundView)
+//        view.addSubview(detailWeatherBackgroundView)
         view.addSubview(detailWeatherStackVeiw)
         
         localityStackVeiw.snp.makeConstraints { make in
@@ -144,18 +144,18 @@ class DetailWeatherViewController: UIViewController {
             make.height.equalToSuperview().multipliedBy(0.1)
         }
         
-        detailWeatherBackgroundView.snp.makeConstraints { make in
-            make.top.equalTo(localityStackVeiw.snp.bottom)
-            make.centerX.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.25)
-            make.width.equalToSuperview().multipliedBy(0.88)
-        }
-        
+//        detailWeatherBackgroundView.snp.makeConstraints { make in
+//            make.top.equalTo(localityStackVeiw.snp.bottom)
+//            make.centerX.equalToSuperview()
+//            make.height.equalToSuperview().multipliedBy(0.25)
+//            make.width.equalToSuperview().multipliedBy(0.88)
+//        }
+//
         detailWeatherStackVeiw.snp.makeConstraints { make in
             make.top.equalTo(localityStackVeiw.snp.bottom)
             make.centerX.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.25)
-            make.width.equalToSuperview().multipliedBy(0.65)
+            make.width.equalToSuperview().multipliedBy(0.7)
         }
     }
     

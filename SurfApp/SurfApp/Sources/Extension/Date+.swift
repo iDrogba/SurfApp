@@ -24,7 +24,7 @@ extension Date {
         let df = DateFormatter()
         df.locale = Locale(identifier: "ko_KR")
         df.timeZone = TimeZone(abbreviation: "KST")
-        df.dateFormat = "M.d(E) aHH시"
+        df.dateFormat = "M.d(E) a HH시"
 
         return df.string(from: self)
     }
