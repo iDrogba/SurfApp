@@ -46,6 +46,7 @@ class DetailWeatherViewController: UIViewController {
         
         return label
     }()
+    let weekWeatherCollectionView = WeekWeatherCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     init(region: RegionModel) {
         viewModel = DetailWeatherViewModel(region: region)
@@ -85,7 +86,7 @@ class DetailWeatherViewController: UIViewController {
     private func setRxData() {
         viewModel.currentWeathers
             .map {
-                $0.date.convertToKoreanDate()
+                $0.date.dateFormatA()
             }
             .bind(to: timeLabel.rx.text)
             .disposed(by: disposeBag)
@@ -131,12 +132,18 @@ class DetailWeatherViewController: UIViewController {
             }
             .bind(to: windSpeedView.dataLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        viewModel.weekWeatherModels
+            .bind(to: weekWeatherCollectionView.rx.items(cellIdentifier: WeekWeatherCollectionViewCell.identifier, cellType: WeekWeatherCollectionViewCell.self)) { item, element, cell in
+                cell.setUI(weekWeatherModel: element)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setUI() {
         view.addSubview(localityStackVeiw)
-//        view.addSubview(detailWeatherBackgroundView)
         view.addSubview(detailWeatherStackVeiw)
+        view.addSubview(weekWeatherCollectionView)
         
         localityStackVeiw.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
@@ -144,18 +151,18 @@ class DetailWeatherViewController: UIViewController {
             make.height.equalToSuperview().multipliedBy(0.1)
         }
         
-//        detailWeatherBackgroundView.snp.makeConstraints { make in
-//            make.top.equalTo(localityStackVeiw.snp.bottom)
-//            make.centerX.equalToSuperview()
-//            make.height.equalToSuperview().multipliedBy(0.25)
-//            make.width.equalToSuperview().multipliedBy(0.88)
-//        }
-//
+
         detailWeatherStackVeiw.snp.makeConstraints { make in
             make.top.equalTo(localityStackVeiw.snp.bottom)
             make.centerX.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.25)
             make.width.equalToSuperview().multipliedBy(0.7)
+        }
+        
+        weekWeatherCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(detailWeatherStackVeiw.snp.bottom)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.12)
         }
     }
     
@@ -172,6 +179,7 @@ class DetailWeatherViewController: UIViewController {
         detailWeatherTopStackView.addArrangedSubview(waveHeightView)
         detailWeatherBottomStackView.addArrangedSubview(wavePeriodView)
         detailWeatherBottomStackView.addArrangedSubview(windSpeedView)
+        
     }
 
 }

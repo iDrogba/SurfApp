@@ -83,16 +83,7 @@ class MainViewModel {
                 return
             }
             
-            var minMaxWaveHeight: (min:Double, max:Double) = (min: currentWeather.waveHeight, max: currentWeather.waveHeight)
-            $0.value.forEach {
-                let waveHeight = $0.waveHeight
-                if minMaxWaveHeight.min > waveHeight {
-                    minMaxWaveHeight.min = waveHeight
-                }
-                if minMaxWaveHeight.max < waveHeight {
-                    minMaxWaveHeight.max = waveHeight
-                }
-            }
+            let minMaxWaveHeight = $0.value.minMaxWaveHeight()
             
             returnDic[$0.key] = FavoriteRegionCellData(region: currentWeather.regionModel, minMaxWaveHeight: minMaxWaveHeight, windSpeed: currentWeather.windSpeed, cloudCover: currentWeather.cloudCover, precipitation: currentWeather.precipitation, temparature: currentWeather.airTemperature)
         }

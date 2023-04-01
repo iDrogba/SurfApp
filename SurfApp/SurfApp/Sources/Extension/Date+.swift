@@ -20,13 +20,34 @@ extension Date {
         return resultDate
     }
     
-    func convertToKoreanDate() -> String {
+//    func convertToKoreanDate() -> String {
+//        let df = DateFormatter()
+//        df.locale = Locale(identifier: "ko_KR")
+//        df.timeZone = TimeZone(abbreviation: "KST")
+//        df.dateFormat = "M.d(E) a HH시"
+//
+//        return df.string(from: self)
+//    }
+
+    func dateFormatA() -> String {
         let df = DateFormatter()
-        df.locale = Locale(identifier: "ko_KR")
-        df.timeZone = TimeZone(abbreviation: "KST")
         df.dateFormat = "M.d(E) a HH시"
 
         return df.string(from: self)
     }
     
+    func weekDay() -> String {
+        let df = DateFormatter()
+        df.dateFormat = "E"
+
+        return df.string(from: self)
+    }
+    
+    /// n월.m일
+    func monthAndDay() -> String {
+        let df = DateFormatter()
+        df.dateFormat = "M.d"
+
+        return df.string(from: self)
+    }
 }

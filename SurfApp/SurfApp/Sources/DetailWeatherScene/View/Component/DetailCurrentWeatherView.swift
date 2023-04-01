@@ -15,9 +15,20 @@ class DetailCurrentWeatherView: UIView {
         
         return imageView
     }()
-    private let labelStackView: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .center, distribution: .fill, spacing: 0, layoutMargin: nil, color: .clear)
-    private let titleLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 13, weight: .bold))
-    let dataLabel: UILabel = .makeLabel(color: .customGreen, font: .systemFont(ofSize: 16, weight: .bold))
+    private let labelStackView: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .fill, distribution: .fill, spacing: 0, layoutMargin: nil, color: .clear)
+    private let titleLabel: UILabel = {
+        let label = UILabel.makeLabel(color: .black, font: .systemFont(ofSize: 13, weight: .bold))
+        label.textAlignment = .left
+        
+        return label
+    }()
+
+    let dataLabel: UILabel = {
+        let label = UILabel.makeLabel(color: .customGreen, font: .systemFont(ofSize: 16, weight: .bold))
+        label.textAlignment = .left
+        
+        return label
+    }()
     
     init(iconImage: UIImage, title: String) {
         super.init(frame: CGRect())
@@ -45,7 +56,7 @@ class DetailCurrentWeatherView: UIView {
         
         labelStackView.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
-            make.leading.equalTo(iconImageView.snp.trailing)
+            make.leading.equalTo(iconImageView.snp.trailing).offset(12)
             make.trailing.equalToSuperview()
         }
     }

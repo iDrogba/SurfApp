@@ -45,9 +45,22 @@ struct WeatherModel {
     
     func isSameDate(_ dateComponents: DateComponents, calendarComponents: Set<Calendar.Component>) -> Bool {
         let calendar = Calendar.current
-        let components = calendar.dateComponents(calendarComponents, from: self.date)
+        let modelComponents = calendar.dateComponents(calendarComponents, from: self.date)
         
-        if components == dateComponents {
+        if modelComponents == dateComponents {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func isDateAfter(_ dateComponents: DateComponents, calendarComponents: Set<Calendar.Component>) -> Bool {
+        let calendar = Calendar.current
+        let modelComponents = calendar.dateComponents(calendarComponents, from: self.date)
+        let modelDayCount = 365 * modelComponents.year! + 31 * modelComponents.month! + modelComponents.day!
+        let targetDayCount = 365 * dateComponents.year! + 31 * dateComponents.month! + dateComponents.day!
+
+        if modelDayCount >= targetDayCount {
             return true
         } else {
             return false
