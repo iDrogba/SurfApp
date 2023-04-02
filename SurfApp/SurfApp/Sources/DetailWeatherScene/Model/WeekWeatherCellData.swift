@@ -8,16 +8,29 @@
 import Foundation
 
 struct WeekWeatherCellData {
-    let day: String
+    var isToday: Bool
+    var isWeekEnd: Bool
+    var day: String
     let date: String
     let weather: String
     let minMaxTemparature: String
     
     init(weathers: [WeatherModel]) {
-        day = (weathers.first?.date.weekDay()) ?? "요일"
+        isToday = false
+        isWeekEnd = false
+        day = weathers.first!.date.weekDay()
         date = weathers.first?.date.monthAndDay() ?? "1.1"
         weather = "wind"
         let minMaxTemparature = weathers.minMaxTemparature()
         self.minMaxTemparature = Int(minMaxTemparature.max).description + "/" + Int(minMaxTemparature.min).description
+        
+        if self.day == "토" || self.day == "일" {
+            self.isWeekEnd = true
+        }
+        
+        if weathers.first!.date.isToday() {
+            self.isToday = true
+            self.day = "오늘"
+        }
     }
 }

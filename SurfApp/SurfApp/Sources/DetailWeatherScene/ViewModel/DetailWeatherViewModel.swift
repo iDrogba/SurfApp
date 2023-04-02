@@ -10,14 +10,16 @@ import RxSwift
 
 class DetailWeatherViewModel {
     let disposeBag = DisposeBag()
+    let selectedDateIndex = BehaviorSubject(value: 0)
+
     let weathers = PublishSubject<[WeatherModel]>()
     let todayWeathers = PublishSubject<[WeatherModel]>()
 //    let today3HourWeathers = PublishSubject<[WeatherModel]>()
     let currentWeathers = ReplaySubject<WeatherModel>.create(bufferSize: 1)
 
     let threeHourEachDayWeathers = PublishSubject<[[WeatherModel]]>()
-    let weekWeatherModels = ReplaySubject<[WeekWeatherCellData]>.create(bufferSize: 1)
-
+    let weekWeatherCellDatas = ReplaySubject<[WeekWeatherCellData]>.create(bufferSize: 1)
+    let dayWeatherCellDatas = ReplaySubject<[DayWeatherCellData]>.create(bufferSize: 1)
 //    let waveGraphModels = ReplaySubject<[BarGraphModel]>.create(bufferSize: 1)
     
     init(region: RegionModel) {
@@ -27,6 +29,7 @@ class DetailWeatherViewModel {
         setCurrentWeathers()
         setThreeHourEachDayWeathers()
         setWeekWeatherModels()
+        setDayWeatherCellData()
         
         if let weathers = WeatherModelManager.shared.weatherModels[region] {
             Observable.create { observer in
@@ -115,9 +118,26 @@ class DetailWeatherViewModel {
                 let weathers = weathers.map {
                     WeekWeatherCellData(weathers: $0)
                 }
-                return Array(weathers[0...7])
+                return Array(weathers[0...6])
             }
-            .bind(to: weekWeatherModels)
+            .bind(to: weekWeatherCellDatas)
+            .disposed(by: disposeBag)
+    }
+    
+    private func setDayWeatherCellData() {
+        Observable
+            .combineLatest(threeHourEachDayWeathers, selectedDateIndex)
+            .map { $0[$1] }
+            .map { weathers in
+                weathers.map {
+                    let date = $0.date.time()
+                    let weather = "wind"
+                    let temparature = $0.airTemperature.description + "º"
+                    
+                    return DayWeatherCellData(date: date, weather: weather, temparature: temparature)
+                }
+            }
+            .bind(to: dayWeatherCellDatas)
             .disposed(by: disposeBag)
     }
 }

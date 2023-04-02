@@ -17,6 +17,8 @@
 		0A39B88D29D46981003B58DB /* DetailCurrentWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B88C29D46981003B58DB /* DetailCurrentWeatherView.swift */; };
 		0A39B88F29D5CDA5003B58DB /* WeekWeatherCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B88E29D5CDA5003B58DB /* WeekWeatherCollectionView.swift */; };
 		0A39B89129D5CF68003B58DB /* WeekWeatherCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B89029D5CF68003B58DB /* WeekWeatherCellData.swift */; };
+		0A39B89329D95CCD003B58DB /* DayWeatherCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B89229D95CCD003B58DB /* DayWeatherCollectionView.swift */; };
+		0A39B89529D95F46003B58DB /* DayWeatherCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B89429D95F46003B58DB /* DayWeatherCellData.swift */; };
 		0A4AF0AA29B231BF0034E5D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */; };
 		0A4AF0AC29B231BF0034E5D0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */; };
 		0A4AF0B329B231C00034E5D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A4AF0B229B231C00034E5D0 /* Assets.xcassets */; };
@@ -74,6 +76,8 @@
 		0A39B88C29D46981003B58DB /* DetailCurrentWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCurrentWeatherView.swift; sourceTree = "<group>"; };
 		0A39B88E29D5CDA5003B58DB /* WeekWeatherCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekWeatherCollectionView.swift; sourceTree = "<group>"; };
 		0A39B89029D5CF68003B58DB /* WeekWeatherCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekWeatherCellData.swift; sourceTree = "<group>"; };
+		0A39B89229D95CCD003B58DB /* DayWeatherCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayWeatherCollectionView.swift; sourceTree = "<group>"; };
+		0A39B89429D95F46003B58DB /* DayWeatherCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayWeatherCellData.swift; sourceTree = "<group>"; };
 		0A4AF0A629B231BF0034E5D0 /* SurfApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -321,6 +325,7 @@
 			children = (
 				0A39B88229C9EDB1003B58DB /* BarGraphModel.swift */,
 				0A39B89029D5CF68003B58DB /* WeekWeatherCellData.swift */,
+				0A39B89429D95F46003B58DB /* DayWeatherCellData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -331,6 +336,7 @@
 				0A39B87E29C9D8E4003B58DB /* BarGraph.swift */,
 				0A39B88C29D46981003B58DB /* DetailCurrentWeatherView.swift */,
 				0A39B88E29D5CDA5003B58DB /* WeekWeatherCollectionView.swift */,
+				0A39B89229D95CCD003B58DB /* DayWeatherCollectionView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -495,6 +501,7 @@
 				0A39B87F29C9D8E4003B58DB /* BarGraph.swift in Sources */,
 				0A39B88529CB3058003B58DB /* UILabel+.swift in Sources */,
 				0A39B89129D5CF68003B58DB /* WeekWeatherCellData.swift in Sources */,
+				0A39B89529D95F46003B58DB /* DayWeatherCellData.swift in Sources */,
 				0A4AF0FB29B23B950034E5D0 /* APIKey.swift in Sources */,
 				0A4AF0AA29B231BF0034E5D0 /* AppDelegate.swift in Sources */,
 				0A4AF10B29B332050034E5D0 /* DetailWeatherViewController.swift in Sources */,
@@ -512,6 +519,7 @@
 				0A4AF0ED29B2348D0034E5D0 /* MainViewModel.swift in Sources */,
 				0A39B88D29D46981003B58DB /* DetailCurrentWeatherView.swift in Sources */,
 				0A39B88729CB30F9003B58DB /* UIStackView+.swift in Sources */,
+				0A39B89329D95CCD003B58DB /* DayWeatherCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -687,6 +695,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -717,6 +726,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -1,15 +1,16 @@
 //
-//  WeekWeatherCollectionView.swift
+//  dayWeatherCollectionView.swift
 //  SurfApp
 //
-//  Created by 김상현 on 2023/03/30.
+//  Created by 김상현 on 2023/04/02.
 //
 
 import UIKit
 import RxSwift
+import RxCocoa
 import SnapKit
 
-class WeekWeatherCollectionView: UICollectionView {
+class DayWeatherCollectionView: UICollectionView {
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         
@@ -22,8 +23,9 @@ class WeekWeatherCollectionView: UICollectionView {
         super.init(frame: frame, collectionViewLayout: layout)
         
         delegate = self
-        self.showsVerticalScrollIndicator = false
-        self.register(WeekWeatherCollectionViewCell.self, forCellWithReuseIdentifier: WeekWeatherCollectionViewCell.identifier)
+        backgroundColor = .customLightGray
+        showsVerticalScrollIndicator = false
+        register(DayWeatherCollectionViewCell.self, forCellWithReuseIdentifier: DayWeatherCollectionViewCell.identifier)
     }
     
     required init?(coder: NSCoder) {
@@ -33,22 +35,20 @@ class WeekWeatherCollectionView: UICollectionView {
 }
 
 // MARK: CollectionViewDelegate
-extension WeekWeatherCollectionView: UICollectionViewDelegateFlowLayout {
+extension DayWeatherCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = collectionView.bounds.width / 7
+        let cellWidth = collectionView.bounds.width / 8
         let cellHeight = collectionView.bounds.height
         
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }
 
-class WeekWeatherCollectionViewCell: UICollectionViewCell {
-    var cellItem: Int = 0
+class DayWeatherCollectionViewCell: UICollectionViewCell {
     let disposeBag = DisposeBag()
-    let selectedDateIndex = PublishSubject<Int>()
+    let dayWeatherCellData = PublishSubject<DayWeatherCellData>()
     
     let stackView: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .center, distribution: .fill, layoutMargin: nil)
-    let dayLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 12, weight: .bold))
     let dateLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 12, weight: .bold))
     let weatherImageView: UIImageView = {
         let imageView = UIImageView()
@@ -57,33 +57,25 @@ class WeekWeatherCollectionViewCell: UICollectionViewCell {
         
         return imageView
     }()
-    let minMaxTemparatureLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 12, weight: .bold))
+    let temparatureLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 12, weight: .bold))
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setSubview()
-        setBackgroundColor()
+        setData()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        clipsToBounds = true
-        layer.cornerRadius = 8
-        layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
-    }
-    
     private func setSubview() {
         contentView.addSubview(stackView)
         
-        stackView.addArrangedSubview(dayLabel)
         stackView.addArrangedSubview(dateLabel)
         stackView.addArrangedSubview(weatherImageView)
-        stackView.addArrangedSubview(minMaxTemparatureLabel)
+        stackView.addArrangedSubview(temparatureLabel)
         
         weatherImageView.setContentHuggingPriority(.init(0), for: .vertical)
         
@@ -94,27 +86,24 @@ class WeekWeatherCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private func setBackgroundColor() {
-        selectedDateIndex
-            .subscribe { index in
-                if index == self.cellItem {
-                    self.backgroundColor = .customLightGray
-                } else {
-                    self.backgroundColor = .white
-                }
-            }
-            .disposed(by: disposeBag)
-    }
-    
-    func setUI(weekWeatherModel: WeekWeatherCellData) {
-        dayLabel.text = weekWeatherModel.day
-        dateLabel.text = weekWeatherModel.date
-        weatherImageView.image = UIImage(named: weekWeatherModel.weather)
-        minMaxTemparatureLabel.text = weekWeatherModel.minMaxTemparature
-        
-        if weekWeatherModel.isWeekEnd {
-            dayLabel.textColor = .red
+    func setData() {
+        dayWeatherCellData.map {
+            $0.date
         }
+        .bind(to: dateLabel.rx.text)
+        .disposed(by: disposeBag)
+        
+        dayWeatherCellData.map {
+            UIImage(named: $0.weather)
+        }
+        .bind(to: weatherImageView.rx.image)
+        .disposed(by: disposeBag)
+        
+        dayWeatherCellData.map {
+            $0.temparature
+        }
+        .bind(to: temparatureLabel.rx.text)
+        .disposed(by: disposeBag)
     }
     
 }

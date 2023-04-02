@@ -47,7 +47,8 @@ class DetailWeatherViewController: UIViewController {
         return label
     }()
     let weekWeatherCollectionView = WeekWeatherCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-
+    let dayWeatherCollectionView = DayWeatherCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
     init(region: RegionModel) {
         viewModel = DetailWeatherViewModel(region: region)
         
@@ -78,9 +79,44 @@ class DetailWeatherViewController: UIViewController {
 //            .disposed(by: disposeBag)
         
         view.backgroundColor = .white
+        setCollectionView()
         setRxData()
         setUI()
         setStackView()
+    }
+    
+    private func setCollectionView() {
+        viewModel.weekWeatherCellDatas
+            .bind(to: weekWeatherCollectionView.rx.items(cellIdentifier: WeekWeatherCollectionViewCell.identifier, cellType: WeekWeatherCollectionViewCell.self)) { item, element, cell in
+                cell.cellItem = item
+                cell.setUI(weekWeatherModel: element)
+                
+                self.viewModel.selectedDateIndex
+                    .bind(to: cell.selectedDateIndex)
+                    .disposed(by: cell.disposeBag)
+            }
+            .disposed(by: disposeBag)
+        
+        weekWeatherCollectionView.rx.itemSelected
+            .subscribe { indexPath in
+                if let item = indexPath.element?.item {
+                    self.viewModel.selectedDateIndex.onNext(item)
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.dayWeatherCellDatas
+            .bind(to: dayWeatherCollectionView.rx.items(cellIdentifier: DayWeatherCollectionViewCell.identifier, cellType: DayWeatherCollectionViewCell.self)) { item, element, cell in
+
+                self.viewModel.dayWeatherCellDatas
+                    .map {
+                        $0[item]
+                    }
+                    .bind(to: cell.dayWeatherCellData)
+                    .disposed(by: cell.disposeBag)
+                
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setRxData() {
@@ -132,18 +168,14 @@ class DetailWeatherViewController: UIViewController {
             }
             .bind(to: windSpeedView.dataLabel.rx.text)
             .disposed(by: disposeBag)
-        
-        viewModel.weekWeatherModels
-            .bind(to: weekWeatherCollectionView.rx.items(cellIdentifier: WeekWeatherCollectionViewCell.identifier, cellType: WeekWeatherCollectionViewCell.self)) { item, element, cell in
-                cell.setUI(weekWeatherModel: element)
-            }
-            .disposed(by: disposeBag)
     }
     
     private func setUI() {
         view.addSubview(localityStackVeiw)
+        view.addSubview(detailWeatherBackgroundView)
         view.addSubview(detailWeatherStackVeiw)
         view.addSubview(weekWeatherCollectionView)
+        view.addSubview(dayWeatherCollectionView)
         
         localityStackVeiw.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
@@ -151,6 +183,12 @@ class DetailWeatherViewController: UIViewController {
             make.height.equalToSuperview().multipliedBy(0.1)
         }
         
+        detailWeatherBackgroundView.snp.makeConstraints { make in
+            make.top.equalTo(localityStackVeiw.snp.bottom)
+            make.centerX.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.25)
+            make.width.equalToSuperview().multipliedBy(0.9)
+        }
 
         detailWeatherStackVeiw.snp.makeConstraints { make in
             make.top.equalTo(localityStackVeiw.snp.bottom)
@@ -160,9 +198,17 @@ class DetailWeatherViewController: UIViewController {
         }
         
         weekWeatherCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(detailWeatherStackVeiw.snp.bottom)
-            make.horizontalEdges.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.12)
+            make.top.equalTo(detailWeatherStackVeiw.snp.bottom).offset(26)
+            make.centerX.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.13)
+            make.width.equalToSuperview().multipliedBy(0.9)
+        }
+        
+        dayWeatherCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(weekWeatherCollectionView.snp.bottom)
+            make.centerX.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.13)
+            make.width.equalToSuperview().multipliedBy(0.9)
         }
     }
     

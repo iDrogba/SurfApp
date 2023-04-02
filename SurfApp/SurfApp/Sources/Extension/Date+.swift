@@ -28,9 +28,18 @@ extension Date {
 //
 //        return df.string(from: self)
 //    }
+    func isToday() -> Bool {
+        let calendar = Calendar.current
+        let calendarComponenets: Set<Calendar.Component> = [.day, .month, .year]
+        let components = calendar.dateComponents(calendarComponenets, from: self)
+        let todayComponents = calendar.dateComponents(calendarComponenets, from: Date())
 
+        return todayComponents.year == components.year && todayComponents.month == components.month && todayComponents.day == components.day
+    }
+    
     func dateFormatA() -> String {
         let df = DateFormatter()
+        df.locale = Locale(identifier: "ko_KR")
         df.dateFormat = "M.d(E) a HH시"
 
         return df.string(from: self)
@@ -38,6 +47,7 @@ extension Date {
     
     func weekDay() -> String {
         let df = DateFormatter()
+        df.locale = Locale(identifier: "ko_KR")
         df.dateFormat = "E"
 
         return df.string(from: self)
@@ -46,7 +56,16 @@ extension Date {
     /// n월.m일
     func monthAndDay() -> String {
         let df = DateFormatter()
+        df.locale = Locale(identifier: "ko_KR")
         df.dateFormat = "M.d"
+
+        return df.string(from: self)
+    }
+    
+    func time() -> String {
+        let df = DateFormatter()
+        df.locale = Locale(identifier: "ko_KR")
+        df.dateFormat = "H시"
 
         return df.string(from: self)
     }
