@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 class BarGraph: UICollectionView {
     
@@ -20,6 +21,7 @@ class BarGraph: UICollectionView {
         
         delegate = self
         self.register(BarGraphCell.self, forCellWithReuseIdentifier: BarGraphCell.identifier)
+        self.backgroundColor = .clear
     }
     
     required init?(coder: NSCoder) {
@@ -40,6 +42,8 @@ extension BarGraph: UICollectionViewDelegateFlowLayout {
 }
 
 class BarGraphCell: UICollectionViewCell {
+    let disposeBag = DisposeBag()
+    let dayWaveGraphDatas = PublishSubject<BarGraphModel>()
     
     let bar: UIView = {
         let bar = UIView()
@@ -47,9 +51,28 @@ class BarGraphCell: UICollectionViewCell {
         return bar
     }()
     
+    let separator: UIView = {
+        let view = UIView()
+        view.backgroundColor = .customChartGray
+        
+        return view
+    }()
+    
+    let topImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        
+        return imageView
+    }()
+    
+    let middleLabel: UILabel = .makeLabel(color: .black, font: .boldSystemFont(ofSize: 11), textAlignment: .center)
+    let bottomLabel: UILabel = .makeLabel(color: .black, font: .boldSystemFont(ofSize: 11), textAlignment: .center)
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setSubview()
+        setRxData()
     }
     
     required init?(coder: NSCoder) {
@@ -58,21 +81,60 @@ class BarGraphCell: UICollectionViewCell {
     
     private func setSubview() {
         contentView.addSubview(bar)
-    }
-    
-    func setUI(barGraphModel: BarGraphModel) {
-//    accessoryView: (top: UIView?, bottom: UIView?)?
-        bar.backgroundColor = barGraphModel.color
+        contentView.addSubview(separator)
+        contentView.addSubview(middleLabel)
+        contentView.addSubview(bottomLabel)
+        contentView.addSubview(topImageView)
         
-        let topInset = contentView.bounds.height * (1 - barGraphModel.topPoint)
-        let bottomInset = contentView.bounds.height * barGraphModel.bottomPoint
-        
-        bar.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(barGraphModel.width)
-            make.top.equalToSuperview().inset(topInset)
-            make.bottom.equalToSuperview().inset(bottomInset)
+        bottomLabel.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.15)
         }
+        
+        separator.snp.makeConstraints { make in
+            make.bottom.equalTo(bottomLabel.snp.top)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(1)
+        }
+        
+        middleLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(separator.snp.bottom)
+            make.horizontalEdges.equalTo(bar.snp.horizontalEdges)
+            make.height.equalToSuperview().multipliedBy(0.15)
+        }
+        
+        topImageView.snp.makeConstraints { make in
+            make.bottom.equalTo(bar.snp.top)
+            make.horizontalEdges.equalTo(bar.snp.horizontalEdges)
+            make.height.equalToSuperview().multipliedBy(0.1)
+        }
+    }
+        
+    private func setRxData() {
+        
+        dayWaveGraphDatas
+            .subscribe { barGraphModel in
+                if let barGraphModel = barGraphModel.element {
+                    self.bar.backgroundColor = barGraphModel.color
+                    self.bottomLabel.text = barGraphModel.value1
+                    self.middleLabel.text = barGraphModel.value2
+                    self.topImageView.image = barGraphModel.icon
+                    
+                    self.bar.snp.removeConstraints()
+                    
+                    let topPoint = 0.6 * barGraphModel.topPoint + 0.15
+
+                    self.bar.snp.makeConstraints { make in
+                        make.centerX.equalToSuperview()
+                        make.width.equalToSuperview().multipliedBy(barGraphModel.width)
+                        make.height.equalToSuperview().multipliedBy(topPoint)
+                        make.bottom.equalTo(self.separator.snp.top)
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
+        
     }
     
     

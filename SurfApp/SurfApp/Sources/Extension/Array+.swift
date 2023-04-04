@@ -110,12 +110,12 @@ extension Array where Element == WeatherModel {
         var minHeight = self.first?.waveHeight ?? 0
         
         self.forEach {
-            if maxHeight < $0.airTemperature {
-                maxHeight = $0.airTemperature
+            if maxHeight < $0.waveHeight {
+                maxHeight = $0.waveHeight
             }
             
-            if minHeight > $0.airTemperature {
-                minHeight = $0.airTemperature
+            if minHeight > $0.waveHeight {
+                minHeight = $0.waveHeight
             }
         }
         

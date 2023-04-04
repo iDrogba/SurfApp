@@ -32,4 +32,14 @@ extension UIColor {
         let color = UIColor(named: "customLightGray")!
         return color
     }
+    
+    static var customChartGray: UIColor {
+        let color = UIColor(named: "customChartGray")!
+        return color
+    }
+    
+    static var customSkyBlue: UIColor {
+        let color = UIColor(named: "customSkyBlue")!
+        return color
+    }
 }

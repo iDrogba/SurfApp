@@ -19,6 +19,9 @@
 		0A39B89129D5CF68003B58DB /* WeekWeatherCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B89029D5CF68003B58DB /* WeekWeatherCellData.swift */; };
 		0A39B89329D95CCD003B58DB /* DayWeatherCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B89229D95CCD003B58DB /* DayWeatherCollectionView.swift */; };
 		0A39B89529D95F46003B58DB /* DayWeatherCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B89429D95F46003B58DB /* DayWeatherCellData.swift */; };
+		0A39B89829D96BEF003B58DB /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 0A39B89729D96BEF003B58DB /* Charts */; };
+		0A39B89A29D96CE2003B58DB /* DayWindGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B89929D96CE2003B58DB /* DayWindGraph.swift */; };
+		0A39B89E29D97730003B58DB /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B89D29D97730003B58DB /* UIImage+.swift */; };
 		0A4AF0AA29B231BF0034E5D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */; };
 		0A4AF0AC29B231BF0034E5D0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */; };
 		0A4AF0B329B231C00034E5D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A4AF0B229B231C00034E5D0 /* Assets.xcassets */; };
@@ -78,6 +81,8 @@
 		0A39B89029D5CF68003B58DB /* WeekWeatherCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekWeatherCellData.swift; sourceTree = "<group>"; };
 		0A39B89229D95CCD003B58DB /* DayWeatherCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayWeatherCollectionView.swift; sourceTree = "<group>"; };
 		0A39B89429D95F46003B58DB /* DayWeatherCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayWeatherCellData.swift; sourceTree = "<group>"; };
+		0A39B89929D96CE2003B58DB /* DayWindGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayWindGraph.swift; sourceTree = "<group>"; };
+		0A39B89D29D97730003B58DB /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		0A4AF0A629B231BF0034E5D0 /* SurfApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A39B89829D96BEF003B58DB /* Charts in Frameworks */,
 				0A4AF0E029B232690034E5D0 /* RxSwift in Frameworks */,
 				0A4AF0E329B232960034E5D0 /* SnapKit in Frameworks */,
 				0A4AF0DE29B232690034E5D0 /* RxCocoa in Frameworks */,
@@ -289,6 +295,7 @@
 				0A39B88429CB3058003B58DB /* UILabel+.swift */,
 				0A39B88629CB30F9003B58DB /* UIStackView+.swift */,
 				0A39B88A29D0858A003B58DB /* UIColor+.swift */,
+				0A39B89D29D97730003B58DB /* UIImage+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -337,6 +344,7 @@
 				0A39B88C29D46981003B58DB /* DetailCurrentWeatherView.swift */,
 				0A39B88E29D5CDA5003B58DB /* WeekWeatherCollectionView.swift */,
 				0A39B89229D95CCD003B58DB /* DayWeatherCollectionView.swift */,
+				0A39B89929D96CE2003B58DB /* DayWindGraph.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -370,6 +378,7 @@
 				0A4AF0DD29B232690034E5D0 /* RxCocoa */,
 				0A4AF0DF29B232690034E5D0 /* RxSwift */,
 				0A4AF0E229B232960034E5D0 /* SnapKit */,
+				0A39B89729D96BEF003B58DB /* Charts */,
 			);
 			productName = SurfApp;
 			productReference = 0A4AF0A629B231BF0034E5D0 /* SurfApp.app */;
@@ -447,6 +456,7 @@
 				0A4AF0D929B2322E0034E5D0 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				0A4AF0DC29B232690034E5D0 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				0A4AF0E129B232960034E5D0 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				0A39B89629D96BEF003B58DB /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = 0A4AF0A729B231BF0034E5D0 /* Products */;
 			projectDirPath = "";
@@ -493,6 +503,7 @@
 				0A4AF10229B316C50034E5D0 /* FavoriteRegionCollectionView.swift in Sources */,
 				0A39B88F29D5CDA5003B58DB /* WeekWeatherCollectionView.swift in Sources */,
 				0A4AF10029B243F90034E5D0 /* Date+.swift in Sources */,
+				0A39B89A29D96CE2003B58DB /* DayWindGraph.swift in Sources */,
 				0A4AF0F129B237B30034E5D0 /* RegionModel.swift in Sources */,
 				0A4AF0FD29B23EFC0034E5D0 /* StormglassResponse.swift in Sources */,
 				0A39B88329C9EDB1003B58DB /* BarGraphModel.swift in Sources */,
@@ -510,6 +521,7 @@
 				0A39B88B29D0858A003B58DB /* UIColor+.swift in Sources */,
 				0AE0E23B29C07D0F00F5F0D6 /* Sequence+.swift in Sources */,
 				0A4AF0F529B238520034E5D0 /* StormglassNetworking.swift in Sources */,
+				0A39B89E29D97730003B58DB /* UIImage+.swift in Sources */,
 				0A39B88129C9EB96003B58DB /* DetailWeatherViewModel.swift in Sources */,
 				3F343CA529C337F3006C8FE8 /* Array+.swift in Sources */,
 				0A4AF10429B31C510034E5D0 /* SearchTableView.swift in Sources */,
@@ -861,6 +873,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0A39B89629D96BEF003B58DB /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.0;
+			};
+		};
 		0A4AF0D929B2322E0034E5D0 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -888,6 +908,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0A39B89729D96BEF003B58DB /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A39B89629D96BEF003B58DB /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = Charts;
+		};
 		0A4AF0DA29B2322E0034E5D0 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0A4AF0D929B2322E0034E5D0 /* XCRemoteSwiftPackageReference "Alamofire" */;

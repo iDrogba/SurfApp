@@ -14,7 +14,7 @@ class StormglassNetworking {
     static let shared = StormglassNetworking()
     
     private let url = "https://api.stormglass.io/v2/weather/point"
-    private var parameters = ["params": "airTemperature,waveHeight,wavePeriod,waveDirection,windSpeed,cloudCover,precipitation,snowDepth"]
+    private var parameters = ["params": "airTemperature,waveHeight,wavePeriod,waveDirection,windSpeed,windDirection,cloudCover,precipitation,snowDepth"]
     
     private let customDecoder: JSONDecoder = {
         let dateFormatter = DateFormatter()

@@ -19,7 +19,7 @@ struct StormglassResponse: Codable {
 
 struct Weather: Codable {
     let time: Date
-    let airTemperature, waveHeight, wavePeriod, waveDirection, windSpeed, cloudCover, precipitation, snowDepth: [String: Double]?
+    let airTemperature, waveHeight, wavePeriod, waveDirection, windSpeed, windDirection, cloudCover, precipitation, snowDepth: [String: Double]?
 }
 
 struct Meta: Codable {

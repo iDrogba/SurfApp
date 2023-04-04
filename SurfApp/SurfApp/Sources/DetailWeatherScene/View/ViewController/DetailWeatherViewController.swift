@@ -10,12 +10,12 @@ import MapKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import Charts
 
 class DetailWeatherViewController: UIViewController {
     let disposeBag = DisposeBag()
     let viewModel: DetailWeatherViewModel
     
-//    var waveBarGraph = BarGraph()
     let localityStackVeiw: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .center, distribution: .fillProportionally, spacing: 0, layoutMargin: nil, color: .clear)
     let localityLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 22, weight: .bold))
     let subLocalityLabel: UILabel = .makeLabel(color: .customGray, font: .systemFont(ofSize: 15, weight: .bold))
@@ -47,8 +47,16 @@ class DetailWeatherViewController: UIViewController {
         return label
     }()
     let weekWeatherCollectionView = WeekWeatherCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let dayWeatherContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .customLightGray
+        
+        return view
+    }()
     let dayWeatherCollectionView = DayWeatherCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    
+    let dayWindGraph = DayWindGraph(frame: .zero)
+    var waveBarGraph = BarGraph()
+
     init(region: RegionModel) {
         viewModel = DetailWeatherViewModel(region: region)
         
@@ -65,24 +73,29 @@ class DetailWeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        view.addSubview(waveBarGraph)
-//        waveBarGraph.snp.makeConstraints { make in
-//            make.horizontalEdges.equalToSuperview()
-//            make.top.equalToSuperview()
-//            make.height.equalToSuperview().multipliedBy(1)
-//        }
-//
-//        viewModel.waveGraphModels.asObservable()
-//            .bind(to: waveBarGraph.rx.items(cellIdentifier: BarGraphCell.identifier, cellType: BarGraphCell.self)) { item, element, cell in
-//                cell.setUI(barGraphModel: element)
-//            }
-//            .disposed(by: disposeBag)
-        
         view.backgroundColor = .white
-        setCollectionView()
         setRxData()
         setUI()
         setStackView()
+        setCollectionView()
+        setGraph()
+    }
+    
+    private func setGraph() {
+        viewModel.dayWindGraphDatas
+            .bind(to: dayWindGraph.dayWindGraphDatas)
+            .disposed(by: disposeBag)
+        
+        viewModel.dayWaveGraphModels.asObservable()
+            .bind(to: waveBarGraph.rx.items(cellIdentifier: BarGraphCell.identifier, cellType: BarGraphCell.self)) { item, element, cell in
+                
+                self.viewModel.dayWaveGraphModels
+                    .map { $0[item] }
+                    .bind(to: cell.dayWaveGraphDatas)
+                    .disposed(by: cell.disposeBag)
+                
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setCollectionView() {
@@ -175,8 +188,12 @@ class DetailWeatherViewController: UIViewController {
         view.addSubview(detailWeatherBackgroundView)
         view.addSubview(detailWeatherStackVeiw)
         view.addSubview(weekWeatherCollectionView)
-        view.addSubview(dayWeatherCollectionView)
+        view.addSubview(dayWeatherContainerView)
         
+        dayWeatherContainerView.addSubview(dayWeatherCollectionView)
+        dayWeatherContainerView.addSubview(dayWindGraph)
+        dayWeatherContainerView.addSubview(waveBarGraph)
+
         localityStackVeiw.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
@@ -200,15 +217,35 @@ class DetailWeatherViewController: UIViewController {
         weekWeatherCollectionView.snp.makeConstraints { make in
             make.top.equalTo(detailWeatherStackVeiw.snp.bottom).offset(26)
             make.centerX.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.13)
+            make.height.equalToSuperview().multipliedBy(0.12)
+            make.width.equalToSuperview().multipliedBy(0.9)
+        }
+        
+        dayWeatherContainerView.snp.makeConstraints { make in
+            make.top.equalTo(weekWeatherCollectionView.snp.bottom)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.9)
         }
         
         dayWeatherCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(weekWeatherCollectionView.snp.bottom)
+            make.top.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.13)
-            make.width.equalToSuperview().multipliedBy(0.9)
+            make.height.equalToSuperview().multipliedBy(0.3)
+            make.width.equalToSuperview()
+        }
+        
+        dayWindGraph.snp.makeConstraints { make in
+            make.top.equalTo(dayWeatherCollectionView.snp.bottom)
+            make.centerX.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.3)
+            make.width.equalToSuperview().multipliedBy(0.93)
+        }
+        
+        waveBarGraph.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.top.equalTo(dayWindGraph.snp.bottom)
+            make.bottom.equalToSuperview()
         }
     }
     
@@ -225,7 +262,5 @@ class DetailWeatherViewController: UIViewController {
         detailWeatherTopStackView.addArrangedSubview(waveHeightView)
         detailWeatherBottomStackView.addArrangedSubview(wavePeriodView)
         detailWeatherBottomStackView.addArrangedSubview(windSpeedView)
-        
     }
-
 }

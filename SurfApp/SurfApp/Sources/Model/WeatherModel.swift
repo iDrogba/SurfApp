@@ -16,6 +16,7 @@ struct WeatherModel {
     var wavePeriod: Double = 0
     var waveDirection: Double = 0
     var windSpeed: Double = 0
+    var windDirection: Double = 0
     var cloudCover: Double = 0 //맑음 = 0/10~2/10, 구름조금 = 3/10~5/10, 구름많음 = 6/10~8/10, 흐림 = 9/10~10/10.
     var precipitation: Double = 0 //강수량
     var snowDepth: Double = 0
@@ -28,6 +29,7 @@ struct WeatherModel {
         self.wavePeriod = averageVal(data: weather.wavePeriod, rounder: 100)
         self.waveDirection = averageVal(data: weather.waveDirection, rounder: 10)
         self.windSpeed = averageVal(data: weather.windSpeed, rounder: 10)
+        self.windDirection = averageVal(data: weather.windDirection, rounder: 10)
         self.cloudCover = averageVal(data: weather.cloudCover, rounder: 1)
         self.precipitation = averageVal(data: weather.precipitation, rounder: 100)
         self.snowDepth = averageVal(data: weather.snowDepth, rounder: 10)
