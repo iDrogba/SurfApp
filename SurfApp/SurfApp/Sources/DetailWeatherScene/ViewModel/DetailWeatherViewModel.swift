@@ -121,7 +121,8 @@ class DetailWeatherViewModel {
                     let windDirection = $1.windDirection
                     
                     let largeConfig = NSUIImage.SymbolConfiguration(pointSize: 100, weight: .bold, scale: .large)
-                    var icon = NSUIImage(systemName: "arrow.down", withConfiguration: largeConfig)?.rotate(degrees: windDirection)
+                    let rotatedSize = CGSize(width: 200, height: 200)
+                    var icon = NSUIImage(systemName: "arrow.down", withConfiguration: largeConfig)?.rotate(degrees: windDirection, rotatedSize: rotatedSize)
                     icon = icon?.imageWith(newSize: CGSize(width: 14, height: 14))
 
                     let chartDataEntry = ChartDataEntry(x: Double($0), y: windSpeed, icon: icon, data: windSpeed)
@@ -156,7 +157,11 @@ class DetailWeatherViewModel {
                     let topPoint = (waveHeight - minMaxWaveHeight.min) / (minMaxWaveHeight.max - minMaxWaveHeight.min)
 
                     let largeConfig = UIImage.SymbolConfiguration(pointSize: 100, weight: .bold, scale: .large)
-                    var icon = UIImage(systemName: "arrow.down", withConfiguration: largeConfig)!.rotate(degrees: $0.waveDirection)
+                    var icon = UIImage()
+                    if let image = UIImage(systemName: "arrow.down", withConfiguration: largeConfig) {
+                        let rotatedSize = CGSize(width: 200, height: 200)
+                        icon = image.rotate(degrees: $0.waveDirection, rotatedSize: rotatedSize)
+                    }
                     icon = icon.imageWith(newSize: CGSize(width: 14, height: 14))
                     
                     return BarGraphModel(color: .customSkyBlue, topPoint: topPoint, bottomPoint: 0, width: 0.8, value1: wavePeriod.description + "'", value2: waveHeight.description , icon: icon)

@@ -26,8 +26,8 @@ struct WeatherModel {
         self.date = weather.time
         self.airTemperature = averageVal(data: weather.airTemperature, rounder: 10)
         self.waveHeight = averageVal(data: weather.waveHeight, rounder: 100)
-        self.wavePeriod = averageVal(data: weather.wavePeriod, rounder: 100)
-        self.waveDirection = averageVal(data: weather.waveDirection, rounder: 10)
+        self.wavePeriod = averageVal(data: weather.wavePeriod, rounder: 10)
+        self.waveDirection = averageVal(data: weather.waveDirection, rounder: 100)
         self.windSpeed = averageVal(data: weather.windSpeed, rounder: 10)
         self.windDirection = averageVal(data: weather.windDirection, rounder: 10)
         self.cloudCover = averageVal(data: weather.cloudCover, rounder: 1)

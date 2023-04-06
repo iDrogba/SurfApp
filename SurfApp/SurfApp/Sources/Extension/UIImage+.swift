@@ -31,7 +31,7 @@ import UIKit
 //}
 
 extension UIImage {
-    func rotate(degrees: CGFloat) -> UIImage {
+    func rotate(degrees: CGFloat, rotatedSize: CGSize) -> UIImage {
 
         /// context에 그려질 크기를 구하기 위해서 최종 회전되었을때의 전체 크기 획득
         let rotatedViewBox: UIView = UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
@@ -39,8 +39,7 @@ extension UIImage {
         rotatedViewBox.transform = affineTransform
 
         /// 회전된 크기
-        let rotatedSize: CGSize = rotatedViewBox.frame.size
-
+//        let rotatedSize: CGSize = rotatedViewBox.frame.size
         /// 회전한 만큼의 크기가 있을때, 필요없는 여백 부분을 제거하는 작업
         UIGraphicsBeginImageContext(rotatedSize)
         let bitmap: CGContext = UIGraphicsGetCurrentContext()!

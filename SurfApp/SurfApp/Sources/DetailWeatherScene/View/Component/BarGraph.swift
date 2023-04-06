@@ -28,7 +28,6 @@ class BarGraph: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
 }
 
 // MARK: CollectionViewDelegate
@@ -72,11 +71,18 @@ class BarGraphCell: UICollectionViewCell {
         super.init(frame: frame)
         
         setSubview()
+        barLayout()
         setRxData()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func barLayout() {
+        bar.clipsToBounds = true
+        bar.layer.cornerRadius = 4
+        bar.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
     }
     
     private func setSubview() {
@@ -105,9 +111,10 @@ class BarGraphCell: UICollectionViewCell {
         }
         
         topImageView.snp.makeConstraints { make in
-            make.bottom.equalTo(bar.snp.top)
-            make.horizontalEdges.equalTo(bar.snp.horizontalEdges)
+            make.bottom.equalTo(bar.snp.top).offset(-5)
+            make.centerX.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.1)
+            make.width.equalTo(topImageView.snp.height)
         }
     }
         
@@ -123,7 +130,7 @@ class BarGraphCell: UICollectionViewCell {
                     
                     self.bar.snp.removeConstraints()
                     
-                    let topPoint = 0.6 * barGraphModel.topPoint + 0.15
+                    let topPoint = 0.55 * barGraphModel.topPoint + 0.15
 
                     self.bar.snp.makeConstraints { make in
                         make.centerX.equalToSuperview()
