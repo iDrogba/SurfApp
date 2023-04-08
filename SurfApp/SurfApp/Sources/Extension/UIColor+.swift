@@ -42,4 +42,9 @@ extension UIColor {
         let color = UIColor(named: "customSkyBlue")!
         return color
     }
+    
+    static var customBlue: UIColor {
+        let color = UIColor(named: "customBlue")!
+        return color
+    }
 }

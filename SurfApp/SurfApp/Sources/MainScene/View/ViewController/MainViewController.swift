@@ -19,6 +19,30 @@ class MainViewController: UIViewController {
     private lazy var searchTableView = SearchTableView(frame: .zero, style: .plain)
     private lazy var favoriteRegionCollectionView = FavoriteRegionCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
+    private lazy var mapButton: UIButton = {
+        let button = UIButton()
+        var mapImage = UIImage(systemName: "map.circle.fill")!.withTintColor(.customBlue, renderingMode: .alwaysOriginal)
+        button.setImage(mapImage, for: .normal)
+        
+        let pointSize: CGFloat = 50
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: pointSize)
+        if #available(iOS 15.0, *) {
+            var config = UIButton.Configuration.plain()
+            config.preferredSymbolConfigurationForImage = imageConfig
+            button.configuration = config
+        } else {
+            button.setPreferredSymbolConfiguration(imageConfig, forImageIn: .normal)
+        }
+        
+        button.layer.cornerRadius = 15
+        button.layer.shadowColor = UIColor.lightGray.cgColor
+        button.layer.shadowOpacity = 1.0
+        button.layer.shadowOffset = CGSize.zero
+        button.layer.shadowRadius = 6
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -118,6 +142,7 @@ extension MainViewController {
     func addSubViews() {
         view.addSubview(favoriteRegionCollectionView)
         searchController.view.addSubview(searchTableView)
+        view.addSubview(mapButton)
     }
     
     func setLayOut() {
@@ -129,6 +154,13 @@ extension MainViewController {
         
         searchTableView.snp.makeConstraints { make in
             make.edges.equalTo(searchController.view.safeAreaLayoutGuide)
+        }
+        
+        mapButton.snp.makeConstraints { make in
+            make.width.equalTo(view.snp.width).multipliedBy(0.17)
+            make.height.equalTo(mapButton.snp.width)
+            make.trailing.equalToSuperview().inset(24)
+            make.bottom.equalToSuperview().inset(24)
         }
     }
 }
