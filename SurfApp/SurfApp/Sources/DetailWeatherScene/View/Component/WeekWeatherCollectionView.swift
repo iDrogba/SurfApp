@@ -48,8 +48,8 @@ class WeekWeatherCollectionViewCell: UICollectionViewCell {
     let selectedDateIndex = PublishSubject<Int>()
     
     let stackView: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .center, distribution: .fill, layoutMargin: nil)
-    let dayLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 12, weight: .bold))
-    let dateLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 12, weight: .bold))
+    let dayLabel: UILabel = .makeLabel(fontColor: .black, font: .systemFont(ofSize: 12, weight: .bold))
+    let dateLabel: UILabel = .makeLabel(fontColor: .black, font: .systemFont(ofSize: 12, weight: .bold))
     let weatherImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "wind")
@@ -57,7 +57,7 @@ class WeekWeatherCollectionViewCell: UICollectionViewCell {
         
         return imageView
     }()
-    let minMaxTemparatureLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 12, weight: .bold))
+    let minMaxTemparatureLabel: UILabel = .makeLabel(fontColor: .black, font: .systemFont(ofSize: 12, weight: .bold))
 
     override init(frame: CGRect) {
         super.init(frame: frame)

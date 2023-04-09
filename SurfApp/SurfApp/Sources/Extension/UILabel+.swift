@@ -9,10 +9,10 @@ import UIKit
 
 extension UILabel {
     
-    static func makeLabel(text: String? = nil, color: UIColor, font: UIFont, textAlignment: NSTextAlignment? = nil) -> UILabel {
+    static func makeLabel(text: String? = nil, fontColor: UIColor, font: UIFont, textAlignment: NSTextAlignment? = nil) -> UILabel {
         let label = UILabel()
         
-        label.textColor = color
+        label.textColor = fontColor
         label.font = font
         
         if let text {

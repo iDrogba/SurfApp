@@ -47,4 +47,14 @@ extension UIColor {
         let color = UIColor(named: "customBlue")!
         return color
     }
+    
+    static var customBlue2: UIColor {
+        let color = UIColor(named: "customBlue2")!
+        return color
+    }
+    
+    static var defaultBackground: UIColor {
+        let color = UIColor(named: "defaultBackground")!
+        return color
+    }
 }

@@ -22,37 +22,38 @@ class DetailWeatherViewController: UIViewController {
         
         return view
     }()
-    
-    let localityStackVeiw: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .center, distribution: .fillProportionally, spacing: 0, layoutMargin: nil, color: .clear)
-    let localityLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 22, weight: .bold))
-    let subLocalityLabel: UILabel = .makeLabel(color: .customGray, font: .systemFont(ofSize: 15, weight: .bold))
-    
-    let detailWeatherBackgroundView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .customLightGray
-        view.layer.cornerRadius = 12
         
-        return view
-    }()
-    let detailWeatherStackVeiw: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .fill, distribution: .fillProportionally, spacing: 0, layoutMargin: nil, color: .clear)
+    let detailWeatherTopStackView: UIStackView = .makeDefaultStackView(axis: .horizontal, alignment: .fill, distribution: .fill, spacing: 8, layoutMargin: nil, color: .clear)
     let timeLabel: UILabel = {
-        let label = UILabel.makeLabel(color: .black, font: .systemFont(ofSize: 15, weight: .bold))
-        label.textAlignment = .center
+        let label = UILabel.makeLabel(fontColor: .black, font: .systemFont(ofSize: 13, weight: .bold), textAlignment: .center)
+        label.layer.cornerRadius = 8
+        label.layer.masksToBounds = true
+        label.backgroundColor = .white
         
         return label
     }()
-    let detailWeatherTopStackView: UIStackView = .makeDefaultStackView(axis: .horizontal, alignment: .center, distribution: .fillEqually, spacing: 0, layoutMargin: nil, color: .clear)
-    let temparatureView: DetailCurrentWeatherView = DetailCurrentWeatherView(iconImage: UIImage(named: "wind")!, title: "온도")
-    let waveHeightView: DetailCurrentWeatherView = DetailCurrentWeatherView(iconImage: UIImage(named: "wind")!, title: "파고")
-    let detailWeatherBottomStackView: UIStackView = .makeDefaultStackView(axis: .horizontal, alignment: .center, distribution: .fillEqually, spacing: 0, layoutMargin: nil, color: .clear)
-    let wavePeriodView: DetailCurrentWeatherView = DetailCurrentWeatherView(iconImage: UIImage(named: "wind")!, title: "너울주기")
-    let windSpeedView: DetailCurrentWeatherView = DetailCurrentWeatherView(iconImage: UIImage(named: "wind")!, title: "풍속")
     let surfConditionLabel: UILabel = {
-        let label = UILabel.makeLabel(text: "입문자가 즐기기 좋습니다.", color: .customGreen, font: .systemFont(ofSize: 15, weight: .bold))
-        label.textAlignment = .center
-        
+        let label = UILabel.makeLabel(fontColor: .white, font: .systemFont(ofSize: 13, weight: .bold), textAlignment: .center)
+        label.layer.cornerRadius = 8
+        label.layer.masksToBounds = true
+        label.backgroundColor = .customBlue2
+
         return label
     }()
+    
+    let detailWeatherBottomStackView: UIStackView = .makeDefaultStackView(axis: .horizontal, alignment: .fill, distribution: .fillEqually, spacing: 0, layoutMargin: nil, color: .white)
+    let weatherImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "wind")
+        
+        return imageView
+    }()
+    let temparatureLabel: UILabel = .makeLabel(fontColor: .black, font: .boldSystemFont(ofSize: 18), textAlignment: .left)
+    let waveHeightView: DetailCurrentWeatherView = DetailCurrentWeatherView(title: "파고")
+    let wavePeriodView: DetailCurrentWeatherView = DetailCurrentWeatherView(title: "너울주기")
+    let windSpeedView: DetailCurrentWeatherView = DetailCurrentWeatherView(title: "풍속")
+    
     let weekWeatherCollectionView = WeekWeatherCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     let dayWeatherContainerView: UIView = {
         let view = UIView()
@@ -80,7 +81,7 @@ class DetailWeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .defaultBackground
         setNavigationBar()
         setRxData()
         setUI()
@@ -180,26 +181,19 @@ class DetailWeatherViewController: UIViewController {
             }
             .bind(to: timeLabel.rx.text)
             .disposed(by: disposeBag)
-        
+
         viewModel.currentWeathers
             .map {
-                $0.regionModel.regionName
+                $0.waveHeight.description + "입문자가 즐기기 좋습니다."
             }
-            .bind(to: localityLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        viewModel.currentWeathers
-            .map {
-                "\($0.regionModel.locality) \($0.regionModel.subLocality)"
-            }
-            .bind(to: subLocalityLabel.rx.text)
+            .bind(to: surfConditionLabel.rx.text)
             .disposed(by: disposeBag)
         
         viewModel.currentWeathers
             .map {
                 $0.airTemperature.description + "º"
             }
-            .bind(to: temparatureView.dataLabel.rx.text)
+            .bind(to: temparatureLabel.rx.text)
             .disposed(by: disposeBag)
         
         viewModel.currentWeathers
@@ -226,9 +220,8 @@ class DetailWeatherViewController: UIViewController {
     
     private func setUI() {
         view.addSubview(navigationSeparator)
-        view.addSubview(localityStackVeiw)
-        view.addSubview(detailWeatherBackgroundView)
-        view.addSubview(detailWeatherStackVeiw)
+        view.addSubview(detailWeatherTopStackView)
+        view.addSubview(detailWeatherBottomStackView)
         view.addSubview(weekWeatherCollectionView)
         view.addSubview(dayWeatherContainerView)
         
@@ -242,28 +235,22 @@ class DetailWeatherViewController: UIViewController {
             make.height.equalTo(1)
         }
         
-        localityStackVeiw.snp.makeConstraints { make in
-            make.top.equalTo(navigationSeparator.snp.bottom)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalToSuperview().multipliedBy(0.1)
+        detailWeatherTopStackView.snp.makeConstraints { make in
+            make.top.equalTo(navigationSeparator.snp.bottom).offset(26)
+            make.centerX.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.045)
+            make.width.equalToSuperview().multipliedBy(0.88)
         }
         
-        detailWeatherBackgroundView.snp.makeConstraints { make in
-            make.top.equalTo(localityStackVeiw.snp.bottom)
+        detailWeatherBottomStackView.snp.makeConstraints { make in
+            make.top.equalTo(detailWeatherTopStackView.snp.bottom).offset(8)
             make.centerX.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.25)
-            make.width.equalToSuperview().multipliedBy(0.9)
-        }
-
-        detailWeatherStackVeiw.snp.makeConstraints { make in
-            make.top.equalTo(localityStackVeiw.snp.bottom)
-            make.centerX.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.25)
-            make.width.equalToSuperview().multipliedBy(0.7)
+            make.height.equalToSuperview().multipliedBy(0.09)
+            make.width.equalToSuperview().multipliedBy(0.88)
         }
         
         weekWeatherCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(detailWeatherStackVeiw.snp.bottom).offset(26)
+            make.top.equalTo(detailWeatherBottomStackView.snp.bottom).offset(26)
             make.centerX.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.12)
             make.width.equalToSuperview().multipliedBy(0.9)
@@ -298,17 +285,16 @@ class DetailWeatherViewController: UIViewController {
     }
     
     private func setStackView() {
-        localityStackVeiw.addArrangedSubview(localityLabel)
-        localityStackVeiw.addArrangedSubview(subLocalityLabel)
+        detailWeatherTopStackView.addArrangedSubview(timeLabel)
+        detailWeatherTopStackView.addArrangedSubview(surfConditionLabel)
         
-        detailWeatherStackVeiw.addArrangedSubview(timeLabel)
-        detailWeatherStackVeiw.addArrangedSubview(detailWeatherTopStackView)
-        detailWeatherStackVeiw.addArrangedSubview(detailWeatherBottomStackView)
-        detailWeatherStackVeiw.addArrangedSubview(surfConditionLabel)
-        
-        detailWeatherTopStackView.addArrangedSubview(temparatureView)
-        detailWeatherTopStackView.addArrangedSubview(waveHeightView)
+        detailWeatherBottomStackView.addArrangedSubview(weatherImageView)
+        detailWeatherBottomStackView.addArrangedSubview(temparatureLabel)
+        detailWeatherBottomStackView.addArrangedSubview(waveHeightView)
         detailWeatherBottomStackView.addArrangedSubview(wavePeriodView)
         detailWeatherBottomStackView.addArrangedSubview(windSpeedView)
+        
+        surfConditionLabel.setContentHuggingPriority(.init(1), for: .horizontal)
+        temparatureLabel.setContentHuggingPriority(.init(1), for: .horizontal)
     }
 }

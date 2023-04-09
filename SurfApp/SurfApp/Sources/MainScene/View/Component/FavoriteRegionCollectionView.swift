@@ -45,21 +45,21 @@ class FavoriteRegionCollectionViewCell: UICollectionViewCell {
     var region: RegionModel!
     // 지역 설명 views
     let regionStackView: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .leading, distribution: .fillProportionally, spacing: 5, layoutMargin: nil, color: .clear)
-    let regionNameLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 22, weight: .bold))
-    let localityLabel: UILabel = .makeLabel(color: .customGray, font: .systemFont(ofSize: 13, weight: .bold))
+    let regionNameLabel: UILabel = .makeLabel(fontColor: .black, font: .systemFont(ofSize: 22, weight: .bold))
+    let localityLabel: UILabel = .makeLabel(fontColor: .customGray, font: .systemFont(ofSize: 13, weight: .bold))
         
     // 서핑 정보 views
     let surfWeatherStackView: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .leading, distribution: .fillProportionally, spacing: 5, layoutMargin: nil, color: .clear)
     let waveWindStackView: UIStackView = .makeDefaultStackView(axis: .horizontal, alignment: .center, distribution: .fill, spacing: 5, layoutMargin: nil , color: .white)
-    let waveLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 13, weight: .bold))
-    let windLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 13, weight: .bold))
+    let waveLabel: UILabel = .makeLabel(fontColor: .black, font: .systemFont(ofSize: 13, weight: .bold))
+    let windLabel: UILabel = .makeLabel(fontColor: .black, font: .systemFont(ofSize: 13, weight: .bold))
     
     let surfDescriptionColorView: UIView = UIView()
-    let surfDescriptionLabel: UILabel = .makeLabel(color: .green, font: .systemFont(ofSize: 13, weight: .bold))
+    let surfDescriptionLabel: UILabel = .makeLabel(fontColor: .green, font: .systemFont(ofSize: 13, weight: .bold))
     
     // 기온, 날씨 아이콘 views
     let weatherStackView: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .center, distribution: .fill, spacing: 5, layoutMargin: nil, color: .clear)
-    let temparatureLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 18, weight: .bold))
+    let temparatureLabel: UILabel = .makeLabel(fontColor: .black, font: .systemFont(ofSize: 18, weight: .bold))
     
     let waveImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "wave"))

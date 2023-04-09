@@ -64,8 +64,8 @@ class BarGraphCell: UICollectionViewCell {
         return imageView
     }()
     
-    let middleLabel: UILabel = .makeLabel(color: .black, font: .boldSystemFont(ofSize: 11), textAlignment: .center)
-    let bottomLabel: UILabel = .makeLabel(color: .black, font: .boldSystemFont(ofSize: 11), textAlignment: .center)
+    let middleLabel: UILabel = .makeLabel(fontColor: .black, font: .boldSystemFont(ofSize: 11), textAlignment: .center)
+    let bottomLabel: UILabel = .makeLabel(fontColor: .black, font: .boldSystemFont(ofSize: 11), textAlignment: .center)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
