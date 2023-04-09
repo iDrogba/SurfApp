@@ -48,8 +48,22 @@ class StormglassNetworking {
                         
                         WeatherModelManager.shared.weatherModels[region] = weatherModels
                         observer.onNext(weatherModels)
-                    case .failure(let error):
-                        observer.onError(error)
+                    case .failure(_):
+                        let alertController = UIAlertController(title: "서버 통신 오류", message: "잠시 후 다시 시도해주세요.", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+                            UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                exit(0)
+                            }
+                        }
+                        alertController.addAction(okAction)
+                        
+                        let scene = UIApplication.shared.connectedScenes
+                            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene
+                        let rootViewController = scene?
+                            .windows.first(where: { $0.isKeyWindow })?
+                            .rootViewController
+                        rootViewController?.present(alertController, animated: true, completion: nil)
                     }
                     observer.onCompleted()
                 }
@@ -92,9 +106,22 @@ class StormglassNetworking {
                         WeatherModelManager.shared.weatherModels[region] = weatherModels
                         weatherDictionary[region] = weatherModels
                         dispatchGroup.leave()
-                    case .failure(let error):
-                        observer.onError(error)
-                        dispatchGroup.leave()
+                    case .failure(_):
+                        let alertController = UIAlertController(title: "서버 통신 오류", message: "잠시 후 다시 시도해주세요.", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+                            UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                exit(0)
+                            }
+                        }
+                        alertController.addAction(okAction)
+
+                        let scene = UIApplication.shared.connectedScenes
+                            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene
+                        let rootViewController = scene?
+                            .windows.first(where: { $0.isKeyWindow })?
+                            .rootViewController
+                        rootViewController?.present(alertController, animated: true, completion: nil)
                     }
                 }
                 task.resume()
@@ -103,11 +130,9 @@ class StormglassNetworking {
             
             dispatchGroup.notify(queue: .main) {
                 observer.onNext(weatherDictionary)
-//                observer.onCompleted()
             }
 
-            return Disposables.create {
-            }
+            return Disposables.create()
         }
         
     }
