@@ -16,6 +16,13 @@ class DetailWeatherViewController: UIViewController {
     let disposeBag = DisposeBag()
     let viewModel: DetailWeatherViewModel
     
+    let navigationSeparator: UIView = {
+        let view = UIView()
+        view.backgroundColor = .customChartGray
+        
+        return view
+    }()
+    
     let localityStackVeiw: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .center, distribution: .fillProportionally, spacing: 0, layoutMargin: nil, color: .clear)
     let localityLabel: UILabel = .makeLabel(color: .black, font: .systemFont(ofSize: 22, weight: .bold))
     let subLocalityLabel: UILabel = .makeLabel(color: .customGray, font: .systemFont(ofSize: 15, weight: .bold))
@@ -74,11 +81,45 @@ class DetailWeatherViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        setNavigationBar()
         setRxData()
         setUI()
         setStackView()
         setCollectionView()
         setGraph()
+    }
+    
+    private func setNavigationBar() {
+        let chevronImage = UIImage(systemName: "chevron.left")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let backButtonItem = UIBarButtonItem(image: chevronImage, style: .plain, target: self, action: #selector(onTapNavigationBackButton))
+        
+        let starImage = UIImage(systemName: "star.fill")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let starButtonItem = UIBarButtonItem(image: starImage, style: .plain, target: self, action: #selector(onTapStarButton))
+        
+        navigationItem.setLeftBarButtonItems([backButtonItem], animated: false)
+        navigationItem.setRightBarButtonItems([starButtonItem], animated: false)
+        navigationItem.title = viewModel.region.regionName
+        
+        viewModel.isFavoriteRegion
+            .map {
+                if $0 {
+                    return UIImage(systemName: "star.fill")?.withTintColor(.yellow, renderingMode: .alwaysOriginal)
+                } else {
+                    return UIImage(systemName: "star.fill")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+                }
+            }
+            .bind(to: navigationItem.rightBarButtonItem!.rx.image)
+            .disposed(by: disposeBag)
+    }
+    
+    @objc
+    private func onTapNavigationBackButton() {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @objc
+    private func onTapStarButton() {
+        viewModel.toggleFavoriteRegion()
     }
     
     private func setGraph() {
@@ -184,6 +225,7 @@ class DetailWeatherViewController: UIViewController {
     }
     
     private func setUI() {
+        view.addSubview(navigationSeparator)
         view.addSubview(localityStackVeiw)
         view.addSubview(detailWeatherBackgroundView)
         view.addSubview(detailWeatherStackVeiw)
@@ -194,8 +236,14 @@ class DetailWeatherViewController: UIViewController {
         dayWeatherContainerView.addSubview(dayWindGraph)
         dayWeatherContainerView.addSubview(waveBarGraph)
 
-        localityStackVeiw.snp.makeConstraints { make in
+        navigationSeparator.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(1)
+        }
+        
+        localityStackVeiw.snp.makeConstraints { make in
+            make.top.equalTo(navigationSeparator.snp.bottom)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
             make.height.equalToSuperview().multipliedBy(0.1)
         }

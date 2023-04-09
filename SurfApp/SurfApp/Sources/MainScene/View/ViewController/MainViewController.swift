@@ -48,13 +48,18 @@ class MainViewController: UIViewController {
 
         view.backgroundColor = .white
 
-        setNavigationBar()
         addSubViews()
         setLayOut()
         bindSearch()
         bindFavoriteRegionCollectionView()
         
         viewModel.searchCompleter.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setNavigationBar()
     }
     
     private func setNavigationBar() {
@@ -64,10 +69,10 @@ class MainViewController: UIViewController {
         searchController.delegate = self
         
         navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = true
-        
+        navigationItem.hidesSearchBarWhenScrolling = false
+
         let appearance = UINavigationBarAppearance()
-        appearance.configureWithTransparentBackground()
+        appearance.configureWithOpaqueBackground()
         navigationController?.navigationBar.standardAppearance = appearance
     }
     
@@ -88,9 +93,10 @@ class MainViewController: UIViewController {
         searchTableView.rx.itemSelected
             .map {
                 self.searchController.searchBar.resignFirstResponder()
-                self.searchController.dismiss(animated: true)
                 self.searchController.searchBar.text = nil
+                
                 self.animateHideSearchTableView(true)
+                self.searchController.searchBar.rx.text.onNext(nil)
                 
                 return $0.row
             }
@@ -110,7 +116,7 @@ class MainViewController: UIViewController {
                         let region = RegionModel(placeMark: placeMark)
                         let viewController = DetailWeatherViewController(region: region)
                         viewController.modalPresentationStyle = .fullScreen
-                        self.present(viewController, animated: true)
+                        self.navigationController?.pushViewController(viewController, animated: true)
                     }
                 }
             })
@@ -130,7 +136,7 @@ class MainViewController: UIViewController {
                     let region = cell.region!
                     let viewController = DetailWeatherViewController(region: region)
                     viewController.modalPresentationStyle = .fullScreen
-                    self.present(viewController, animated: true)
+                    self.navigationController?.pushViewController(viewController, animated: true)
                 }
             })
             .disposed(by: disposeBag)
@@ -153,7 +159,9 @@ extension MainViewController {
         }
         
         searchTableView.snp.makeConstraints { make in
-            make.edges.equalTo(searchController.view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(searchController.view.safeAreaLayoutGuide)
+            make.top.equalTo(searchController.view.safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
         }
         
         mapButton.snp.makeConstraints { make in
@@ -181,8 +189,9 @@ extension MainViewController: UISearchControllerDelegate {
                 self.searchTableView.alpha = 0.0
             } else {
                 self.searchTableView.alpha = 1.0
-                self.searchTableView.isHidden = isHidden
             }
+            self.searchTableView.isHidden = isHidden
+            self.favoriteRegionCollectionView.isHidden = !isHidden
         }
     }
 }

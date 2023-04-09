@@ -15,6 +15,7 @@ class MainViewModel {
     var searchResults = PublishSubject<[MKLocalSearchCompletion]>()
     
     let disposeBag = DisposeBag()
+    let savedRegions = ReplaySubject<[RegionModel]>.create(bufferSize: 1)
     let favoriteRegionWeathers = PublishSubject<[RegionModel:[WeatherModel]]>()
     let favoriteRegionTodayWeathers = PublishSubject<[RegionModel:[WeatherModel]]>()
     let favoriteRegionCurrentWeathers = PublishSubject<[RegionModel:WeatherModel]>()
@@ -22,6 +23,7 @@ class MainViewModel {
     
     init() {
         setSearchCompleter()
+        setSavedRegions()
         setFavoriteRegionWeathers()
         setFavoriteRegionTodayWeathers()
         setFavoriteRegionCurrentWeathers()
@@ -40,12 +42,21 @@ class MainViewModel {
         searchCompleter.pointOfInterestFilter = MKPointOfInterestFilter.init(including: [.beach])
     }
     
-    private func setFavoriteRegionWeathers() {
-        let regions = SavedRegionManager.shared.sortSavedRegions()
-
-        StormglassNetworking.shared.requestWeather(regions: regions)
-            .bind(to: favoriteRegionWeathers)
+    private func setSavedRegions() {
+        SavedRegionManager.shared.sortedSavedRegionSubject
+            .bind(to: self.savedRegions)
             .disposed(by: disposeBag)
+    }
+    
+    private func setFavoriteRegionWeathers() {
+        savedRegions.subscribe { regions in
+            
+            StormglassNetworking.shared.requestWeather(regions: regions)
+                .bind(to: self.favoriteRegionWeathers)
+                .disposed(by: self.disposeBag)
+            
+        }
+        .disposed(by: disposeBag)
     }
     
     private func setFavoriteRegionTodayWeathers() {

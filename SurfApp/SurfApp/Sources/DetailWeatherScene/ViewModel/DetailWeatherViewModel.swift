@@ -13,6 +13,8 @@ class DetailWeatherViewModel {
     let disposeBag = DisposeBag()
     let selectedDateIndex = BehaviorSubject(value: 0)
 
+    let region: RegionModel
+    let isFavoriteRegion = ReplaySubject<Bool>.create(bufferSize: 1)
     let weathers = PublishSubject<[WeatherModel]>()
     let todayWeathers = PublishSubject<[WeatherModel]>()
     let currentWeathers = ReplaySubject<WeatherModel>.create(bufferSize: 1)
@@ -25,7 +27,8 @@ class DetailWeatherViewModel {
     let dayWaveGraphModels = ReplaySubject<[BarGraphModel]>.create(bufferSize: 1)
     
     init(region: RegionModel) {
-        //        SavedRegionManager.shared.saveRegion(region)
+        self.region = region
+        setIsFavoriteRegion()
         setTodayWeathers()
         setCurrentWeathers()
         setThreeHourEachDayWeathers()
@@ -46,6 +49,15 @@ class DetailWeatherViewModel {
                 .bind(to: self.weathers)
                 .disposed(by: disposeBag)
         }
+    }
+    
+    private func setIsFavoriteRegion() {
+        SavedRegionManager.shared.savedRegionSubject
+            .map {
+                $0.contains(self.region)
+            }
+            .bind(to: isFavoriteRegion)
+            .disposed(by: disposeBag)
     }
     
     private func setTodayWeathers() {
@@ -173,4 +185,17 @@ class DetailWeatherViewModel {
             .disposed(by: disposeBag)
     }
     
+    func toggleFavoriteRegion() {
+        isFavoriteRegion
+            .take(1)
+            .subscribe {
+                if $0 {
+                    SavedRegionManager.shared.removeSavedRegion(self.region)
+                } else {
+                    SavedRegionManager.shared.saveRegion(self.region)
+                }
+            }
+            .disposed(by: disposeBag)
+        
+    }
 }

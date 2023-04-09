@@ -7,67 +7,87 @@
 
 import Foundation
 import MapKit
+import RxSwift
 
 class SavedRegionManager {
     static let shared = SavedRegionManager()
     private let userDefaults = UserDefaults.standard
     private let userDefaultsKey = "SavedRegionManagerKey"
-    var savedRegions: [RegionModel] = []
 
+    let savedRegionSubject = ReplaySubject<[RegionModel]>.create(bufferSize: 1)
+    let sortedSavedRegionSubject = ReplaySubject<[RegionModel]>.create(bufferSize: 1)
+    let disposeBag = DisposeBag()
+    
     init() {
-        do{
-            guard let savedData = userDefaults.value(forKey: userDefaultsKey) as? Data else {
-                return
+        setSortedSavedRegionSubject()
+        setSavedRegionSubject()
+        synchronizeSavedRegion()
+    }
+    
+    private func setSavedRegionSubject() {
+        Observable.create { observer in
+            do{
+                if let savedData = self.userDefaults.value(forKey: self.userDefaultsKey) as? Data {
+                    let decodedData = try PropertyListDecoder().decode([RegionModel].self, from: savedData)
+                    print(decodedData)
+                    observer.onNext(decodedData)
+                } else {
+                    observer.onNext([])
+                }
+            } catch {
+                print(error)
+                observer.onCompleted()
             }
-            
-            let decodedData = try PropertyListDecoder().decode([RegionModel].self, from: savedData)
-            self.savedRegions = decodedData
-        }catch {
-            print(error)
+            return Disposables.create()
         }
+        .bind(to: self.savedRegionSubject)
+        .disposed(by: disposeBag)
     }
 
-    func sortSavedRegions() -> [RegionModel] {
-        let returnVal = SavedRegionManager.shared.savedRegions.sorted(by: <)
-        return returnVal
+    private func setSortedSavedRegionSubject() {
+        savedRegionSubject
+            .map { $0.sorted(by: <) }
+            .bind(to: sortedSavedRegionSubject)
+            .disposed(by: disposeBag)
+    }
+    
+    private func synchronizeSavedRegion() {
+        savedRegionSubject
+            .subscribe { regions in
+                do{
+                    self.userDefaults.set(try PropertyListEncoder().encode(regions.uniqued()), forKey: self.userDefaultsKey)
+                } catch {
+                    print(error)
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     /// UserDefaults에 RegionModel 추가.
     func saveRegion(_ model: RegionModel) {
-        do{
-            guard let savedData = userDefaults.value(forKey: userDefaultsKey) as? Data else {
-                var modelArray: [RegionModel] = []
-                modelArray.append(model)
-                userDefaults.set(try PropertyListEncoder().encode(modelArray), forKey: userDefaultsKey)
-                
-                return
+        savedRegionSubject
+            .take(1)
+            .subscribe { regions in
+                if var regions = regions.element {
+                    regions.append(model)
+                    self.savedRegionSubject.onNext(regions)
+                }
             }
-            
-            var decodedData = try PropertyListDecoder().decode([RegionModel].self, from: savedData)
-            decodedData.append(model)
-            
-            userDefaults.set(try PropertyListEncoder().encode(decodedData.uniqued()), forKey: userDefaultsKey)
-        } catch {
-            print(error)
-        }
+            .disposed(by: disposeBag)
     }
     
     ///  UserDefaults에 RegionModel 삭제.
     func removeSavedRegion(_ model: RegionModel) {
-        do {
-            guard let savedData = userDefaults.value(forKey: userDefaultsKey) as? Data else {
-                return
+        savedRegionSubject
+            .take(1)
+            .subscribe { regions in
+                if var regions = regions.element {
+                    regions.removeAll {
+                        $0 == model
+                    }
+                    self.savedRegionSubject.onNext(regions)
+                }
             }
-            
-            var decodedData = try PropertyListDecoder().decode([RegionModel].self, from: savedData)
-            guard let removeIndex = decodedData.firstIndex(of: model) else {
-                return
-            }
-            decodedData.remove(at: removeIndex)
-            
-            userDefaults.set(try PropertyListEncoder().encode(decodedData.uniqued()), forKey: userDefaultsKey)
-        } catch {
-            print(error)
-        }
+            .disposed(by: disposeBag)
     }
 }
