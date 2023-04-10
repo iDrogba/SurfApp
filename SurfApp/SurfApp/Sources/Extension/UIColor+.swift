@@ -53,6 +53,11 @@ extension UIColor {
         return color
     }
     
+    static var customOrange: UIColor {
+        let color = UIColor(named: "customOrange")!
+        return color
+    }
+    
     static var defaultBackground: UIColor {
         let color = UIColor(named: "defaultBackground")!
         return color

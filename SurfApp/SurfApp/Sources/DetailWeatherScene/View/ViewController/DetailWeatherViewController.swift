@@ -15,7 +15,7 @@ import Charts
 class DetailWeatherViewController: UIViewController {
     let disposeBag = DisposeBag()
     let viewModel: DetailWeatherViewModel
-    
+        
     let navigationSeparator: UIView = {
         let view = UIView()
         view.backgroundColor = .customChartGray
@@ -23,25 +23,41 @@ class DetailWeatherViewController: UIViewController {
         return view
     }()
         
-    let detailWeatherTopStackView: UIStackView = .makeDefaultStackView(axis: .horizontal, alignment: .fill, distribution: .fill, spacing: 8, layoutMargin: nil, color: .clear)
+    let detailWeatherTopStackView: UIStackView = .makeDefaultStackView(axis: .horizontal, alignment: .fill, distribution: .fillProportionally, spacing: 8, layoutMargin: nil, color: .clear)
+    let timeLabelBackground: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.setCornerRadiusShadow(cornerRadius: 8)
+
+        return view
+    }()
     let timeLabel: UILabel = {
         let label = UILabel.makeLabel(fontColor: .black, font: .systemFont(ofSize: 13, weight: .bold), textAlignment: .center)
-        label.layer.cornerRadius = 8
-        label.layer.masksToBounds = true
-        label.backgroundColor = .white
+        label.backgroundColor = .clear
         
         return label
     }()
+    let surfConditionLabelBackground: UIView = {
+        let view = UIView()
+        view.backgroundColor = .customBlue2
+        view.setCornerRadiusShadow(cornerRadius: 8)
+
+        return view
+    }()
     let surfConditionLabel: UILabel = {
         let label = UILabel.makeLabel(fontColor: .white, font: .systemFont(ofSize: 13, weight: .bold), textAlignment: .center)
-        label.layer.cornerRadius = 8
-        label.layer.masksToBounds = true
-        label.backgroundColor = .customBlue2
+        label.backgroundColor = .clear
 
         return label
     }()
     
-    let detailWeatherBottomStackView: UIStackView = .makeDefaultStackView(axis: .horizontal, alignment: .fill, distribution: .fillEqually, spacing: 0, layoutMargin: nil, color: .white)
+    let detailWeatherBottomStackView: UIStackView = {
+        let stackView = UIStackView.makeDefaultStackView(axis: .horizontal, alignment: .fill, distribution: .fillEqually, spacing: 0, layoutMargin: .defaultInsets, color: .white)
+        stackView.setCornerRadiusShadow(cornerRadius: 8)
+        
+        return stackView
+    }()
+
     let weatherImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -104,7 +120,7 @@ class DetailWeatherViewController: UIViewController {
         viewModel.isFavoriteRegion
             .map {
                 if $0 {
-                    return UIImage(systemName: "star.fill")?.withTintColor(.yellow, renderingMode: .alwaysOriginal)
+                    return UIImage(systemName: "star.fill")?.withTintColor(.customOrange, renderingMode: .alwaysOriginal)
                 } else {
                     return UIImage(systemName: "star.fill")?.withTintColor(.black, renderingMode: .alwaysOriginal)
                 }
@@ -220,6 +236,8 @@ class DetailWeatherViewController: UIViewController {
     
     private func setUI() {
         view.addSubview(navigationSeparator)
+        view.addSubview(timeLabelBackground)
+        view.addSubview(surfConditionLabelBackground)
         view.addSubview(detailWeatherTopStackView)
         view.addSubview(detailWeatherBottomStackView)
         view.addSubview(weekWeatherCollectionView)
@@ -296,5 +314,13 @@ class DetailWeatherViewController: UIViewController {
         
         surfConditionLabel.setContentHuggingPriority(.init(1), for: .horizontal)
         temparatureLabel.setContentHuggingPriority(.init(1), for: .horizontal)
+        
+        timeLabelBackground.snp.makeConstraints { make in
+            make.edges.equalTo(timeLabel)
+        }
+        
+        surfConditionLabelBackground.snp.makeConstraints { make in
+            make.edges.equalTo(surfConditionLabel)
+        }
     }
 }

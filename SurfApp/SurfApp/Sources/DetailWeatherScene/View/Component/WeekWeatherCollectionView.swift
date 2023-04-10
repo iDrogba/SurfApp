@@ -21,6 +21,7 @@ class WeekWeatherCollectionView: UICollectionView {
        
         super.init(frame: frame, collectionViewLayout: layout)
         
+        backgroundColor = .clear
         delegate = self
         self.showsVerticalScrollIndicator = false
         self.register(WeekWeatherCollectionViewCell.self, forCellWithReuseIdentifier: WeekWeatherCollectionViewCell.identifier)
@@ -47,7 +48,7 @@ class WeekWeatherCollectionViewCell: UICollectionViewCell {
     let disposeBag = DisposeBag()
     let selectedDateIndex = PublishSubject<Int>()
     
-    let stackView: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .center, distribution: .fill, layoutMargin: nil)
+    let stackView: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .center, distribution: .fill, layoutMargin: nil, color: .clear)
     let dayLabel: UILabel = .makeLabel(fontColor: .black, font: .systemFont(ofSize: 12, weight: .bold))
     let dateLabel: UILabel = .makeLabel(fontColor: .black, font: .systemFont(ofSize: 12, weight: .bold))
     let weatherImageView: UIImageView = {
@@ -72,9 +73,9 @@ class WeekWeatherCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        layer.borderColor = UIColor.customSkyBlue.cgColor
         clipsToBounds = true
         layer.cornerRadius = 8
-        layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
     }
     
     private func setSubview() {
@@ -98,9 +99,11 @@ class WeekWeatherCollectionViewCell: UICollectionViewCell {
         selectedDateIndex
             .subscribe { index in
                 if index == self.cellItem {
-                    self.backgroundColor = .customLightGray
+                    self.backgroundColor = .customSkyBlue.withAlphaComponent(0.1)
+                    self.layer.borderWidth = 1
                 } else {
-                    self.backgroundColor = .white
+                    self.backgroundColor = .clear
+                    self.layer.borderWidth = 0
                 }
             }
             .disposed(by: disposeBag)

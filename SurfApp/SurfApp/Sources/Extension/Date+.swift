@@ -40,7 +40,7 @@ extension Date {
     func dateFormatA() -> String {
         let df = DateFormatter()
         df.locale = Locale(identifier: "ko_KR")
-        df.dateFormat = "M.d(E) a HH시"
+        df.dateFormat = "M.d(E) HH시"
 
         return df.string(from: self)
     }
