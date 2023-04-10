@@ -23,7 +23,7 @@ class DayWeatherCollectionView: UICollectionView {
         super.init(frame: frame, collectionViewLayout: layout)
         
         delegate = self
-        backgroundColor = .customLightGray
+        backgroundColor = .clear
         showsVerticalScrollIndicator = false
         register(DayWeatherCollectionViewCell.self, forCellWithReuseIdentifier: DayWeatherCollectionViewCell.identifier)
     }

@@ -48,7 +48,7 @@ class DayWindGraph: LineChartView {
     }
     
     private func setUI() {
-        backgroundColor = .customLightGray
+        backgroundColor = .white
         
         let xScale = 1.0
         let yScale = 1.0

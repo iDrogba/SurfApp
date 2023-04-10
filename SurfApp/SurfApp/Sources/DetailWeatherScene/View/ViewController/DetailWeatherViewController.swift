@@ -71,9 +71,21 @@ class DetailWeatherViewController: UIViewController {
     let windSpeedView: DetailCurrentWeatherView = DetailCurrentWeatherView(title: "풍속")
     
     let weekWeatherCollectionView = WeekWeatherCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
+    let detailWeatherLabel: UILabel = .makeLabel(text: "상세 예보", fontColor: .black, font: .boldSystemFont(ofSize: 17))
+    let detailImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "questionMark")
+        imageView.contentMode = .scaleAspectFit
+        
+        return imageView
+    }()
+    
     let dayWeatherContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .customLightGray
+        view.backgroundColor = .white
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.customLightGray.cgColor
         
         return view
     }()
@@ -241,6 +253,8 @@ class DetailWeatherViewController: UIViewController {
         view.addSubview(detailWeatherTopStackView)
         view.addSubview(detailWeatherBottomStackView)
         view.addSubview(weekWeatherCollectionView)
+        view.addSubview(detailWeatherLabel)
+        view.addSubview(detailImageView)
         view.addSubview(dayWeatherContainerView)
         
         dayWeatherContainerView.addSubview(dayWeatherCollectionView)
@@ -274,8 +288,21 @@ class DetailWeatherViewController: UIViewController {
             make.width.equalToSuperview().multipliedBy(0.9)
         }
         
+        detailWeatherLabel.snp.makeConstraints { make in
+            make.top.equalTo(weekWeatherCollectionView.snp.bottom).offset(24)
+            make.leading.equalTo(dayWeatherContainerView.snp.leading)
+            make.width.equalTo(67)
+            make.height.equalTo(20)
+        }
+        
+        detailImageView.snp.makeConstraints { make in
+            make.width.equalTo(20)
+            make.verticalEdges.equalTo(detailWeatherLabel)
+            make.leading.equalTo(detailWeatherLabel.snp.trailing)
+        }
+        
         dayWeatherContainerView.snp.makeConstraints { make in
-            make.top.equalTo(weekWeatherCollectionView.snp.bottom)
+            make.top.equalTo(detailWeatherLabel.snp.bottom).offset(8)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.9)

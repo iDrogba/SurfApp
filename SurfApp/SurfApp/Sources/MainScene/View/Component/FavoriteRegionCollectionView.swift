@@ -110,7 +110,7 @@ class FavoriteRegionCollectionViewCell: UICollectionViewCell {
         self.layer.shadowColor = UIColor.lightGray.cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 0.0)
         self.layer.shadowRadius = 6.0
-        self.layer.shadowOpacity = 0.6
+        self.layer.shadowOpacity = 0.3
         self.layer.cornerRadius = 12.0
         self.layer.masksToBounds = false
         self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.contentView.layer.cornerRadius).cgPath
