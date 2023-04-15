@@ -8,7 +8,7 @@
 import UIKit
 
 struct BarGraphModel {
-    let color: UIColor
+    let gradientColor: (start: UIColor, end: UIColor)
     let topPoint: CGFloat
     let bottomPoint: CGFloat
     let width: CGFloat
@@ -16,8 +16,8 @@ struct BarGraphModel {
     let value2: String
     let icon: UIImage
     
-    init(color: UIColor, topPoint: CGFloat, bottomPoint: CGFloat, width: CGFloat, value1: String, value2: String, icon: UIImage) {
-        self.color = color
+    init(gradientColor: (start: UIColor, end: UIColor), topPoint: CGFloat, bottomPoint: CGFloat, width: CGFloat, value1: String, value2: String, icon: UIImage) {
+        self.gradientColor = gradientColor
         self.topPoint = topPoint
         self.bottomPoint = bottomPoint
         self.width = width

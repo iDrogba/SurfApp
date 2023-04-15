@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIView {
+    
     func setCornerRadiusShadow(cornerRadius: CGFloat) {
         self.layer.cornerRadius = cornerRadius
         
@@ -18,4 +19,15 @@ extension UIView {
 
         self.layer.masksToBounds = false
     }
+    
+    func setGradient(gradientColor: (UIColor, UIColor)){
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.colors = [gradientColor.0.cgColor, gradientColor.1.cgColor]
+        gradient.locations = [0.0 , 1.0]
+        gradient.startPoint = CGPoint(x: 1.0, y: 0.0)
+        gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradient.frame = bounds
+        layer.addSublayer(gradient)
+    }
+    
 }

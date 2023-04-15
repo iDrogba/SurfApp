@@ -49,7 +49,7 @@ class DayWeatherCollectionViewCell: UICollectionViewCell {
     let dayWeatherCellData = PublishSubject<DayWeatherCellData>()
     
     let stackView: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .center, distribution: .fill, layoutMargin: nil)
-    let dateLabel: UILabel = .makeLabel(fontColor: .black, font: .systemFont(ofSize: 12, weight: .bold))
+    let dateLabel: UILabel = .makeLabel(fontColor: .customDarkGray, font: .systemFont(ofSize: 12, weight: .bold))
     let weatherImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "wind")

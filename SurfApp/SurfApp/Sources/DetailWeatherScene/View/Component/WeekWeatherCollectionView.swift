@@ -49,8 +49,8 @@ class WeekWeatherCollectionViewCell: UICollectionViewCell {
     let selectedDateIndex = PublishSubject<Int>()
     
     let stackView: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .center, distribution: .fill, layoutMargin: nil, color: .clear)
-    let dayLabel: UILabel = .makeLabel(fontColor: .black, font: .systemFont(ofSize: 12, weight: .bold))
-    let dateLabel: UILabel = .makeLabel(fontColor: .black, font: .systemFont(ofSize: 12, weight: .bold))
+    let dayLabel: UILabel = .makeLabel(fontColor: .customGray, font: .systemFont(ofSize: 12, weight: .bold))
+    let dateLabel: UILabel = .makeLabel(fontColor: .customGray, font: .systemFont(ofSize: 12, weight: .bold))
     let weatherImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "wind")
@@ -115,8 +115,14 @@ class WeekWeatherCollectionViewCell: UICollectionViewCell {
         weatherImageView.image = UIImage(named: weekWeatherModel.weather)
         minMaxTemparatureLabel.text = weekWeatherModel.minMaxTemparature
         
+        if weekWeatherModel.isToday {
+            dayLabel.textColor = .black
+            dateLabel.textColor = .black
+        }
+        
         if weekWeatherModel.isWeekEnd {
             dayLabel.textColor = .red
+            dateLabel.textColor = .red
         }
     }
     

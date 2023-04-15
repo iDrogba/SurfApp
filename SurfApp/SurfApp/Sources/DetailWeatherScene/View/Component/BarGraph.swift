@@ -57,21 +57,21 @@ class BarGraphCell: UICollectionViewCell {
         return view
     }()
     
-    let topImageView: UIImageView = {
+    let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         
         return imageView
     }()
     
-    let middleLabel: UILabel = .makeLabel(fontColor: .black, font: .boldSystemFont(ofSize: 11), textAlignment: .center)
+    let valueLabel: UILabel = .makeLabel(fontColor: .customNavy, font: .boldSystemFont(ofSize: 11), textAlignment: .center)
     let bottomLabel: UILabel = .makeLabel(fontColor: .black, font: .boldSystemFont(ofSize: 11), textAlignment: .center)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setSubview()
-        barLayout()
+        setBarUI()
         setRxData()
     }
     
@@ -79,19 +79,22 @@ class BarGraphCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func barLayout() {
-        bar.clipsToBounds = true
-        bar.layer.cornerRadius = 4
-        bar.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+    func setBarUI() {
+        let topBorder = CALayer()
+        let borderWidth = 1.0
+        let borderFrame = CGRect(origin: .zero, size: CGSize(width: self.bar.bounds.width, height: borderWidth))
+        topBorder.frame = borderFrame
+        topBorder.backgroundColor = UIColor.customNavy.cgColor
+        self.bar.layer.addSublayer(topBorder)
     }
     
     private func setSubview() {
         contentView.addSubview(bar)
         contentView.addSubview(separator)
-        contentView.addSubview(middleLabel)
         contentView.addSubview(bottomLabel)
-        contentView.addSubview(topImageView)
-        
+        contentView.addSubview(imageView)
+        contentView.addSubview(valueLabel)
+
         bottomLabel.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.horizontalEdges.equalToSuperview()
@@ -104,17 +107,17 @@ class BarGraphCell: UICollectionViewCell {
             make.height.equalTo(1)
         }
         
-        middleLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(separator.snp.bottom)
+        valueLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(bar.snp.top)
             make.horizontalEdges.equalTo(bar.snp.horizontalEdges)
             make.height.equalToSuperview().multipliedBy(0.15)
         }
         
-        topImageView.snp.makeConstraints { make in
-            make.bottom.equalTo(bar.snp.top).offset(-5)
+        imageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
+            make.bottom.equalTo(separator.snp.bottom).offset(-5)
             make.height.equalToSuperview().multipliedBy(0.1)
-            make.width.equalTo(topImageView.snp.height)
+            make.width.equalTo(imageView.snp.height)
         }
     }
         
@@ -123,10 +126,9 @@ class BarGraphCell: UICollectionViewCell {
         dayWaveGraphDatas
             .subscribe { barGraphModel in
                 if let barGraphModel = barGraphModel.element {
-                    self.bar.backgroundColor = barGraphModel.color
                     self.bottomLabel.text = barGraphModel.value1
-                    self.middleLabel.text = barGraphModel.value2
-                    self.topImageView.image = barGraphModel.icon
+                    self.valueLabel.text = barGraphModel.value2
+                    self.imageView.image = barGraphModel.icon
                     
                     self.bar.snp.removeConstraints()
                     
@@ -138,11 +140,20 @@ class BarGraphCell: UICollectionViewCell {
                         make.height.equalToSuperview().multipliedBy(topPoint)
                         make.bottom.equalTo(self.separator.snp.top)
                     }
+                    
+                    DispatchQueue.main.async {
+                        self.bar.layer.sublayers?.forEach({ subLayer in
+                            subLayer.removeFromSuperlayer()
+                        })
+
+                        self.bar.setGradient(gradientColor: barGraphModel.gradientColor)
+                        
+                        self.setBarUI()
+                    }
                 }
             }
             .disposed(by: disposeBag)
         
     }
-    
     
 }

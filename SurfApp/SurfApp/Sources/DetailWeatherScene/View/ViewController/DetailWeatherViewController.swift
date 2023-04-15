@@ -312,20 +312,21 @@ class DetailWeatherViewController: UIViewController {
             make.top.equalToSuperview()
             make.centerX.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.3)
-            make.width.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.95)
         }
         
         dayWindGraph.snp.makeConstraints { make in
             make.top.equalTo(dayWeatherCollectionView.snp.bottom)
             make.centerX.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.3)
-            make.width.equalToSuperview().multipliedBy(0.93)
+            make.width.equalToSuperview().multipliedBy(0.95)
         }
         
         waveBarGraph.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
             make.top.equalTo(dayWindGraph.snp.bottom)
+            make.centerX.equalToSuperview()
             make.bottom.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.95)
         }
     }
     

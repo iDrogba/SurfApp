@@ -143,9 +143,15 @@ class DetailWeatherViewModel {
                 }
                 
                 let lineChartDataSet = LineChartDataSet(entries: entries)
+                // gradient fill
+                let gradientColors = [UIColor.customNavy.cgColor, UIColor.white.cgColor] as CFArray
+                let colorLocations:[CGFloat] = [1.0, 0.0]
+                let gradient = CGGradient.init(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors, locations: colorLocations)
+                lineChartDataSet.fill = LinearGradientFill(gradient: gradient!, angle: 90)
                 
+                lineChartDataSet.drawFilledEnabled = true
                 lineChartDataSet.drawIconsEnabled = true
-                lineChartDataSet.colors = [.customSkyBlue]
+                lineChartDataSet.colors = [.customNavy]
                 lineChartDataSet.drawCirclesEnabled = false
                 lineChartDataSet.lineWidth = 1
                 lineChartDataSet.valueFont = .boldSystemFont(ofSize: 10)
@@ -175,8 +181,9 @@ class DetailWeatherViewModel {
                         icon = image.rotate(degrees: $0.waveDirection, rotatedSize: rotatedSize)
                     }
                     icon = icon.imageWith(newSize: CGSize(width: 14, height: 14))
+                    let gradientColor = (UIColor.customLightNavy, UIColor.white)
                     
-                    return BarGraphModel(color: .customSkyBlue, topPoint: topPoint, bottomPoint: 0, width: 0.8, value1: wavePeriod.description + "'", value2: waveHeight.description , icon: icon)
+                    return BarGraphModel(gradientColor: gradientColor, topPoint: topPoint, bottomPoint: 0, width: 0.8, value1: wavePeriod.description + "'", value2: waveHeight.description , icon: icon)
                 }
                 
                 return barGraphModel

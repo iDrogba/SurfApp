@@ -28,6 +28,21 @@ extension UIColor {
         return color
     }
     
+    static var customDarkGray: UIColor {
+        let color = UIColor(named: "customDarkGray")!
+        return color
+    }
+    
+    static var customNavy: UIColor {
+        let color = UIColor(named: "customNavy")!
+        return color
+    }
+    
+    static var customLightNavy: UIColor {
+        let color = UIColor(named: "customLightNavy")!
+        return color
+    }
+    
     static var customLightGray: UIColor {
         let color = UIColor(named: "customLightGray")!
         return color
