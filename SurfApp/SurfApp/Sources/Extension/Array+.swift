@@ -121,4 +121,13 @@ extension Array where Element == WeatherModel {
         
         return (min: minHeight, max:maxHeight)
     }
+    
+    func getRepresentativeWeatherCondition() -> String? {
+        var weatherConditions = self.map { $0.weatherCondition }
+        let countedSet = NSCountedSet(array: weatherConditions)
+        let mostFrequentValue = countedSet.max { countedSet.count(for: $0) < countedSet.count(for: $1) }
+        let weatherCondition = mostFrequentValue as? String
+        
+        return weatherCondition
+    }
 }

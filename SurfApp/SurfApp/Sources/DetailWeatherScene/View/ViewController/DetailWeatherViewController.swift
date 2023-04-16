@@ -57,11 +57,16 @@ class DetailWeatherViewController: UIViewController {
         
         return stackView
     }()
+    
+    let weatherImageContainerView: UIView = {
+        let view = UIView()
+        
+        return view
+    }()
 
     let weatherImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "wind")
         
         return imageView
     }()
@@ -244,6 +249,14 @@ class DetailWeatherViewController: UIViewController {
             }
             .bind(to: windSpeedView.dataLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        viewModel.currentWeathers
+            .map {
+                UIImage(named: $0.weatherCondition)
+            }
+            .bind(to: weatherImageView.rx.image)
+            .disposed(by: disposeBag)
+
     }
     
     private func setUI() {
@@ -284,7 +297,7 @@ class DetailWeatherViewController: UIViewController {
         weekWeatherCollectionView.snp.makeConstraints { make in
             make.top.equalTo(detailWeatherBottomStackView.snp.bottom).offset(26)
             make.centerX.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.12)
+            make.height.equalToSuperview().multipliedBy(0.15)
             make.width.equalToSuperview().multipliedBy(0.9)
         }
         
@@ -334,11 +347,13 @@ class DetailWeatherViewController: UIViewController {
         detailWeatherTopStackView.addArrangedSubview(timeLabel)
         detailWeatherTopStackView.addArrangedSubview(surfConditionLabel)
         
-        detailWeatherBottomStackView.addArrangedSubview(weatherImageView)
+        detailWeatherBottomStackView.addArrangedSubview(weatherImageContainerView)
         detailWeatherBottomStackView.addArrangedSubview(temparatureLabel)
         detailWeatherBottomStackView.addArrangedSubview(waveHeightView)
         detailWeatherBottomStackView.addArrangedSubview(wavePeriodView)
         detailWeatherBottomStackView.addArrangedSubview(windSpeedView)
+        
+        weatherImageContainerView.addSubview(weatherImageView)
         
         surfConditionLabel.setContentHuggingPriority(.init(1), for: .horizontal)
         temparatureLabel.setContentHuggingPriority(.init(1), for: .horizontal)
@@ -349,6 +364,13 @@ class DetailWeatherViewController: UIViewController {
         
         surfConditionLabelBackground.snp.makeConstraints { make in
             make.edges.equalTo(surfConditionLabel)
+        }
+        
+        weatherImageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.7)
+            make.height.equalToSuperview().multipliedBy(0.7)
         }
     }
 }

@@ -20,7 +20,7 @@ struct WeekWeatherCellData {
         isWeekEnd = false
         day = weathers.first!.date.weekDay()
         date = weathers.first?.date.monthAndDay() ?? "1.1"
-        weather = "wind"
+        weather = weathers.getRepresentativeWeatherCondition() ?? "wind"
         let minMaxTemparature = weathers.minMaxTemparature()
         self.minMaxTemparature = Int(minMaxTemparature.max).description + "/" + Int(minMaxTemparature.min).description
         

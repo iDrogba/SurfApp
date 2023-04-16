@@ -29,7 +29,6 @@ class SavedRegionManager {
             do{
                 if let savedData = self.userDefaults.value(forKey: self.userDefaultsKey) as? Data {
                     let decodedData = try PropertyListDecoder().decode([RegionModel].self, from: savedData)
-                    print(decodedData)
                     observer.onNext(decodedData)
                 } else {
                     observer.onNext([])

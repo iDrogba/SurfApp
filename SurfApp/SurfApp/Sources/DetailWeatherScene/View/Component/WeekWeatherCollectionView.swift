@@ -51,6 +51,10 @@ class WeekWeatherCollectionViewCell: UICollectionViewCell {
     let stackView: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .center, distribution: .fill, layoutMargin: nil, color: .clear)
     let dayLabel: UILabel = .makeLabel(fontColor: .customGray, font: .systemFont(ofSize: 12, weight: .bold))
     let dateLabel: UILabel = .makeLabel(fontColor: .customGray, font: .systemFont(ofSize: 12, weight: .bold))
+    let weatherImageContainerView: UIView = {
+        let view = UIView()
+        return view
+    }()
     let weatherImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "wind")
@@ -83,15 +87,24 @@ class WeekWeatherCollectionViewCell: UICollectionViewCell {
         
         stackView.addArrangedSubview(dayLabel)
         stackView.addArrangedSubview(dateLabel)
-        stackView.addArrangedSubview(weatherImageView)
+        stackView.addArrangedSubview(weatherImageContainerView)
         stackView.addArrangedSubview(minMaxTemparatureLabel)
         
         weatherImageView.setContentHuggingPriority(.init(0), for: .vertical)
+        
+        weatherImageContainerView.addSubview(weatherImageView)
         
         stackView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.centerY.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.8)
+        }
+        
+        weatherImageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.7)
+            make.height.equalToSuperview().multipliedBy(0.7)
         }
     }
     

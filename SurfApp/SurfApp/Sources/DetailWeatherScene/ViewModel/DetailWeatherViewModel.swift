@@ -113,7 +113,7 @@ class DetailWeatherViewModel {
             .map { weathers in
                 weathers.map {
                     let date = $0.date.time()
-                    let weather = "wind"
+                    let weather = $0.weatherCondition
                     let temparature = $0.airTemperature.description + "º"
                     
                     return DayWeatherCellData(date: date, weather: weather, temparature: temparature)
