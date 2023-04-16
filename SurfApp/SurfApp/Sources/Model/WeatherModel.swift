@@ -20,6 +20,7 @@ struct WeatherModel {
     var cloudCover: Double = 0 //맑음 = 0/10~2/10, 구름조금 = 3/10~5/10, 구름많음 = 6/10~8/10, 흐림 = 9/10~10/10.
     var precipitation: Double = 0 //강수량
     var snowDepth: Double = 0
+    var weatherCondition: String = ""
 
     init(_ regionModel: RegionModel, _ weather: Weather) {
         self.regionModel = regionModel
@@ -33,6 +34,7 @@ struct WeatherModel {
         self.cloudCover = averageVal(data: weather.cloudCover, rounder: 1)
         self.precipitation = averageVal(data: weather.precipitation, rounder: 100)
         self.snowDepth = averageVal(data: weather.snowDepth, rounder: 10)
+        self.weatherCondition = WeatherCondition.makeWeatherCondition(precipitation: self.precipitation, cloudCover: self.cloudCover, snowDepth: self.snowDepth)
     }
     
     private func averageVal(data: [String:Double]?, rounder: Double) -> Double {

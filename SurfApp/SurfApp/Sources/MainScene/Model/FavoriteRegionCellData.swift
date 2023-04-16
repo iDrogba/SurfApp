@@ -14,15 +14,17 @@ struct FavoriteRegionCellData {
     let temparature: Double
     let cloudCover: Double
     let precipitation: Double
+    let weatherCondition: String
     let surfCondition: String
 
-    init(region: RegionModel, minMaxWaveHeight: (min: Double, max: Double), windSpeed: Double, cloudCover: Double, precipitation: Double, temparature: Double) {
+    init(region: RegionModel, minMaxWaveHeight: (min: Double, max: Double), windSpeed: Double, cloudCover: Double, precipitation: Double, temparature: Double, weatherCondition: String) {
         self.region = region
         self.minMaxWaveHeight = minMaxWaveHeight
         self.windSpeed = windSpeed
         self.temparature = temparature
         self.cloudCover = cloudCover
         self.precipitation = precipitation
+        self.weatherCondition = weatherCondition
         
         self.surfCondition = ""
     }

@@ -33,12 +33,11 @@ class MainViewController: UIViewController {
         } else {
             button.setPreferredSymbolConfiguration(imageConfig, forImageIn: .normal)
         }
-        
-        button.layer.cornerRadius = 15
+        button.backgroundColor = .white
         button.layer.shadowColor = UIColor.lightGray.cgColor
-        button.layer.shadowOpacity = 1.0
+        button.layer.shadowOpacity = 0.8
         button.layer.shadowOffset = CGSize.zero
-        button.layer.shadowRadius = 6
+        button.layer.shadowRadius = 10
         
         return button
     }()
@@ -59,6 +58,9 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        DispatchQueue.main.async {
+            self.mapButton.layer.cornerRadius = self.mapButton.frame.width / 1.5
+        }
         setNavigationBar()
     }
     

@@ -76,7 +76,7 @@ class FavoriteRegionCollectionViewCell: UICollectionViewCell {
     }()
     
     let weatherIconView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "wave"))
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         
         return imageView
@@ -188,5 +188,6 @@ class FavoriteRegionCollectionViewCell: UICollectionViewCell {
         surfDescriptionColorView.backgroundColor = .customGreen
         
         temparatureLabel.text = "\(weather.temparature)°"
+        weatherIconView.image = UIImage(named: weather.weatherCondition)
     }
 }
