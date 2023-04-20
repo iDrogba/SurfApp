@@ -183,11 +183,13 @@ class FavoriteRegionCollectionViewCell: UICollectionViewCell {
         waveLabel.text = "\(minWaveHeight) - \(maxWaveHeight)m"
         windLabel.text = "\(weather.windSpeed)m/s"
         
-        surfDescriptionLabel.text = "입문자가 즐기기 좋습니다."
-        surfDescriptionLabel.textColor = .customGreen
         surfDescriptionColorView.backgroundColor = .customGreen
         
         temparatureLabel.text = "\(weather.temparature)°"
         weatherIconView.image = UIImage(named: weather.weatherCondition)
+        
+        surfDescriptionLabel.text = weather.surfCondition.0
+        surfDescriptionLabel.textColor = weather.surfCondition.1
+        surfDescriptionColorView.backgroundColor = weather.surfCondition.1
     }
 }

@@ -21,6 +21,7 @@ struct WeatherModel {
     var precipitation: Double = 0 //강수량
     var snowDepth: Double = 0
     var weatherCondition: String = ""
+    var surfCondition: (String, UIColor) = ("", .customBlue)
 
     init(_ regionModel: RegionModel, _ weather: Weather) {
         self.regionModel = regionModel
@@ -35,6 +36,7 @@ struct WeatherModel {
         self.precipitation = averageVal(data: weather.precipitation, rounder: 100)
         self.snowDepth = averageVal(data: weather.snowDepth, rounder: 10)
         self.weatherCondition = WeatherCondition.makeWeatherCondition(precipitation: self.precipitation, cloudCover: self.cloudCover, snowDepth: self.snowDepth)
+        self.surfCondition = WeatherCondition.makeSurfCondition(waveHeight: self.waveHeight)
     }
     
     private func averageVal(data: [String:Double]?, rounder: Double) -> Double {

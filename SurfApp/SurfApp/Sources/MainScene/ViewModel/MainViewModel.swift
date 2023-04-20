@@ -96,7 +96,7 @@ class MainViewModel {
             
             let minMaxWaveHeight = $0.value.minMaxWaveHeight()
             
-            returnDic[$0.key] = FavoriteRegionCellData(region: currentWeather.regionModel, minMaxWaveHeight: minMaxWaveHeight, windSpeed: currentWeather.windSpeed, cloudCover: currentWeather.cloudCover, precipitation: currentWeather.precipitation, temparature: currentWeather.airTemperature, weatherCondition: currentWeather.weatherCondition)
+            returnDic[$0.key] = FavoriteRegionCellData(region: currentWeather.regionModel, minMaxWaveHeight: minMaxWaveHeight, windSpeed: currentWeather.windSpeed, cloudCover: currentWeather.cloudCover, precipitation: currentWeather.precipitation, temparature: currentWeather.airTemperature, weatherCondition: currentWeather.weatherCondition, surfCondition: currentWeather.surfCondition)
         }
         
         return returnDic

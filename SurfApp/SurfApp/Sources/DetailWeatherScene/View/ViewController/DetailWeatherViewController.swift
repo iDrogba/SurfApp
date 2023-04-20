@@ -39,7 +39,6 @@ class DetailWeatherViewController: UIViewController {
     }()
     let surfConditionLabelBackground: UIView = {
         let view = UIView()
-        view.backgroundColor = .customBlue2
         view.setCornerRadiusShadow(cornerRadius: 8)
 
         return view
@@ -217,9 +216,16 @@ class DetailWeatherViewController: UIViewController {
 
         viewModel.currentWeathers
             .map {
-                $0.waveHeight.description + "입문자가 즐기기 좋습니다."
+                $0.surfCondition.0
             }
             .bind(to: surfConditionLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.currentWeathers
+            .map {
+                $0.surfCondition.1
+            }
+            .bind(to: surfConditionLabelBackground.rx.backgroundColor)
             .disposed(by: disposeBag)
         
         viewModel.currentWeathers
