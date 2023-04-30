@@ -78,8 +78,8 @@ class MainViewController: UIViewController {
         mapViewController.modalPresentationStyle = .fullScreen
         mapViewController.modalTransitionStyle = .coverVertical
         
-        viewModel.favoriteRegionCurrentWeathers
-            .bind(to: mapViewController.viewModel.favoriteRegionCurrentWeathers)
+        viewModel.favoriteRegionCellData
+            .bind(to: mapViewController.viewModel.favoriteRegionData)
             .disposed(by: mapViewController.viewModel.disposeBag)
     }
     

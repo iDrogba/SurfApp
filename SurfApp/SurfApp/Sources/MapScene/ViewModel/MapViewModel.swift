@@ -11,41 +11,19 @@ import RxSwift
 
 class MapViewModel {
     let disposeBag = DisposeBag()
-    let favoriteRegionCurrentWeathers = PublishSubject<[RegionModel:WeatherModel]>()
-    let mapAnnotations = ReplaySubject<[MKPointAnnotation:WeatherModel]>.create(bufferSize: 1)
+    let favoriteRegionData = PublishSubject<[RegionModel:FavoriteRegionCellData]>()
+    let mapAnnotations = ReplaySubject<[MKPointAnnotation:FavoriteRegionCellData]>.create(bufferSize: 1)
+    
+    let selectedMapLocation = PublishSubject<RegionModel>()
+    let selectedMapLocationData = PublishSubject<FavoriteRegionCellData>()
     
     init() {
-//        Observable.combineLatest(SavedRegionManager.shared.savedRegionSubject, WeatherModelManager.shared.weatherModels)
-        
-//        if let weathers = WeatherModelManager.shared.weatherModels[region] {
-//            Observable.create { observer in
-//                observer.onNext(weathers)
-//                return Disposables.create { }
-//            }
-//            .bind(to: self.weathers)
-//            .disposed(by: disposeBag)
-//        }
-        
-        
-//        SavedRegionManager.shared.savedRegionSubject
-//            .map { regions in
-//                var newDictionary: [RegionModel:WeatherModel] = [:]
-//
-//                regions.forEach {
-//                    newDictionary[$0] = WeatherModelManager.shared.weatherModels[$0]?.getCurrentWeather()
-//                }
-//
-//                return newDictionary
-//            }
-//            .bind(to: favoriteRegionCurrentWeathers)
-//            .disposed(by: disposeBag)
-        
-        favoriteRegionCurrentWeathers.map {
-            var newDictionary: [MKPointAnnotation:WeatherModel] = [:]
+        favoriteRegionData.map {
+            var newDictionary: [MKPointAnnotation:FavoriteRegionCellData] = [:]
             $0.forEach {
                 let latitude = Double($0.key.latitude) ?? 0
                 let longitude = Double($0.key.longitude) ?? 0
-
+                
                 let pin = MKPointAnnotation()
                 let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                 pin.coordinate = coordinate
@@ -54,12 +32,28 @@ class MapViewModel {
                 
                 newDictionary[pin] = $0.value
             }
-
+            
             return newDictionary
         }
-        .debug()
         .bind(to: mapAnnotations)
         .disposed(by: disposeBag)
+        
+        Observable
+            .combineLatest(selectedMapLocation.asObservable(), favoriteRegionData)
+            .map { $1[$0]! }
+            .bind(to: selectedMapLocationData)
+            .disposed(by: disposeBag)
+            
     }
     
+    func updateSelectedMapLocation(regionName: String?, locality: String?) {
+        SavedRegionManager.shared.savedRegionSubject
+            .take(1)
+            .subscribe(onNext: {
+                if let regionModel = $0.first(where: {$0.regionName == regionName && $0.locality == locality}) {
+                    self.selectedMapLocation.onNext(regionModel)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
 }

@@ -25,16 +25,9 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mapLocationDescriptionView.isHidden = true
         setLayout()
-        
-        viewModel.mapAnnotations
-            .subscribe(onNext: {
-                $0.keys.forEach {
-                    print($0.coordinate)
-                    self.mapView.addAnnotation($0)
-                }
-            })
-            .disposed(by: viewModel.disposeBag)
+        setData()
     }
     
     private func setLayout() {
@@ -48,27 +41,27 @@ class MapViewController: UIViewController {
         mapLocationDescriptionView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.9)
-            make.height.equalToSuperview().multipliedBy(0.17)
-            make.top.equalTo(view.snp.bottom)
+            make.height.equalToSuperview().multipliedBy(0.19)
+            make.bottom.equalToSuperview().offset(-20)
         }
+    }
+    
+    private func setData() {
+        viewModel.mapAnnotations
+            .subscribe(onNext: {
+                $0.keys.forEach {
+                    self.mapView.addAnnotation($0)
+                }
+            })
+            .disposed(by: viewModel.disposeBag)
+        
+        viewModel.selectedMapLocationData
+            .bind(to: mapLocationDescriptionView.mapLocationData)
+            .disposed(by: mapLocationDescriptionView.disposeBag)
     }
 
     private func toggleMapLocation(isActivated: Bool) {
-        let mapLacationDescriptionViewHeight: CGFloat = mapLocationDescriptionView.frame.height
-        
-        if isActivated {
-            UIView.animate(withDuration: 1.0, delay: 0) {
-                self.mapLocationDescriptionView.snp.updateConstraints { make in
-                    make.top.equalTo(self.view.snp.bottom).offset(mapLacationDescriptionViewHeight * 1.1)
-                }
-            }
-        } else {
-            UIView.animate(withDuration: 1.0, delay: 0) {
-                self.mapLocationDescriptionView.snp.updateConstraints { make in
-                    make.top.equalTo(self.view.snp.bottom)
-                }
-            }
-        }
+        mapLocationDescriptionView.isHidden = !isActivated
     }
     
 }
@@ -90,18 +83,32 @@ extension MapViewController: MKMapViewDelegate {
             annotationView!.annotation = annotation
         }
         
-        let pinImage = UIImage(named: "wave")
+        let pinImage = UIImage(named: "star")
         annotationView!.image = pinImage
         
         return annotationView
     }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        toggleMapLocation(isActivated: true)
+        
+        if let annotation = view.annotation {
+            let regionName = annotation.title ?? ""
+            let locality = annotation.subtitle ?? ""
+            
+            viewModel.updateSelectedMapLocation(regionName: regionName, locality: locality)
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        toggleMapLocation(isActivated: false)
+    }
 }
 
 class MapLocationDescriptionView: UIView {
-    let locationData: ReplaySubject<FavoriteRegionCellData> = ReplaySubject<FavoriteRegionCellData>.create(bufferSize: 1)
+    let mapLocationData: ReplaySubject<FavoriteRegionCellData> = ReplaySubject<FavoriteRegionCellData>.create(bufferSize: 1)
     let disposeBag = DisposeBag()
     
-    var region: RegionModel!
     // 지역 설명 views
     let regionStackView: UIStackView = .makeDefaultStackView(axis: .vertical, alignment: .leading, distribution: .fillProportionally, spacing: 5, layoutMargin: nil, color: .clear)
     let regionNameLabel: UILabel = .makeLabel(fontColor: .black, font: .systemFont(ofSize: 22, weight: .bold))
@@ -146,6 +153,7 @@ class MapLocationDescriptionView: UIView {
         
         setStackView()
         setSubview()
+        setData()
     }
     
     required init?(coder: NSCoder) {
@@ -233,6 +241,63 @@ class MapLocationDescriptionView: UIView {
     }
     
     private func setData() {
+        mapLocationData.map {
+            $0.region.regionName
+        }
+        .bind(to: regionNameLabel.rx.text)
+        .disposed(by: disposeBag)
         
+        mapLocationData.map {
+            $0.region.locality
+        }
+        .bind(to: localityLabel.rx.text)
+        .disposed(by: disposeBag)
+        
+        mapLocationData.map {
+            let minWaveHeight = $0.minMaxWaveHeight.min
+            let maxWaveHeight = $0.minMaxWaveHeight.max
+            
+            return "\(minWaveHeight) - \(maxWaveHeight)m"
+        }
+        .bind(to: waveLabel.rx.text)
+        .disposed(by: disposeBag)
+      
+        mapLocationData.map {
+           "\($0.windSpeed)m/s"
+        }
+        .bind(to: windLabel.rx.text)
+        .disposed(by: disposeBag)
+      
+        mapLocationData.map {
+            "\($0.temparature)°"
+        }
+        .bind(to: temparatureLabel.rx.text)
+        .disposed(by: disposeBag)
+        
+        mapLocationData.map {
+            $0.surfCondition.0
+        }
+        .bind(to: surfDescriptionLabel.rx.text)
+        .disposed(by: disposeBag)
+        
+        mapLocationData.map {
+            $0.surfCondition.1
+        }
+        .bind(to: surfDescriptionLabel.rx.textColor)
+        .disposed(by: disposeBag)
+        
+        mapLocationData.map {
+            $0.surfCondition.1
+        }
+        .bind(to: surfDescriptionColorView.rx.backgroundColor)
+        .disposed(by: disposeBag)
+        
+        mapLocationData.map {
+            UIImage(named: $0.weatherCondition)
+        }
+        .bind(to: weatherIconView.rx.image)
+        .disposed(by: disposeBag)
+        
+        surfDescriptionColorView.backgroundColor = .customGreen
     }
 }
