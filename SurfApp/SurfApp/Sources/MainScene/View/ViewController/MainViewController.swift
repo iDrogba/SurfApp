@@ -15,6 +15,8 @@ class MainViewController: UIViewController {
     let viewModel = MainViewModel()
     let disposeBag = DisposeBag()
     
+    let mapViewController = MapViewController()
+    
     private lazy var searchController = UISearchController()
     private lazy var searchTableView = SearchTableView(frame: .zero, style: .plain)
     private lazy var favoriteRegionCollectionView = FavoriteRegionCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -51,8 +53,16 @@ class MainViewController: UIViewController {
         setLayOut()
         bindSearch()
         bindFavoriteRegionCollectionView()
+        setMapViewController()
         
         viewModel.searchCompleter.delegate = self
+        
+        mapButton.addTarget(self, action: #selector(onTapMapButton), for: .touchUpInside)
+    }
+    
+    @objc
+    private func onTapMapButton() {
+        self.present(mapViewController, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,6 +72,15 @@ class MainViewController: UIViewController {
             self.mapButton.layer.cornerRadius = self.mapButton.frame.width / 1.5
         }
         setNavigationBar()
+    }
+    
+    private func setMapViewController() {
+        mapViewController.modalPresentationStyle = .fullScreen
+        mapViewController.modalTransitionStyle = .coverVertical
+        
+        viewModel.favoriteRegionCurrentWeathers
+            .bind(to: mapViewController.viewModel.favoriteRegionCurrentWeathers)
+            .disposed(by: mapViewController.viewModel.disposeBag)
     }
     
     private func setNavigationBar() {
