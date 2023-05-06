@@ -147,7 +147,7 @@ class DetailWeatherViewController: UIViewController {
     
     @objc
     private func onTapNavigationBackButton() {
-        self.navigationController?.popToRootViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc

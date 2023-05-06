@@ -14,7 +14,7 @@ class MapViewModel {
     let favoriteRegionData = PublishSubject<[RegionModel:FavoriteRegionCellData]>()
     let mapAnnotations = ReplaySubject<[MKPointAnnotation:FavoriteRegionCellData]>.create(bufferSize: 1)
     
-    let selectedMapLocation = PublishSubject<RegionModel>()
+    let selectedMapLocation = ReplaySubject<RegionModel>.create(bufferSize: 1)
     let selectedMapLocationData = PublishSubject<FavoriteRegionCellData>()
     
     init() {

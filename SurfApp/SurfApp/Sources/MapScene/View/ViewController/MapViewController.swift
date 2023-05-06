@@ -28,6 +28,8 @@ class MapViewController: UIViewController {
         mapLocationDescriptionView.isHidden = true
         setLayout()
         setData()
+        setTapAction()
+        setNavigationBar()
     }
     
     private func setLayout() {
@@ -64,6 +66,33 @@ class MapViewController: UIViewController {
         mapLocationDescriptionView.isHidden = !isActivated
     }
     
+    private func setTapAction() {
+        let onTapGesture = UITapGestureRecognizer(target: self, action: #selector(onTapMapLocationDescriptionView))
+        mapLocationDescriptionView.addGestureRecognizer(onTapGesture)
+    }
+    
+    @objc
+    private func onTapMapLocationDescriptionView() {
+        viewModel.selectedMapLocation
+            .take(1)
+            .subscribe { regionModel in
+                let detailWeatherViewController = DetailWeatherViewController(region: regionModel)
+                self.navigationController?.pushViewController(detailWeatherViewController, animated: true)
+            }
+            .disposed(by: viewModel.disposeBag)
+    }
+    
+    private func setNavigationBar() {
+        let chevronImage = UIImage(systemName: "chevron.left")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let backButtonItem = UIBarButtonItem(image: chevronImage, style: .plain, target: self, action: #selector(onTapNavigationBackButton))
+        
+        navigationItem.setLeftBarButtonItems([backButtonItem], animated: false)
+    }
+    
+    @objc
+    private func onTapNavigationBackButton() {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
 }
 
 extension MapViewController: MKMapViewDelegate {
