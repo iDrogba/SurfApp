@@ -62,7 +62,6 @@ class MainViewController: UIViewController {
     
     @objc
     private func onTapMapButton() {
-//        self.present(mapViewController, animated: true)
         self.navigationController?.pushViewController(mapViewController, animated: true)
     }
     
