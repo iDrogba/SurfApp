@@ -40,10 +40,10 @@ class MapViewModel {
         
         Observable
             .combineLatest(selectedMapLocation.asObservable(), favoriteRegionData)
+            .filter({ $1[$0] != nil })
             .map { $1[$0]! }
             .bind(to: selectedMapLocationData)
             .disposed(by: disposeBag)
-            
     }
     
     func updateSelectedMapLocation(regionName: String?, locality: String?) {

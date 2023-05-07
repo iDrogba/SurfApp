@@ -88,6 +88,8 @@ class MainViewController: UIViewController {
         searchController.searchBar.placeholder = placeHolder
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.delegate = self
+        searchController.searchBar.setValue("취소", forKey: "cancelButtonText")
+        searchController.searchBar.tintColor = .black
         
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -113,10 +115,9 @@ class MainViewController: UIViewController {
         
         searchTableView.rx.itemSelected
             .map {
-                self.searchController.searchBar.resignFirstResponder()
-                self.searchController.searchBar.text = nil
-                
-                self.animateHideSearchTableView(true)
+//                self.searchController.searchBar.resignFirstResponder()
+//                self.searchController.setEditing(false, animated: true)
+                self.isHiddenSearchTableView(true)
                 self.searchController.searchBar.rx.text.onNext(nil)
                 
                 return $0.row
@@ -196,24 +197,16 @@ extension MainViewController {
 
 extension MainViewController: UISearchControllerDelegate {
     func presentSearchController(_ searchController: UISearchController) {
-        animateHideSearchTableView(false)
+        isHiddenSearchTableView(false)
     }
     
-    func didDismissSearchController(_ searchController: UISearchController) {
-        animateHideSearchTableView(true)
+    func willDismissSearchController(_ searchController: UISearchController) {
+        isHiddenSearchTableView(true)
     }
     
-    private func animateHideSearchTableView(_ isHidden: Bool) {
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear) { [weak self] in
-            guard let self = self else { return }
-            if isHidden {
-                self.searchTableView.alpha = 0.0
-            } else {
-                self.searchTableView.alpha = 1.0
-            }
-            self.searchTableView.isHidden = isHidden
-            self.favoriteRegionCollectionView.isHidden = !isHidden
-        }
+    private func isHiddenSearchTableView(_ isHidden: Bool) {
+        self.searchTableView.isHidden = isHidden
+        self.favoriteRegionCollectionView.isHidden = !isHidden
     }
 }
 
