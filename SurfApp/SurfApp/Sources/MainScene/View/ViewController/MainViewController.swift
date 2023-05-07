@@ -114,14 +114,7 @@ class MainViewController: UIViewController {
             .disposed(by: disposeBag)
         
         searchTableView.rx.itemSelected
-            .map {
-//                self.searchController.searchBar.resignFirstResponder()
-//                self.searchController.setEditing(false, animated: true)
-                self.isHiddenSearchTableView(true)
-                self.searchController.searchBar.rx.text.onNext(nil)
-                
-                return $0.row
-            }
+            .map { $0.row }
             .withLatestFrom(viewModel.searchResults) { index, searchResults in
                 searchResults[index]
             }
@@ -139,6 +132,11 @@ class MainViewController: UIViewController {
                         let viewController = DetailWeatherViewController(region: region)
                         viewController.modalPresentationStyle = .fullScreen
                         self.navigationController?.pushViewController(viewController, animated: true)
+                        
+                        // MainVC UI 정리
+                        self.isHiddenSearchTableView(true)
+                        self.searchController.searchBar.rx.text.onNext(nil)
+                        self.searchController.isActive = false
                     }
                 }
             })
@@ -207,6 +205,10 @@ extension MainViewController: UISearchControllerDelegate {
     private func isHiddenSearchTableView(_ isHidden: Bool) {
         self.searchTableView.isHidden = isHidden
         self.favoriteRegionCollectionView.isHidden = !isHidden
+        
+        if isHidden {
+            viewModel.searchResults.onNext([])
+        }
     }
 }
 
