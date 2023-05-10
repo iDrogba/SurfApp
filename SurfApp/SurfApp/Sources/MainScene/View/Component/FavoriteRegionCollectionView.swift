@@ -150,11 +150,6 @@ class FavoriteRegionCollectionViewCell: UICollectionViewCell {
             make.bottom.equalTo(surfWeatherStackView.snp.centerY)
         }
         
-        weatherIconView.snp.makeConstraints { make in
-            make.width.equalToSuperview().multipliedBy(0.5)
-            
-            make.height.equalTo(weatherIconView.snp.width)
-        }
     }
     
     func setStackView() {

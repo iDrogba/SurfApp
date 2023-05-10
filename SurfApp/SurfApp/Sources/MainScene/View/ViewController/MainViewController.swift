@@ -69,7 +69,7 @@ class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         
         DispatchQueue.main.async {
-            self.mapButton.layer.cornerRadius = self.mapButton.frame.width / 1.5
+            self.mapButton.layer.cornerRadius = self.mapButton.frame.width / 1.3
         }
         setNavigationBar()
     }
