@@ -20,6 +20,7 @@ class DetailWeatherViewModel {
     let currentWeathers = ReplaySubject<WeatherModel>.create(bufferSize: 1)
 
     let threeHourEachDayWeathers = PublishSubject<[[WeatherModel]]>()
+    let currentWeekMinMaxWaveHeight = ReplaySubject<(min:Double, max:Double)>.create(bufferSize: 1)
     let selectedDayDatas = PublishSubject<[WeatherModel]>()
     let weekWeatherCellDatas = ReplaySubject<[WeekWeatherCellData]>.create(bufferSize: 1)
     let dayWeatherCellDatas = ReplaySubject<[DayWeatherCellData]>.create(bufferSize: 1)
@@ -32,6 +33,7 @@ class DetailWeatherViewModel {
         setTodayWeathers()
         setCurrentWeathers()
         setThreeHourEachDayWeathers()
+        setMinMaxWaveHeight()
         setWeekWeatherModels()
         setSelectedDayDatas()
         setDayWindGraphDatas()
@@ -164,11 +166,18 @@ class DetailWeatherViewModel {
             .disposed(by: disposeBag)
     }
     
+    private func setMinMaxWaveHeight() {
+        self.weathers
+            .map { $0.getWeatherAfter(day: Date()) }
+            .map { $0.minMaxWaveHeight() }
+            .bind(to: self.currentWeekMinMaxWaveHeight)
+            .disposed(by: disposeBag)
+    }
+    
     private func setDayWaveGraphDatas() {
-        selectedDayDatas
-            .map { weathers in
-                let minMaxWaveHeight = weathers.minMaxWaveHeight()
-                
+        
+        Observable.combineLatest(selectedDayDatas, currentWeekMinMaxWaveHeight)
+            .map { weathers, minMaxWaveHeight in
                 let barGraphModel = weathers.map {
                     let waveHeight = $0.waveHeight
                     let wavePeriod = $0.wavePeriod
@@ -190,6 +199,7 @@ class DetailWeatherViewModel {
             }
             .bind(to: dayWaveGraphModels)
             .disposed(by: disposeBag)
+        
     }
     
     func toggleFavoriteRegion() {
