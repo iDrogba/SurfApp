@@ -29,6 +29,7 @@
 		0A39B8AE29F548B4003B58DB /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B8AD29F548B4003B58DB /* MapViewModel.swift */; };
 		0A39B8B02A07B1BE003B58DB /* MapLocationDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B8AF2A07B1BE003B58DB /* MapLocationDescriptionView.swift */; };
 		0A39B8B22A1506AC003B58DB /* InformationWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B8B12A1506AC003B58DB /* InformationWebViewController.swift */; };
+		0A39B8B52A15172B003B58DB /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 0A39B8B42A15172B003B58DB /* GoogleMobileAds */; };
 		0A4AF0AA29B231BF0034E5D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */; };
 		0A4AF0AC29B231BF0034E5D0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */; };
 		0A4AF0B329B231C00034E5D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A4AF0B229B231C00034E5D0 /* Assets.xcassets */; };
@@ -131,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A39B8B52A15172B003B58DB /* GoogleMobileAds in Frameworks */,
 				0A39B89829D96BEF003B58DB /* Charts in Frameworks */,
 				0A4AF0E029B232690034E5D0 /* RxSwift in Frameworks */,
 				0A4AF0E329B232960034E5D0 /* SnapKit in Frameworks */,
@@ -448,6 +450,7 @@
 				0A4AF0DF29B232690034E5D0 /* RxSwift */,
 				0A4AF0E229B232960034E5D0 /* SnapKit */,
 				0A39B89729D96BEF003B58DB /* Charts */,
+				0A39B8B42A15172B003B58DB /* GoogleMobileAds */,
 			);
 			productName = SurfApp;
 			productReference = 0A4AF0A629B231BF0034E5D0 /* SurfApp.app */;
@@ -526,6 +529,7 @@
 				0A4AF0DC29B232690034E5D0 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				0A4AF0E129B232960034E5D0 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				0A39B89629D96BEF003B58DB /* XCRemoteSwiftPackageReference "Charts" */,
+				0A39B8B32A15172B003B58DB /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			productRefGroup = 0A4AF0A729B231BF0034E5D0 /* Products */;
 			projectDirPath = "";
@@ -957,6 +961,14 @@
 				minimumVersion = 4.1.0;
 			};
 		};
+		0A39B8B32A15172B003B58DB /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 		0A4AF0D929B2322E0034E5D0 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -988,6 +1000,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0A39B89629D96BEF003B58DB /* XCRemoteSwiftPackageReference "Charts" */;
 			productName = Charts;
+		};
+		0A39B8B42A15172B003B58DB /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A39B8B32A15172B003B58DB /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
 		};
 		0A4AF0DA29B2322E0034E5D0 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
