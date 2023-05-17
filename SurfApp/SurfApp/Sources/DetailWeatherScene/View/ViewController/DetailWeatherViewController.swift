@@ -81,6 +81,7 @@ class DetailWeatherViewController: UIViewController {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "questionMark")
         imageView.contentMode = .scaleAspectFit
+        imageView.isUserInteractionEnabled = true
         
         return imageView
     }()
@@ -96,7 +97,7 @@ class DetailWeatherViewController: UIViewController {
     let dayWeatherCollectionView = DayWeatherCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     let dayWindGraph = DayWindGraph(frame: .zero)
     var waveBarGraph = BarGraph()
-
+    
     init(region: RegionModel) {
         viewModel = DetailWeatherViewModel(region: region)
         
@@ -120,6 +121,7 @@ class DetailWeatherViewController: UIViewController {
         setStackView()
         setCollectionView()
         setGraph()
+        setDetailImageViewGesture()
     }
     
     private func setNavigationBar() {
@@ -378,5 +380,16 @@ class DetailWeatherViewController: UIViewController {
             make.width.equalToSuperview().multipliedBy(0.7)
             make.height.equalToSuperview().multipliedBy(0.7)
         }
+    }
+    
+    private func setDetailImageViewGesture() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTapDetailButton))
+        detailImageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc
+    private func onTapDetailButton() {
+        let viewController = InformationWebViewController()
+        self.present(viewController, animated: true)
     }
 }
