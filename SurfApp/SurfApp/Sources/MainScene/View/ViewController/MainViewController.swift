@@ -20,6 +20,7 @@ class MainViewController: UIViewController {
     private lazy var searchController = UISearchController()
     private lazy var searchTableView = SearchTableView(frame: .zero, style: .plain)
     private lazy var favoriteRegionCollectionView = FavoriteRegionCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    private lazy var favoriteRegionCollectionBackgroundView = FavoriteRegionCollectionBackgroundView(frame: .zero)
     
     private lazy var mapButton: UIButton = {
         let button = UIButton()
@@ -144,12 +145,24 @@ class MainViewController: UIViewController {
     }
     
     private func bindFavoriteRegionCollectionView() {
+        viewModel.savedRegions
+            .map { $0.count == 0 }
+            .map {
+                if $0 {
+                    return self.favoriteRegionCollectionBackgroundView
+                } else {
+                    return nil
+                }
+            }
+            .bind(to: favoriteRegionCollectionView.rx.backgroundView)
+            .disposed(by: disposeBag)
+        
         viewModel.favoriteRegionCellData
             .bind(to: favoriteRegionCollectionView.rx.items(cellIdentifier: FavoriteRegionCollectionViewCell.identifier, cellType: FavoriteRegionCollectionViewCell.self)) { item, element, cell in
                 cell.setData(weather: element.value)
             }
             .disposed(by: disposeBag)
-        
+                
         favoriteRegionCollectionView.rx.itemSelected
             .subscribe(onNext: { [unowned self] indexPath in
                 if let cell = self.favoriteRegionCollectionView.cellForItem(at: indexPath) as? FavoriteRegionCollectionViewCell {

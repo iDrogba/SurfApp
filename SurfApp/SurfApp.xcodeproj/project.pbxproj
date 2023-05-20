@@ -30,6 +30,7 @@
 		0A39B8B02A07B1BE003B58DB /* MapLocationDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B8AF2A07B1BE003B58DB /* MapLocationDescriptionView.swift */; };
 		0A39B8B22A1506AC003B58DB /* InformationWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B8B12A1506AC003B58DB /* InformationWebViewController.swift */; };
 		0A39B8B52A15172B003B58DB /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 0A39B8B42A15172B003B58DB /* GoogleMobileAds */; };
+		0A39B8B72A189B96003B58DB /* FavoriteRegionCollectionBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B8B62A189B96003B58DB /* FavoriteRegionCollectionBackgroundView.swift */; };
 		0A4AF0AA29B231BF0034E5D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */; };
 		0A4AF0AC29B231BF0034E5D0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */; };
 		0A4AF0B329B231C00034E5D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A4AF0B229B231C00034E5D0 /* Assets.xcassets */; };
@@ -98,6 +99,7 @@
 		0A39B8AD29F548B4003B58DB /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		0A39B8AF2A07B1BE003B58DB /* MapLocationDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationDescriptionView.swift; sourceTree = "<group>"; };
 		0A39B8B12A1506AC003B58DB /* InformationWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationWebViewController.swift; sourceTree = "<group>"; };
+		0A39B8B62A189B96003B58DB /* FavoriteRegionCollectionBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRegionCollectionBackgroundView.swift; sourceTree = "<group>"; };
 		0A4AF0A629B231BF0034E5D0 /* SurfApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 			children = (
 				0A4AF10129B316C50034E5D0 /* FavoriteRegionCollectionView.swift */,
 				0A4AF10329B31C510034E5D0 /* SearchTableView.swift */,
+				0A39B8B62A189B96003B58DB /* FavoriteRegionCollectionBackgroundView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -575,6 +578,7 @@
 			files = (
 				0A4AF10229B316C50034E5D0 /* FavoriteRegionCollectionView.swift in Sources */,
 				0A39B88F29D5CDA5003B58DB /* WeekWeatherCollectionView.swift in Sources */,
+				0A39B8B72A189B96003B58DB /* FavoriteRegionCollectionBackgroundView.swift in Sources */,
 				0A4AF10029B243F90034E5D0 /* Date+.swift in Sources */,
 				0A39B89A29D96CE2003B58DB /* DayWindGraph.swift in Sources */,
 				0A4AF0F129B237B30034E5D0 /* RegionModel.swift in Sources */,
