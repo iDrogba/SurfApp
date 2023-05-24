@@ -12,12 +12,15 @@ import RxSwift
 class MapViewModel {
     let disposeBag = DisposeBag()
     let favoriteRegionData = PublishSubject<[RegionModel:FavoriteRegionCellData]>()
+    let defaultRegion = PublishSubject<[RegionModel]>()
     let mapAnnotations = ReplaySubject<[MKPointAnnotation:FavoriteRegionCellData]>.create(bufferSize: 1)
     
     let selectedMapLocation = ReplaySubject<RegionModel>.create(bufferSize: 1)
     let selectedMapLocationData = PublishSubject<FavoriteRegionCellData>()
     
     init() {
+        loadDefaultRegionData()
+        
         favoriteRegionData.map {
             var newDictionary: [MKPointAnnotation:FavoriteRegionCellData] = [:]
             $0.forEach {
@@ -44,6 +47,21 @@ class MapViewModel {
             .map { $1[$0]! }
             .bind(to: selectedMapLocationData)
             .disposed(by: disposeBag)
+    }
+    
+    func loadDefaultRegionData() {
+        let fileName: String = "DefaultRegionData"
+        let extensionType = "json"
+        
+        guard let fileLocation = Bundle.main.url(forResource: fileName, withExtension: extensionType) else { return }
+        
+        do {
+            let data = try Data(contentsOf: fileLocation)
+            let defaultRegions = try JSONDecoder().decode([RegionModel].self, from: data)
+
+            defaultRegion.onNext(defaultRegions)
+        } catch {
+        }
     }
     
     func updateSelectedMapLocation(regionName: String?, locality: String?) {

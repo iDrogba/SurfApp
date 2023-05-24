@@ -31,6 +31,7 @@
 		0A39B8B22A1506AC003B58DB /* InformationWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B8B12A1506AC003B58DB /* InformationWebViewController.swift */; };
 		0A39B8B52A15172B003B58DB /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 0A39B8B42A15172B003B58DB /* GoogleMobileAds */; };
 		0A39B8B72A189B96003B58DB /* FavoriteRegionCollectionBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B8B62A189B96003B58DB /* FavoriteRegionCollectionBackgroundView.swift */; };
+		0A39B8B92A1E5095003B58DB /* DefaultRegionData.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A39B8B82A1E5095003B58DB /* DefaultRegionData.json */; };
 		0A4AF0AA29B231BF0034E5D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */; };
 		0A4AF0AC29B231BF0034E5D0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */; };
 		0A4AF0B329B231C00034E5D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A4AF0B229B231C00034E5D0 /* Assets.xcassets */; };
@@ -100,6 +101,7 @@
 		0A39B8AF2A07B1BE003B58DB /* MapLocationDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationDescriptionView.swift; sourceTree = "<group>"; };
 		0A39B8B12A1506AC003B58DB /* InformationWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationWebViewController.swift; sourceTree = "<group>"; };
 		0A39B8B62A189B96003B58DB /* FavoriteRegionCollectionBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRegionCollectionBackgroundView.swift; sourceTree = "<group>"; };
+		0A39B8B82A1E5095003B58DB /* DefaultRegionData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DefaultRegionData.json; sourceTree = "<group>"; };
 		0A4AF0A629B231BF0034E5D0 /* SurfApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 		0A4AF0A829B231BF0034E5D0 /* SurfApp */ = {
 			isa = PBXGroup;
 			children = (
+				0A39B8B82A1E5095003B58DB /* DefaultRegionData.json */,
 				0A4AF0FA29B23B950034E5D0 /* APIKey.swift */,
 				0A4AF0E629B234190034E5D0 /* Sources */,
 				0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */,
@@ -550,6 +553,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A39B8B92A1E5095003B58DB /* DefaultRegionData.json in Resources */,
 				0A4AF0B629B231C00034E5D0 /* LaunchScreen.storyboard in Resources */,
 				0A4AF0B329B231C00034E5D0 /* Assets.xcassets in Resources */,
 			);
