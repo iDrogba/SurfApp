@@ -12,7 +12,8 @@ import RxSwift
 class MapViewModel {
     let disposeBag = DisposeBag()
     let favoriteRegionData = PublishSubject<[RegionModel:FavoriteRegionCellData]>()
-    let defaultRegion = PublishSubject<[RegionModel]>()
+    let defaultRegion = ReplaySubject<[RegionModel]>.create(bufferSize: 1)
+    let defaultRegionAnnotation = ReplaySubject<[MKPointAnnotation]>.create(bufferSize: 1)
     let mapAnnotations = ReplaySubject<[MKPointAnnotation:FavoriteRegionCellData]>.create(bufferSize: 1)
     
     let selectedMapLocation = ReplaySubject<RegionModel>.create(bufferSize: 1)
@@ -20,6 +21,7 @@ class MapViewModel {
     
     init() {
         loadDefaultRegionData()
+        setDefaultRegionAnnotation()
         
         favoriteRegionData.map {
             var newDictionary: [MKPointAnnotation:FavoriteRegionCellData] = [:]
@@ -62,6 +64,26 @@ class MapViewModel {
             defaultRegion.onNext(defaultRegions)
         } catch {
         }
+    }
+    
+    func setDefaultRegionAnnotation() {
+        defaultRegion
+            .map({
+                $0.map {
+                    let latitude = Double($0.latitude) ?? 0
+                    let longitude = Double($0.longitude) ?? 0
+                    
+                    let pin = MKPointAnnotation()
+                    let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                    pin.coordinate = coordinate
+                    pin.title = $0.regionName
+                    pin.subtitle = $0.locality
+                    
+                    return pin
+                }
+            })
+            .bind(to: defaultRegionAnnotation)
+            .disposed(by: disposeBag)
     }
     
     func updateSelectedMapLocation(regionName: String?, locality: String?) {

@@ -57,6 +57,14 @@ class MapViewController: UIViewController {
             })
             .disposed(by: viewModel.disposeBag)
         
+        viewModel.defaultRegionAnnotation
+            .subscribe(onNext: {
+                $0.forEach{
+                    self.mapView.addAnnotation($0)
+                }
+            })
+            .disposed(by: viewModel.disposeBag)
+        
         viewModel.selectedMapLocationData
             .bind(to: mapLocationDescriptionView.mapLocationData)
             .disposed(by: mapLocationDescriptionView.disposeBag)
@@ -112,9 +120,21 @@ extension MapViewController: MKMapViewDelegate {
             annotationView!.annotation = annotation
         }
         
-        let pinImage = UIImage(named: "star")
-        annotationView!.image = pinImage
-        
+        viewModel.defaultRegionAnnotation
+            .take(1)
+            .subscribe(onNext: {
+                if $0.contains(where: {
+                    $0.title == annotation.title
+                }) {
+                    let pinImage = UIImage(named: "grayStar")
+                    annotationView!.image = pinImage
+                } else {
+                    let pinImage = UIImage(named: "star")
+                    annotationView!.image = pinImage
+                }
+            })
+            .disposed(by: viewModel.disposeBag)
+
         return annotationView
     }
     
