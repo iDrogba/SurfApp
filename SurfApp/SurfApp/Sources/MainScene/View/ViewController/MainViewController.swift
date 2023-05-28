@@ -80,7 +80,7 @@ class MainViewController: UIViewController {
         mapViewController.modalTransitionStyle = .coverVertical
         
         viewModel.favoriteRegionCellData
-            .bind(to: mapViewController.viewModel.favoriteRegionData)
+            .bind(to: mapViewController.viewModel.regionData)
             .disposed(by: mapViewController.viewModel.disposeBag)
     }
     

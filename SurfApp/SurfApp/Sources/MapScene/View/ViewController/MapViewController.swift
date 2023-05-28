@@ -49,17 +49,17 @@ class MapViewController: UIViewController {
     }
     
     private func setData() {
-        viewModel.favoriteRegionAnnotations
+        viewModel.defaultRegionAnnotations
             .subscribe(onNext: {
-                $0.keys.forEach {
+                $0.forEach{
                     self.mapView.addAnnotation($0)
                 }
             })
             .disposed(by: viewModel.disposeBag)
         
-        viewModel.defaultRegionAnnotations
+        viewModel.favoriteRegionAnnotations
             .subscribe(onNext: {
-                $0.forEach{
+                $0.keys.forEach {
                     self.mapView.addAnnotation($0)
                 }
             })
