@@ -87,7 +87,7 @@ class MapViewModel {
     }
     
     func updateSelectedMapLocation(regionName: String?, locality: String?) {
-        SavedRegionManager.shared.savedRegionSubject
+        SavedRegionManager.shared.savedFavoriteRegionSubject
             .take(1)
             .subscribe(onNext: {
                 if let regionModel = $0.first(where: {$0.regionName == regionName && $0.locality == locality}) {

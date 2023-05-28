@@ -23,7 +23,11 @@ struct RegionModel: Equatable, Codable, Hashable {
         self.longitude = placeMark.coordinate.longitude.description
     }
     
-    public static func < (lhs: RegionModel, rhs: RegionModel) -> Bool{
+    public static func < (lhs: RegionModel, rhs: RegionModel) -> Bool {
         return lhs.regionName < rhs.regionName
+    }
+    
+    public static func == (lhs: RegionModel, rhs: RegionModel) -> Bool {
+        return lhs.regionName == rhs.regionName && lhs.locality == rhs.locality
     }
 }

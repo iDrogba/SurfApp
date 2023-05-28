@@ -39,7 +39,7 @@ class DetailWeatherViewModel {
         setDayWindGraphDatas()
         setDayWaveGraphDatas()
         
-        if let weathers = WeatherModelManager.shared.weatherModels[region] {
+        if let weathers = WeatherModelManager.shared.weatherModelDictionary[region] {
             Observable.create { observer in
                 observer.onNext(weathers)
                 return Disposables.create { }
@@ -54,7 +54,7 @@ class DetailWeatherViewModel {
     }
     
     private func setIsFavoriteRegion() {
-        SavedRegionManager.shared.savedRegionSubject
+        SavedRegionManager.shared.savedFavoriteRegionSubject
             .map {
                 $0.contains(self.region)
             }

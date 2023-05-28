@@ -46,7 +46,8 @@ class StormglassNetworking {
                             WeatherModel(region, $0)
                         }
                         
-                        WeatherModelManager.shared.weatherModels[region] = weatherModels
+                        WeatherModelManager.shared.weatherModelDictionary[region] = weatherModels
+                        
                         observer.onNext(weatherModels)
                     case .failure(_):
                         let alertController = UIAlertController(title: "서버 통신 오류", message: "잠시 후 다시 시도해주세요.", preferredStyle: .alert)
@@ -103,7 +104,8 @@ class StormglassNetworking {
                             WeatherModel(region, $0)
                         }
                         
-                        WeatherModelManager.shared.weatherModels[region] = weatherModels
+                        WeatherModelManager.shared.weatherModelDictionary[region] = weatherModels
+                        
                         weatherDictionary[region] = weatherModels
                         dispatchGroup.leave()
                     case .failure(_):

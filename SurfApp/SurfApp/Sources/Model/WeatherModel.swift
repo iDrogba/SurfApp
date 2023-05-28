@@ -7,6 +7,7 @@
 
 import Foundation
 import MapKit
+import RxSwift
 
 struct WeatherModel {
     var regionModel: RegionModel
@@ -87,47 +88,15 @@ struct WeatherModel {
 
 class WeatherModelManager {
     static let shared = WeatherModelManager()
-    var weatherModels: [RegionModel:[WeatherModel]] = [:]
+    var weatherModelDictionary: [RegionModel:[WeatherModel]] = [:]
+    
+//    func fetchSortedWeatherModelSubject() -> [WeatherModel]? {
+//        let weatherModels = weatherModelDictionary[regionModel]
+//
+//        if let weatherModels {
+//            return weatherModels.getWeatherAfter(day: Date())
+//        } else {
+//            return nil
+//        }
+//    }
 }
-
-//class UpdatedWeatherForecastModelManager {
-//    static let shared = UpdatedWeatherForecastModelManager()
-//    /**
-//     행정구역을 키값으로 날씨 예보 모델을 구분한 딕셔너리.
-//
-//     [행정구역 코드 : [날씨 예보 모델]]
-//     */
-//    var weatherForecastModels: [MKPlacemark:[WeatherModel]] = [:]
-//
-//    // 오늘 24시간 동안의 데이터 가져오기
-//    func retrieveTodayWeatherFoercastModels() async -> [MKRegionDataModel:[UpdatedWeatherForecastModel]] {
-//        var returnValue: [MKRegionDataModel:[UpdatedWeatherForecastModel]] = [:]
-//        returnValue = UpdatedWeatherForecastModelManager.shared.weatherForecastModels
-//        UpdatedWeatherForecastModelManager.shared.weatherForecastModels.forEach{
-//            if $0.value.count > 24 {
-//                returnValue[$0.key]?[24 ..< ($0.value.count)] = []
-//            }
-//        }
-//        return returnValue
-//    }
-//
-//    /// 현시각을 포함하여 앞으로의 예보 모델 가져온다.
-//    func retrieveWeatherForecastModelsAfterCurrentTime(regionModel: MKRegionDataModel) async -> [UpdatedWeatherForecastModel] {
-//        guard let returnVal = UpdatedWeatherForecastModelManager.shared.weatherForecastModels[regionModel]?.filter({($0.time - Date.dateA) >= -3600}) else { return [] }
-//        return returnVal
-//    }
-//
-//    func appendCurrentWeatherForecastModels(regionModel: MKRegionDataModel, hours: [Hours]) async {
-//        if self.weatherForecastModels[regionModel] == nil {
-//            self.weatherForecastModels[regionModel] = []
-//        }
-//        hours.forEach{
-//            let model = UpdatedWeatherForecastModel(regionModel, $0)
-//            self.weatherForecastModels[regionModel]?.append(model)
-//        }
-//    }
-//
-//    func removeWeatherForecastModels(regionModel: MKRegionDataModel) async {
-//        self.weatherForecastModels.removeValue(forKey: regionModel)
-//    }
-//}
