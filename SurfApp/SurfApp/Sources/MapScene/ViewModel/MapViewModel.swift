@@ -66,6 +66,10 @@ class MapViewModel {
             .combineLatest(defaultRegion, regionData)
             .map { (defaultRegion, regionData) in
                 
+                let defaultRegion = defaultRegion.filter {
+                    !regionData.keys.contains($0)
+                }
+                
                 return defaultRegion.map {
                     let latitude = Double($0.latitude) ?? 0
                     let longitude = Double($0.longitude) ?? 0
