@@ -110,50 +110,36 @@ extension MapViewController: MKMapViewDelegate {
         }
         
         let annotationIdentifier = "AnnotationIdentifier"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier)
-        
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
-            annotationView!.canShowCallout = true
-        }
-        else {
-            annotationView!.annotation = annotation
-        }
-        
-        let annotationLabel = UILabel()
-        annotationLabel.textColor = .black
-        annotationLabel.numberOfLines = 3
-        annotationLabel.textAlignment = .center
-        annotationLabel.font = UIFont.boldSystemFont(ofSize: 13)
-        annotationLabel.text = annotation.title!
-        annotationView?.addSubview(annotationLabel)
-        
-        let labelWidth = annotationLabel.text!.count * 13
-        annotationLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(annotationView!.snp.bottom)
-            make.height.equalTo(20)
-            make.width.equalTo(labelWidth)
-        }
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
 
-        viewModel.defaultRegionAnnotations
-            .take(1)
-            .subscribe(onNext: {
-                if $0.contains(where: {
-                    $0.title == annotation.title
-                }) {
-                    let pinImage = UIImage(named: "grayStar")
-                    annotationView!.image = pinImage
-                    annotationView?.zPriority = .min
-                } else {
-                    let pinImage = UIImage(named: "star")
-                    annotationView!.image = pinImage
-                    annotationView?.zPriority = .max
-                }
-            })
-            .disposed(by: viewModel.disposeBag)
+        annotationView = RegionAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+        annotationView.canShowCallout = true
 
-        return annotationView
+        if let regionAnnotationView = annotationView as? RegionAnnotationView {
+            regionAnnotationView.annotationLabel.text = annotation.title!
+            regionAnnotationView.setUI()
+            
+            viewModel.defaultRegionAnnotations
+                .take(1)
+                .subscribe(onNext: {
+                    if $0.contains(where: {
+                        $0.title == annotation.title
+                    }) {
+                        let pinImage = UIImage(named: "grayStar")
+                        regionAnnotationView.image = pinImage
+                        regionAnnotationView.zPriority = .min
+                    } else {
+                        let pinImage = UIImage(named: "star")
+                        regionAnnotationView.image = pinImage
+                        regionAnnotationView.zPriority = .max
+                    }
+                })
+                .disposed(by: viewModel.disposeBag)
+            
+            return regionAnnotationView
+        } else {
+            return nil
+        }
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
@@ -172,3 +158,36 @@ extension MapViewController: MKMapViewDelegate {
     }
 }
 
+class RegionAnnotationView: MKAnnotationView {
+    let annotationLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.numberOfLines = 3
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 13)
+
+        return label
+    }()
+
+    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+
+    func setUI() {
+        self.addSubview(annotationLabel)
+
+        let labelWidth = annotationLabel.text!.count * 13
+
+        annotationLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(self.snp.bottom)
+            make.height.equalTo(20)
+            make.width.equalTo(labelWidth)
+        }
+    }
+}
