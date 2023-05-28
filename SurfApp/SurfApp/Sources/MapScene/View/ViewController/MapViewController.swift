@@ -120,6 +120,22 @@ extension MapViewController: MKMapViewDelegate {
             annotationView!.annotation = annotation
         }
         
+        let annotationLabel = UILabel()
+        annotationLabel.textColor = .black
+        annotationLabel.numberOfLines = 3
+        annotationLabel.textAlignment = .center
+        annotationLabel.font = UIFont.boldSystemFont(ofSize: 13)
+        annotationLabel.text = annotation.title!
+        annotationView?.addSubview(annotationLabel)
+        
+        let labelWidth = annotationLabel.text!.count * 13
+        annotationLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(annotationView!.snp.bottom)
+            make.height.equalTo(20)
+            make.width.equalTo(labelWidth)
+        }
+
         viewModel.defaultRegionAnnotations
             .take(1)
             .subscribe(onNext: {
@@ -128,9 +144,11 @@ extension MapViewController: MKMapViewDelegate {
                 }) {
                     let pinImage = UIImage(named: "grayStar")
                     annotationView!.image = pinImage
+                    annotationView?.zPriority = .min
                 } else {
                     let pinImage = UIImage(named: "star")
                     annotationView!.image = pinImage
+                    annotationView?.zPriority = .max
                 }
             })
             .disposed(by: viewModel.disposeBag)
@@ -153,3 +171,4 @@ extension MapViewController: MKMapViewDelegate {
         toggleMapLocation(isActivated: false)
     }
 }
+
