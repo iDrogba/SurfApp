@@ -49,7 +49,7 @@ class MapViewController: UIViewController {
     }
     
     private func setData() {
-        viewModel.mapAnnotations
+        viewModel.favoriteRegionAnnotations
             .subscribe(onNext: {
                 $0.keys.forEach {
                     self.mapView.addAnnotation($0)
@@ -57,7 +57,7 @@ class MapViewController: UIViewController {
             })
             .disposed(by: viewModel.disposeBag)
         
-        viewModel.defaultRegionAnnotation
+        viewModel.defaultRegionAnnotations
             .subscribe(onNext: {
                 $0.forEach{
                     self.mapView.addAnnotation($0)
@@ -120,7 +120,7 @@ extension MapViewController: MKMapViewDelegate {
             annotationView!.annotation = annotation
         }
         
-        viewModel.defaultRegionAnnotation
+        viewModel.defaultRegionAnnotations
             .take(1)
             .subscribe(onNext: {
                 if $0.contains(where: {
