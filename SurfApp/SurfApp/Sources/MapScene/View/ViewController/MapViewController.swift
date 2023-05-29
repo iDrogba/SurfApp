@@ -18,6 +18,8 @@ class MapViewController: UIViewController {
     private lazy var mapView: MKMapView = {
         let mapView = MKMapView()
         mapView.delegate = self
+        mapView.register(RegionAnnotationView.self, forAnnotationViewWithReuseIdentifier: RegionAnnotationView.identifier)
+        mapView.register(RegionClusterView.self, forAnnotationViewWithReuseIdentifier: RegionClusterView.identifier)
         
         return mapView
     }()
@@ -104,18 +106,16 @@ class MapViewController: UIViewController {
 }
 
 extension MapViewController: MKMapViewDelegate {
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if !(annotation is MKPointAnnotation) {
-            return nil
-        }
-        
-        let annotationIdentifier = "AnnotationIdentifier"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+        switch annotation {
+        case is MKPointAnnotation:
+            guard let regionAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: RegionAnnotationView.identifier, for: annotation) as? RegionAnnotationView else {
+                return MKAnnotationView()
+            }
+            
+            regionAnnotationView.canShowCallout = true
 
-        annotationView = RegionAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
-        annotationView.canShowCallout = true
-
-        if let regionAnnotationView = annotationView as? RegionAnnotationView {
             regionAnnotationView.annotationLabel.text = annotation.title!
             regionAnnotationView.setUI()
             
@@ -136,8 +136,34 @@ extension MapViewController: MKMapViewDelegate {
                 })
                 .disposed(by: viewModel.disposeBag)
             
+            regionAnnotationView.clusteringIdentifier = "mapItemClustered"
+
             return regionAnnotationView
-        } else {
+        case is MKClusterAnnotation:
+            guard let regionClusterView = mapView.dequeueReusableAnnotationView(withIdentifier: RegionClusterView.identifier, for: annotation) as? RegionClusterView else { return MKAnnotationView() }
+            guard let clusterAnnotation = annotation as? MKClusterAnnotation else { return MKAnnotationView() }
+            
+            regionClusterView.countLabel.text = clusterAnnotation.memberAnnotations.count.description
+            
+            viewModel.favoriteRegionAnnotations
+                .take(1)
+                .subscribe {
+                    if $0.keys.contains(where: { favoriteRegionAnnotation in
+                        clusterAnnotation.memberAnnotations.contains { clusterAnnotation in
+                            clusterAnnotation.title == favoriteRegionAnnotation.title
+                        }
+                    }) {
+                        regionClusterView.countLabel.textColor = .customOrange
+                        regionClusterView.countLabel.backgroundColor = .white
+                    } else {
+                        regionClusterView.countLabel.textColor = .white
+                        regionClusterView.countLabel.backgroundColor = .customGray
+                    }
+                }
+                .disposed(by: viewModel.disposeBag)
+
+            return regionClusterView
+        default:
             return nil
         }
     }
@@ -165,29 +191,70 @@ class RegionAnnotationView: MKAnnotationView {
         label.numberOfLines = 3
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 13)
-
+        
         return label
     }()
-
+    
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-
     func setUI() {
         self.addSubview(annotationLabel)
-
+        
         let labelWidth = annotationLabel.text!.count * 13
-
+        
         annotationLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(self.snp.bottom)
             make.height.equalTo(20)
             make.width.equalTo(labelWidth)
+        }
+    }
+}
+
+final class RegionClusterView: MKAnnotationView {
+
+    // MARK: Initialization
+    let countLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.backgroundColor = .customGray
+        label.numberOfLines = 3
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 13)
+        
+        return label
+    }()
+
+    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+
+        displayPriority = .defaultHigh
+        collisionMode = .circle
+
+        frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+        layer.cornerRadius = frame.width / 2
+        layer.masksToBounds = true
+        
+        setupUI()
+    }
+
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: Setup
+    private func setupUI() {
+        addSubview(countLabel)
+    
+        countLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
 }

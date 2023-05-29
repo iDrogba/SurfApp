@@ -32,6 +32,7 @@
 		0A39B8B52A15172B003B58DB /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 0A39B8B42A15172B003B58DB /* GoogleMobileAds */; };
 		0A39B8B72A189B96003B58DB /* FavoriteRegionCollectionBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B8B62A189B96003B58DB /* FavoriteRegionCollectionBackgroundView.swift */; };
 		0A39B8B92A1E5095003B58DB /* DefaultRegionData.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A39B8B82A1E5095003B58DB /* DefaultRegionData.json */; };
+		0A39B8BB2A2479D4003B58DB /* MKAnnotation+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39B8BA2A2479D4003B58DB /* MKAnnotation+.swift */; };
 		0A4AF0AA29B231BF0034E5D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */; };
 		0A4AF0AC29B231BF0034E5D0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */; };
 		0A4AF0B329B231C00034E5D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A4AF0B229B231C00034E5D0 /* Assets.xcassets */; };
@@ -102,6 +103,7 @@
 		0A39B8B12A1506AC003B58DB /* InformationWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationWebViewController.swift; sourceTree = "<group>"; };
 		0A39B8B62A189B96003B58DB /* FavoriteRegionCollectionBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRegionCollectionBackgroundView.swift; sourceTree = "<group>"; };
 		0A39B8B82A1E5095003B58DB /* DefaultRegionData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DefaultRegionData.json; sourceTree = "<group>"; };
+		0A39B8BA2A2479D4003B58DB /* MKAnnotation+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKAnnotation+.swift"; sourceTree = "<group>"; };
 		0A4AF0A629B231BF0034E5D0 /* SurfApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SurfApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A4AF0A929B231BF0034E5D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A4AF0AB29B231BF0034E5D0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 				0A39B89D29D97730003B58DB /* UIImage+.swift */,
 				0A39B89F29E311AA003B58DB /* UIView+.swift */,
 				0A39B8A129E4439C003B58DB /* UIEdgeInsets+.swift */,
+				0A39B8BA2A2479D4003B58DB /* MKAnnotation+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -608,6 +611,7 @@
 				3F343CA529C337F3006C8FE8 /* Array+.swift in Sources */,
 				0A4AF10429B31C510034E5D0 /* SearchTableView.swift in Sources */,
 				0A39B8B02A07B1BE003B58DB /* MapLocationDescriptionView.swift in Sources */,
+				0A39B8BB2A2479D4003B58DB /* MKAnnotation+.swift in Sources */,
 				0A4AF10829B323850034E5D0 /* UITableViewCell+.swift in Sources */,
 				0A4AF0E529B232F10034E5D0 /* MainViewController.swift in Sources */,
 				0A39B88929D03158003B58DB /* FavoriteRegionCellData.swift in Sources */,
