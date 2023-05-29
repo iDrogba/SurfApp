@@ -140,8 +140,8 @@ extension MapViewController: MKMapViewDelegate {
 
             return regionAnnotationView
         case is MKClusterAnnotation:
-            guard let regionClusterView = mapView.dequeueReusableAnnotationView(withIdentifier: RegionClusterView.identifier, for: annotation) as? RegionClusterView else { return MKAnnotationView() }
             guard let clusterAnnotation = annotation as? MKClusterAnnotation else { return MKAnnotationView() }
+            guard let regionClusterView = mapView.dequeueReusableAnnotationView(withIdentifier: RegionClusterView.identifier, for: annotation) as? RegionClusterView else { return MKAnnotationView() }
             
             regionClusterView.countLabel.text = clusterAnnotation.memberAnnotations.count.description
             
@@ -169,13 +169,26 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        toggleMapLocation(isActivated: true)
-        
-        if let annotation = view.annotation {
-            let regionName = annotation.title ?? ""
-            let locality = annotation.subtitle ?? ""
+        switch view {
+        case is RegionAnnotationView:
+            toggleMapLocation(isActivated: true)
+
+            if let annotation = view.annotation {
+                let regionName = annotation.title ?? ""
+                let locality = annotation.subtitle ?? ""
+                
+                viewModel.updateSelectedMapLocation(regionName: regionName, locality: locality)
+            }
             
-            viewModel.updateSelectedMapLocation(regionName: regionName, locality: locality)
+        case is RegionClusterView:
+            let currentSpan = mapView.region.span
+            let zoomSpan = MKCoordinateSpan(latitudeDelta: currentSpan.latitudeDelta / 4.0, longitudeDelta: currentSpan.longitudeDelta / 4.0)
+            let zoomCoordinate = view.annotation?.coordinate ?? mapView.region.center
+            let zoomed = MKCoordinateRegion(center: zoomCoordinate, span: zoomSpan)
+            mapView.setRegion(zoomed, animated: true)
+            
+        default:
+            return
         }
     }
     
@@ -190,7 +203,7 @@ class RegionAnnotationView: MKAnnotationView {
         label.textColor = .black
         label.numberOfLines = 3
         label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 13)
+        label.font = UIFont.boldSystemFont(ofSize: 10)
         
         return label
     }()
@@ -205,14 +218,12 @@ class RegionAnnotationView: MKAnnotationView {
     
     func setUI() {
         self.addSubview(annotationLabel)
-        
-        let labelWidth = annotationLabel.text!.count * 13
-        
+                
         annotationLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(self.snp.bottom)
-            make.height.equalTo(20)
-            make.width.equalTo(labelWidth)
+            make.top.equalTo(self.snp.bottom).offset(-8)
+            make.height.equalTo(15)
+            make.width.equalTo(100)
         }
     }
 }
