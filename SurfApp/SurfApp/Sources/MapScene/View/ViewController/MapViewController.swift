@@ -53,16 +53,24 @@ class MapViewController: UIViewController {
     private func setData() {
         viewModel.defaultRegionAnnotations
             .subscribe(onNext: {
-                $0.forEach{
-                    self.mapView.addAnnotation($0)
+                $0.forEach{ annotation in
+                    if !self.mapView.annotations.contains(where: {
+                        $0.title == annotation.title
+                    }) {
+                        self.mapView.addAnnotation(annotation)
+                    }
                 }
             })
             .disposed(by: viewModel.disposeBag)
         
         viewModel.favoriteRegionAnnotations
             .subscribe(onNext: {
-                $0.keys.forEach {
-                    self.mapView.addAnnotation($0)
+                $0.keys.forEach { annotation in
+                    if !self.mapView.annotations.contains(where: {
+                        $0.title == annotation.title
+                    }) {
+                        self.mapView.addAnnotation(annotation)
+                    }
                 }
             })
             .disposed(by: viewModel.disposeBag)
@@ -122,9 +130,7 @@ extension MapViewController: MKMapViewDelegate {
             viewModel.defaultRegionAnnotations
                 .take(1)
                 .subscribe(onNext: {
-                    if $0.contains(where: {
-                        $0.title == annotation.title
-                    }) {
+                    if $0.contains(where: { $0.title == annotation.title }) {
                         let pinImage = UIImage(named: "grayStar")
                         regionAnnotationView.image = pinImage
                         regionAnnotationView.zPriority = .min
