@@ -39,7 +39,7 @@ class MapViewModel {
                         })
                         .disposed(by: self.disposeBag)
                     
-                    return FavoriteRegionCellData(region: region, minMaxWaveHeight: (min: 0, max: 0), windSpeed: 0, cloudCover: 0, precipitation: 0, temparature: 0, weatherCondition: "", surfCondition: ("날씨를 불러옵니다.", .customRed))
+                    return FavoriteRegionCellData.fetchDefaultData(region: region)
                 }
             }
             .bind(to: selectedMapLocationData)
@@ -135,13 +135,8 @@ class MapViewModel {
             .subscribe(onNext: {
                 var returnDic: [RegionModel:FavoriteRegionCellData] = $0
 
-                guard let currentWeather = weathers.1.getCurrentWeather() else {
-                    return
-                }
-                
-                let minMaxWaveHeight = weathers.1.minMaxWaveHeight()
-                
-                returnDic[weathers.0] = FavoriteRegionCellData(region: currentWeather.regionModel, minMaxWaveHeight: minMaxWaveHeight, windSpeed: currentWeather.windSpeed, cloudCover: currentWeather.cloudCover, precipitation: currentWeather.precipitation, temparature: currentWeather.airTemperature, weatherCondition: currentWeather.weatherCondition, surfCondition: currentWeather.surfCondition)
+                guard let favoriteRegionCellData = FavoriteRegionCellData.convertWeatherModels(weathers: weathers.1) else { return }
+                returnDic[weathers.0] = favoriteRegionCellData
                 
                 self.regionData.onNext(returnDic)
             })
