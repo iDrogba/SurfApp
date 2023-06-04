@@ -122,6 +122,7 @@ class DetailWeatherViewController: UIViewController {
         setCollectionView()
         setGraph()
         setDetailImageViewGesture()
+        setRightSwipeGesture()
     }
     
     private func setNavigationBar() {
@@ -391,5 +392,17 @@ class DetailWeatherViewController: UIViewController {
     private func onTapDetailButton() {
         let viewController = InformationWebViewController()
         self.present(viewController, animated: true)
+    }
+    
+    private func setRightSwipeGesture() {
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        swipeGestureRecognizer.direction = .right // 스와이프 방향을 설정합니다. 필요에 따라 변경 가능합니다.
+        view.addGestureRecognizer(swipeGestureRecognizer)
+    }
+    
+    @objc func handleSwipe(_ gestureRecognizer: UISwipeGestureRecognizer) {
+        if gestureRecognizer.direction == .right {
+            navigationController?.popViewController(animated: true)
+        }
     }
 }
