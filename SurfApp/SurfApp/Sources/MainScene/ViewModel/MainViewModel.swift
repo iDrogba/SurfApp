@@ -16,25 +16,18 @@ class MainViewModel {
     
     let disposeBag = DisposeBag()
     let savedRegions = ReplaySubject<[RegionModel]>.create(bufferSize: 1)
-    let favoriteRegionWeathers = PublishSubject<[RegionModel:[WeatherModel]]>()
-    let favoriteRegionTodayWeathers = PublishSubject<[RegionModel:[WeatherModel]]>()
-    let favoriteRegionCurrentWeathers = PublishSubject<[RegionModel:WeatherModel]>()
-    let favoriteRegionCellData = PublishSubject<[RegionModel:FavoriteRegionCellData]>()
+    let favoriteRegionWeathers = PublishSubject<[RegionModel:[WeatherModel]?]>()
+    let favoriteRegionTodayWeathers = PublishSubject<[RegionModel:[WeatherModel]?]>()
+    let favoriteRegionCurrentWeathers = PublishSubject<[RegionModel:WeatherModel?]>()
+    let favoriteRegionCellData = ReplaySubject<[RegionModel:FavoriteRegionCellData]>.create(bufferSize: 1)
     
     init() {
         setSearchCompleter()
         setSavedRegions()
-        setFavoriteRegionWeathers()
         setFavoriteRegionTodayWeathers()
         setFavoriteRegionCurrentWeathers()
-        
-        favoriteRegionTodayWeathers
-            .map {
-                self.convertToFavoriteRegionCellData(weathers: $0)
-            }
-            .bind(to: favoriteRegionCellData)
-            .disposed(by: disposeBag)
-        
+        setFavoriteRegionCellData()
+        setFavoriteRegionWeathers()
     }
     
     private func setSearchCompleter() {
@@ -50,6 +43,13 @@ class MainViewModel {
     
     private func setFavoriteRegionWeathers() {
         savedRegions.subscribe { regions in
+            var placeholderDatas: [RegionModel:[WeatherModel]?] = [:]
+            
+            regions.forEach {
+                placeholderDatas.updateValue(nil, forKey: $0)
+            }
+
+            self.favoriteRegionWeathers.onNext(placeholderDatas)
             
             StormglassNetworking.shared.requestWeather(regions: regions)
                 .bind(to: self.favoriteRegionWeathers)
@@ -62,9 +62,13 @@ class MainViewModel {
     private func setFavoriteRegionTodayWeathers() {
         favoriteRegionWeathers
             .map{
-                var sortedWeathers: [RegionModel:[WeatherModel]] = [:]
+                var sortedWeathers: [RegionModel:[WeatherModel]?] = [:]
                 $0.forEach {
-                    sortedWeathers[$0.key] = $0.value.getTodayWeather()
+                    if let weathers = $0.value {
+                        sortedWeathers[$0.key] = weathers.getTodayWeather()
+                    } else {
+                        sortedWeathers.updateValue(nil, forKey: $0.key)
+                    }
                 }
                 return sortedWeathers
             }
@@ -75,9 +79,13 @@ class MainViewModel {
     private func setFavoriteRegionCurrentWeathers() {
         favoriteRegionWeathers
             .map {
-                var sortedWeathers: [RegionModel:WeatherModel] = [:]
+                var sortedWeathers: [RegionModel:WeatherModel?] = [:]
                 $0.forEach {
-                    sortedWeathers[$0.key] = $0.value.getCurrentWeather()
+                    if let weathers = $0.value {
+                        sortedWeathers[$0.key] = weathers.getCurrentWeather()
+                    } else {
+                        sortedWeathers.updateValue(nil, forKey: $0.key)
+                    }
                 }
 
                 return sortedWeathers
@@ -86,13 +94,27 @@ class MainViewModel {
             .disposed(by: disposeBag)
     }
     
-    private func convertToFavoriteRegionCellData(weathers: [RegionModel:[WeatherModel]]) -> [RegionModel:FavoriteRegionCellData] {
+    private func setFavoriteRegionCellData() {
+        favoriteRegionWeathers
+            .map {
+                return self.convertToFavoriteRegionCellData(weathers: $0)
+            }
+            .bind(to: favoriteRegionCellData)
+            .disposed(by: disposeBag)
+    }
+    
+    private func convertToFavoriteRegionCellData(weathers: [RegionModel:[WeatherModel]?]) -> [RegionModel:FavoriteRegionCellData] {
         var returnDic: [RegionModel:FavoriteRegionCellData] = [:]
         
         weathers.forEach {
-            returnDic[$0.key] = FavoriteRegionCellData.convertWeatherModels(weathers: $0.value)
+            if let weatherModels = $0.value {
+                returnDic[$0.key] = FavoriteRegionCellData.convertWeatherModels(weathers: weatherModels)
+            } else {
+                let defaultCellData = FavoriteRegionCellData.fetchDefaultData(region: $0.key)
+                returnDic[$0.key] = defaultCellData
+            }
         }
-        
+
         return returnDic
     }
 }

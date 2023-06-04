@@ -13,9 +13,8 @@ import MapKit
 
 class MainViewController: UIViewController {
     let viewModel = MainViewModel()
-    let disposeBag = DisposeBag()
-    
     let mapViewController = MapViewController()
+    let disposeBag = DisposeBag()
     
     private lazy var searchController = UISearchController()
     private lazy var searchTableView = SearchTableView(frame: .zero, style: .plain)

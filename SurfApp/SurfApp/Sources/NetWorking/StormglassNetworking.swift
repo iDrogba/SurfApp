@@ -78,9 +78,9 @@ class StormglassNetworking {
         
     }
     
-    func requestWeather(regions: [RegionModel]) -> Observable<[RegionModel:[WeatherModel]]> {
+    func requestWeather(regions: [RegionModel]) -> Observable<[RegionModel:[WeatherModel]?]> {
         let dispatchGroup = DispatchGroup()
-        var weatherDictionary: [RegionModel:[WeatherModel]] = [:]
+        var weatherDictionary: [RegionModel:[WeatherModel]?] = [:]
         
         self.parameters["start"] = Date.yesterdayUTC.timeIntervalSince1970.description
         
