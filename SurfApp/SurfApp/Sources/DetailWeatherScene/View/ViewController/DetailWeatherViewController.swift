@@ -95,7 +95,11 @@ class DetailWeatherViewController: UIViewController {
         return view
     }()
     let dayWeatherCollectionView = DayWeatherCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
+    let dayWindGraphLabel: UILabel = .makeLabel(text: "바람 차트",fontColor: .customGray, font: .systemFont(ofSize: 10, weight: .bold), textAlignment: .left)
     let dayWindGraph = DayWindGraph(frame: .zero)
+    
+    let waveBarGraphLabel: UILabel = .makeLabel(text: "파도 차트",fontColor: .customGray, font: .systemFont(ofSize: 10, weight: .bold), textAlignment: .left)
     var waveBarGraph = BarGraph()
     
     init(region: RegionModel) {
@@ -280,7 +284,9 @@ class DetailWeatherViewController: UIViewController {
         view.addSubview(dayWeatherContainerView)
         
         dayWeatherContainerView.addSubview(dayWeatherCollectionView)
+        dayWeatherContainerView.addSubview(dayWindGraphLabel)
         dayWeatherContainerView.addSubview(dayWindGraph)
+        dayWeatherContainerView.addSubview(waveBarGraphLabel)
         dayWeatherContainerView.addSubview(waveBarGraph)
 
         navigationSeparator.snp.makeConstraints { make in
@@ -337,15 +343,29 @@ class DetailWeatherViewController: UIViewController {
             make.width.equalToSuperview().multipliedBy(0.95)
         }
         
-        dayWindGraph.snp.makeConstraints { make in
+        dayWindGraphLabel.snp.makeConstraints { make in
             make.top.equalTo(dayWeatherCollectionView.snp.bottom)
+            make.centerX.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.05)
+            make.width.equalToSuperview().multipliedBy(0.95)
+        }
+        
+        dayWindGraph.snp.makeConstraints { make in
+            make.top.equalTo(dayWindGraphLabel.snp.bottom)
             make.centerX.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.3)
             make.width.equalToSuperview().multipliedBy(0.95)
         }
         
+        waveBarGraphLabel.snp.makeConstraints { make in
+            make.top.equalTo(dayWindGraph.snp.bottom).offset(5)
+            make.centerX.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.05)
+            make.width.equalToSuperview().multipliedBy(0.95)
+        }
+        
         waveBarGraph.snp.makeConstraints { make in
-            make.top.equalTo(dayWindGraph.snp.bottom)
+            make.top.equalTo(waveBarGraphLabel.snp.bottom)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.95)
