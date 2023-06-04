@@ -5,7 +5,7 @@
 //  Created by 김상현 on 2023/03/30.
 //
 
-import Foundation
+import UIKit
 
 struct WeekWeatherCellData {
     var isToday: Bool
@@ -13,7 +13,7 @@ struct WeekWeatherCellData {
     var day: String
     let date: String
     let weather: String
-    let minMaxTemparature: String
+    let minMaxWaveHeight: NSAttributedString
     
     init(weathers: [WeatherModel]) {
         isToday = false
@@ -21,8 +21,16 @@ struct WeekWeatherCellData {
         day = weathers.first!.date.weekDay()
         date = weathers.first?.date.monthAndDay() ?? "1.1"
         weather = weathers.getRepresentativeWeatherCondition() ?? "wind"
-        let minMaxTemparature = weathers.minMaxTemparature()
-        self.minMaxTemparature = Int(minMaxTemparature.max).description + "/" + Int(minMaxTemparature.min).description
+        
+        let minMaxWaveHeight = weathers.minMaxWaveHeight()
+        
+        let attrsForMin = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor : UIColor.customGray]
+        let attrsForMax = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor : UIColor.black]
+        let attributedStringForMin = NSMutableAttributedString(string:"\(minMaxWaveHeight.min)~\n", attributes:attrsForMin)
+        let attributedStringForMax = NSMutableAttributedString(string:"\(minMaxWaveHeight.max)m", attributes:attrsForMax)
+        
+        attributedStringForMin.append(attributedStringForMax)
+        self.minMaxWaveHeight = attributedStringForMin
         
         if self.day == "토" || self.day == "일" {
             self.isWeekEnd = true

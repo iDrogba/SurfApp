@@ -62,7 +62,13 @@ class WeekWeatherCollectionViewCell: UICollectionViewCell {
         
         return imageView
     }()
-    let minMaxTemparatureLabel: UILabel = .makeLabel(fontColor: .black, font: .systemFont(ofSize: 12, weight: .bold))
+    
+    let minMaxWaveHeightLabel: UILabel = {
+        let label = UILabel.makeLabel(fontColor: .black, font: .systemFont(ofSize: 10, weight: .bold))
+        label.numberOfLines = 2
+        
+        return label
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -88,7 +94,7 @@ class WeekWeatherCollectionViewCell: UICollectionViewCell {
         stackView.addArrangedSubview(dayLabel)
         stackView.addArrangedSubview(dateLabel)
         stackView.addArrangedSubview(weatherImageContainerView)
-        stackView.addArrangedSubview(minMaxTemparatureLabel)
+        stackView.addArrangedSubview(minMaxWaveHeightLabel)
         
         weatherImageView.setContentHuggingPriority(.init(0), for: .vertical)
         
@@ -126,7 +132,7 @@ class WeekWeatherCollectionViewCell: UICollectionViewCell {
         dayLabel.text = weekWeatherModel.day
         dateLabel.text = weekWeatherModel.date
         weatherImageView.image = UIImage(named: weekWeatherModel.weather)
-        minMaxTemparatureLabel.text = weekWeatherModel.minMaxTemparature
+        minMaxWaveHeightLabel.attributedText = weekWeatherModel.minMaxWaveHeight
         
         if weekWeatherModel.isToday {
             dayLabel.textColor = .black
