@@ -51,19 +51,19 @@ struct WeatherCondition {
         
         switch waveHeight {
         case ...0.5:
-            waveHeightConditionDescription = "파도가 너무 얕습니다."
+            waveHeightConditionDescription = "The waves are too shallow.".localized
             representColor = .customBlue
         case 0.5 ... 1:
-            waveHeightConditionDescription = "입문자가 즐기기 좋습니다."
+            waveHeightConditionDescription = "It's good for beginners to enjoy.".localized
             representColor = .cyan
         case 1 ... 1.5:
-            waveHeightConditionDescription = "중급자가 즐기기 좋습니다."
+            waveHeightConditionDescription = "It's good for intermediate to enjoy.".localized
             representColor = .customGreen
         case 1.5 ... 2.0:
-            waveHeightConditionDescription = "상급자가 즐기기 좋습니다."
+            waveHeightConditionDescription = "It's good for advanced to enjoy.".localized
             representColor = .customYellow
         default:
-            waveHeightConditionDescription = "파도가 너무 높아 위험합니다."
+            waveHeightConditionDescription = "The waves are too high.".localized
             representColor = .customRed
         }
         

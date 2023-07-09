@@ -1,0 +1,29 @@
+/* 
+  Localizable.strings
+  SurfApp
+
+  Created by 김상현 on 2023/07/09.
+  
+*/
+
+// Main Scene
+"Search by beach name" = "해변 이름으로 검색";
+"Cancel" = "취소";
+"There is no favorite beach.\nFind some beaches by searching." = "즐겨찾기한 해변이 없습니다.\n해변을 검색해보세요!";
+
+// Detail Scene
+"Detail Forecast" = "상세 예보";
+"WaveHeight" = "파고";
+"WavePeriod" = "너울 주기";
+"WindSpeed" = "풍속";
+"Wind Chart" = "바람 차트";
+"Wave Chart" = "파도 차트";
+
+
+"The waves are too shallow." = "파도가 너무 얕습니다.";
+"It's good for beginners to enjoy." = "입문자가 즐기기 좋습니다.";
+"It's good for intermediate to enjoy." = "중급자가 즐기기 좋습니다.";
+"It's good for advanced to enjoy." = "상급자가 즐기기 좋습니다.";
+"The waves are too high." = "파도가 너무 높아 위험합니다.";
+
+"Loading weather data." = "날씨를 불러옵니다.";

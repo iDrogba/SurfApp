@@ -20,7 +20,7 @@ class FavoriteRegionCollectionBackgroundView: UIView {
     }()
     let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "즐겨찾기한 해변이 없습니다.\n해변을 검색해보세요!"
+        label.text = "There is no favorite beach.\nFind some beaches by searching.".localized
         label.textAlignment = .center
         label.textColor = .customGray
         label.font = .systemFont(ofSize: 15, weight: .bold)

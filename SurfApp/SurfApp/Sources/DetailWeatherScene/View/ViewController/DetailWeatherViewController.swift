@@ -70,13 +70,13 @@ class DetailWeatherViewController: UIViewController {
         return imageView
     }()
     let temparatureLabel: UILabel = .makeLabel(fontColor: .black, font: .boldSystemFont(ofSize: 18), textAlignment: .left)
-    let waveHeightView: DetailCurrentWeatherView = DetailCurrentWeatherView(title: "파고")
-    let wavePeriodView: DetailCurrentWeatherView = DetailCurrentWeatherView(title: "너울주기")
-    let windSpeedView: DetailCurrentWeatherView = DetailCurrentWeatherView(title: "풍속")
+    let waveHeightView: DetailCurrentWeatherView = DetailCurrentWeatherView(title: "WaveHeight".localized)
+    let wavePeriodView: DetailCurrentWeatherView = DetailCurrentWeatherView(title: "WavePeriod".localized)
+    let windSpeedView: DetailCurrentWeatherView = DetailCurrentWeatherView(title: "WindSpeed".localized)
     
     let weekWeatherCollectionView = WeekWeatherCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    let detailWeatherLabel: UILabel = .makeLabel(text: "상세 예보", fontColor: .black, font: .boldSystemFont(ofSize: 17))
+    let detailWeatherLabel: UILabel = .makeLabel(text: "Detail Forecast".localized, fontColor: .black, font: .boldSystemFont(ofSize: 17))
     let detailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "questionMark")
@@ -96,10 +96,10 @@ class DetailWeatherViewController: UIViewController {
     }()
     let dayWeatherCollectionView = DayWeatherCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    let dayWindGraphLabel: UILabel = .makeLabel(text: "바람 차트",fontColor: .customGray, font: .systemFont(ofSize: 10, weight: .bold), textAlignment: .left)
+    let dayWindGraphLabel: UILabel = .makeLabel(text: "Wind Chart".localized, fontColor: .customGray, font: .systemFont(ofSize: 10, weight: .bold), textAlignment: .left)
     let dayWindGraph = DayWindGraph(frame: .zero)
     
-    let waveBarGraphLabel: UILabel = .makeLabel(text: "파도 차트",fontColor: .customGray, font: .systemFont(ofSize: 10, weight: .bold), textAlignment: .left)
+    let waveBarGraphLabel: UILabel = .makeLabel(text: "Wave Chart".localized, fontColor: .customGray, font: .systemFont(ofSize: 10, weight: .bold), textAlignment: .left)
     var waveBarGraph = BarGraph()
     
     init(region: RegionModel) {

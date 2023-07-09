@@ -29,7 +29,7 @@ struct FavoriteRegionCellData {
     }
     
     static func fetchDefaultData(region: RegionModel) -> FavoriteRegionCellData {
-        return FavoriteRegionCellData(region: region, minMaxWaveHeight: (min: 0, max: 0), windSpeed: 0, cloudCover: 0, precipitation: 0, temparature: 0, weatherCondition: "", surfCondition: ("날씨를 불러옵니다.", .customRed))
+        return FavoriteRegionCellData(region: region, minMaxWaveHeight: (min: 0, max: 0), windSpeed: 0, cloudCover: 0, precipitation: 0, temparature: 0, weatherCondition: "", surfCondition: ("Loading weather data.".localized, .customRed))
     }
     
     static func convertWeatherModels(weathers: [WeatherModel]) -> FavoriteRegionCellData? {

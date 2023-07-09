@@ -84,11 +84,11 @@ class MainViewController: UIViewController {
     }
     
     private func setNavigationBar() {
-        let placeHolder = "해변 이름으로 검색"
+        let placeHolder = "Search by beach name".localized
         searchController.searchBar.placeholder = placeHolder
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.delegate = self
-        searchController.searchBar.setValue("취소", forKey: "cancelButtonText")
+        searchController.searchBar.setValue("Cancel".localized, forKey: "cancelButtonText")
         searchController.searchBar.tintColor = .black
         
         navigationItem.searchController = searchController

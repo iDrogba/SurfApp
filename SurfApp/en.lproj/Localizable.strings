@@ -1,0 +1,29 @@
+/* 
+  Localizable.strings
+  SurfApp
+
+  Created by 김상현 on 2023/07/09.
+  
+*/
+
+
+// Main 화면
+"Search by beach name" = "Search by beach name";
+"Cancel" = "Cancel";
+"There is no favorite beach.\nFind some beaches by searching" = "There is no favorite beach.\nFind some beaches by searching.";
+
+// Detail Scene
+"Detail Forecast" = "Detail Forecast";
+"WaveHeight" = "WaveHeight";
+"WavePeriod" = "WavePeriod";
+"WindSpeed" = "WindSpeed";
+"Wind Chart" = "Wind Chart";
+"Wave Chart" = "Wave Chart";
+
+"The waves are too shallow." = "The waves are too shallow.";
+"It's good for beginners to enjoy." = "It's good for beginners to enjoy.";
+"It's good for intermediate to enjoy." = "It's good for intermediate to enjoy.";
+"It's good for advanced to enjoy." = "It's good for advanced to enjoy.";
+"The waves are too high." = "The waves are too high.";
+
+"Loading weather data." = "Loading weather data.";

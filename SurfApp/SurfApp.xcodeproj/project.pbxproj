@@ -57,6 +57,8 @@
 		0A4AF10829B323850034E5D0 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF10729B323850034E5D0 /* UITableViewCell+.swift */; };
 		0A4AF10B29B332050034E5D0 /* DetailWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF10A29B332050034E5D0 /* DetailWeatherViewController.swift */; };
 		0A4AF11229BC5D4D0034E5D0 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF11129BC5D4D0034E5D0 /* WeatherModel.swift */; };
+		0A6D5B3E2A5ACB97002CB7C7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A6D5B402A5ACB97002CB7C7 /* Localizable.strings */; };
+		0A6D5B442A5ACD4A002CB7C7 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D5B432A5ACD4A002CB7C7 /* String+.swift */; };
 		0AE0E23929BFF4E800F5F0D6 /* SavedRegionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0E23829BFF4E800F5F0D6 /* SavedRegionManager.swift */; };
 		0AE0E23B29C07D0F00F5F0D6 /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0E23A29C07D0F00F5F0D6 /* Sequence+.swift */; };
 		3F343CA529C337F3006C8FE8 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F343CA429C337F3006C8FE8 /* Array+.swift */; };
@@ -128,6 +130,10 @@
 		0A4AF10729B323850034E5D0 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		0A4AF10A29B332050034E5D0 /* DetailWeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWeatherViewController.swift; sourceTree = "<group>"; };
 		0A4AF11129BC5D4D0034E5D0 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
+		0A6D5B3F2A5ACB97002CB7C7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0A6D5B412A5ACBAB002CB7C7 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		0A6D5B422A5ACBAB002CB7C7 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0A6D5B432A5ACD4A002CB7C7 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		0AE0E23829BFF4E800F5F0D6 /* SavedRegionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRegionManager.swift; sourceTree = "<group>"; };
 		0AE0E23A29C07D0F00F5F0D6 /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
 		3F343CA429C337F3006C8FE8 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
@@ -226,6 +232,7 @@
 		0A4AF09D29B231BF0034E5D0 = {
 			isa = PBXGroup;
 			children = (
+				0A6D5B402A5ACB97002CB7C7 /* Localizable.strings */,
 				0A4AF0A829B231BF0034E5D0 /* SurfApp */,
 				0A4AF0BF29B231C00034E5D0 /* SurfAppTests */,
 				0A4AF0C929B231C00034E5D0 /* SurfAppUITests */,
@@ -375,6 +382,7 @@
 				0A39B89F29E311AA003B58DB /* UIView+.swift */,
 				0A39B8A129E4439C003B58DB /* UIEdgeInsets+.swift */,
 				0A39B8BA2A2479D4003B58DB /* MKAnnotation+.swift */,
+				0A6D5B432A5ACD4A002CB7C7 /* String+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -531,6 +539,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 0A4AF09D29B231BF0034E5D0;
 			packageReferences = (
@@ -557,6 +566,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A39B8B92A1E5095003B58DB /* DefaultRegionData.json in Resources */,
+				0A6D5B3E2A5ACB97002CB7C7 /* Localizable.strings in Resources */,
 				0A4AF0B629B231C00034E5D0 /* LaunchScreen.storyboard in Resources */,
 				0A4AF0B329B231C00034E5D0 /* Assets.xcassets in Resources */,
 			);
@@ -623,6 +633,7 @@
 				0A39B8A029E311AA003B58DB /* UIView+.swift in Sources */,
 				0A39B88729CB30F9003B58DB /* UIStackView+.swift in Sources */,
 				0A39B89329D95CCD003B58DB /* DayWeatherCollectionView.swift in Sources */,
+				0A6D5B442A5ACD4A002CB7C7 /* String+.swift in Sources */,
 				0A39B8A429EBE1B0003B58DB /* WeatherCondition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -664,8 +675,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				0A4AF0B529B231C00034E5D0 /* Base */,
+				0A6D5B412A5ACBAB002CB7C7 /* ko */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		0A6D5B402A5ACB97002CB7C7 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A6D5B3F2A5ACB97002CB7C7 /* en */,
+				0A6D5B422A5ACBAB002CB7C7 /* ko */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -675,6 +696,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -721,7 +743,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -735,6 +757,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -775,7 +798,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
