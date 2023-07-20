@@ -10,6 +10,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 import MapKit
+import GoogleMobileAds
 
 class MainViewController: UIViewController {
     let viewModel = MainViewModel()
@@ -44,6 +45,16 @@ class MainViewController: UIViewController {
         return button
     }()
     
+    private var TopBannerView: GADBannerView = {
+        let adSize = GADAdSizeFromCGSize(CGSize(width: UIScreen.main.bounds.width, height: 50))
+        let bannerView = GADBannerView(adSize: adSize)
+
+        bannerView.backgroundColor = .defaultBackground
+        bannerView.adUnitID = "ca-app-pub-1266169411582581/6197669031"
+
+        return bannerView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -58,6 +69,13 @@ class MainViewController: UIViewController {
         viewModel.searchCompleter.delegate = self
         
         mapButton.addTarget(self, action: #selector(onTapMapButton), for: .touchUpInside)
+        setTopBannerView()
+    }
+    
+    private func setTopBannerView() {
+        TopBannerView.rootViewController = self
+        TopBannerView.load(GADRequest())
+        TopBannerView.delegate = self
     }
     
     @objc
@@ -181,6 +199,7 @@ extension MainViewController {
         view.addSubview(favoriteRegionCollectionView)
         searchController.view.addSubview(searchTableView)
         view.addSubview(mapButton)
+        view.addSubview(TopBannerView)
     }
     
     func setLayOut() {
@@ -196,11 +215,17 @@ extension MainViewController {
             make.bottom.equalToSuperview()
         }
         
+        TopBannerView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(50)
+            make.bottom.equalToSuperview()
+        }
+        
         mapButton.snp.makeConstraints { make in
             make.width.equalTo(view.snp.width).multipliedBy(0.17)
             make.height.equalTo(mapButton.snp.width)
             make.trailing.equalToSuperview().inset(24)
-            make.bottom.equalToSuperview().inset(24)
+            make.bottom.equalTo(TopBannerView.snp.top).offset(-12)
         }
     }
 }
@@ -232,4 +257,8 @@ extension MainViewController: MKLocalSearchCompleterDelegate {
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
         print(error.localizedDescription)
     }
+}
+
+extension MainViewController: GADBannerViewDelegate {
+
 }

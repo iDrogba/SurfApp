@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 import Charts
+import GoogleMobileAds
 
 class DetailWeatherViewController: UIViewController {
     let disposeBag = DisposeBag()
@@ -102,6 +103,16 @@ class DetailWeatherViewController: UIViewController {
     let waveBarGraphLabel: UILabel = .makeLabel(text: "파도 차트",fontColor: .customGray, font: .systemFont(ofSize: 10, weight: .bold), textAlignment: .left)
     var waveBarGraph = BarGraph()
     
+    private var TopBannerView: GADBannerView = {
+        let adSize = GADAdSizeFromCGSize(CGSize(width: UIScreen.main.bounds.width, height: 50))
+        let bannerView = GADBannerView(adSize: adSize)
+
+        bannerView.backgroundColor = .defaultBackground
+        bannerView.adUnitID = "ca-app-pub-1266169411582581/6197669031"
+
+        return bannerView
+    }()
+    
     init(region: RegionModel) {
         viewModel = DetailWeatherViewModel(region: region)
         
@@ -127,6 +138,7 @@ class DetailWeatherViewController: UIViewController {
         setGraph()
         setDetailImageViewGesture()
         setRightSwipeGesture()
+        setTopBannerView()
     }
     
     private func setNavigationBar() {
@@ -272,6 +284,12 @@ class DetailWeatherViewController: UIViewController {
 
     }
     
+    private func setTopBannerView() {
+        TopBannerView.rootViewController = self
+        TopBannerView.load(GADRequest())
+        TopBannerView.delegate = self
+    }
+    
     private func setUI() {
         view.addSubview(navigationSeparator)
         view.addSubview(timeLabelBackground)
@@ -281,6 +299,7 @@ class DetailWeatherViewController: UIViewController {
         view.addSubview(weekWeatherCollectionView)
         view.addSubview(detailWeatherLabel)
         view.addSubview(detailImageView)
+        view.addSubview(TopBannerView)
         view.addSubview(dayWeatherContainerView)
         
         dayWeatherContainerView.addSubview(dayWeatherCollectionView)
@@ -331,7 +350,7 @@ class DetailWeatherViewController: UIViewController {
         
         dayWeatherContainerView.snp.makeConstraints { make in
             make.top.equalTo(detailWeatherLabel.snp.bottom).offset(8)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalToSuperview().inset(52)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.9)
         }
@@ -369,6 +388,12 @@ class DetailWeatherViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.95)
+        }
+        
+        TopBannerView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(50)
+            make.bottom.equalToSuperview()
         }
     }
     
@@ -425,4 +450,9 @@ class DetailWeatherViewController: UIViewController {
             navigationController?.popViewController(animated: true)
         }
     }
+}
+
+
+extension DetailWeatherViewController: GADBannerViewDelegate {
+
 }
