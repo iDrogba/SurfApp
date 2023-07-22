@@ -5,8 +5,6 @@
 //  Created by 김상현 on 2023/03/03.
 //
 
-import AppTrackingTransparency
-import AdSupport
 import GoogleMobileAds
 import UIKit
 
@@ -39,13 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
     private func requestIDFA() {
-      ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
-        // Tracking authorization completed. Start loading ads here.
-        // loadAd()
-          GADMobileAds.sharedInstance().start(completionHandler: nil)
-
-      })
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
     }
-
 }
 
