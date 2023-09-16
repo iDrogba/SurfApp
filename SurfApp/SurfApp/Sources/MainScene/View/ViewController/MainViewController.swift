@@ -199,10 +199,16 @@ extension MainViewController {
         view.addSubview(favoriteRegionCollectionView)
         searchController.view.addSubview(searchTableView)
         view.addSubview(mapButton)
-        view.addSubview(TopBannerView)
+        searchController.searchBar.addSubview(TopBannerView)
     }
     
     func setLayOut() {
+        TopBannerView.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(searchController.searchBar)
+            make.height.equalTo(searchController.searchBar.searchTextField)
+            make.bottom.equalTo(searchController.searchBar.snp.top).inset(-5)
+        }
+        
         favoriteRegionCollectionView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.verticalEdges.equalTo(view.safeAreaLayoutGuide)
@@ -215,17 +221,11 @@ extension MainViewController {
             make.bottom.equalToSuperview()
         }
         
-        TopBannerView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(50)
-            make.bottom.equalToSuperview()
-        }
-        
         mapButton.snp.makeConstraints { make in
             make.width.equalTo(view.snp.width).multipliedBy(0.17)
             make.height.equalTo(mapButton.snp.width)
             make.trailing.equalToSuperview().inset(24)
-            make.bottom.equalTo(TopBannerView.snp.top).offset(-12)
+            make.bottom.equalTo(view.snp.bottom).offset(-12)
         }
     }
 }
@@ -242,6 +242,7 @@ extension MainViewController: UISearchControllerDelegate {
     private func isHiddenSearchTableView(_ isHidden: Bool) {
         self.searchTableView.isHidden = isHidden
         self.favoriteRegionCollectionView.isHidden = !isHidden
+        self.TopBannerView.isHidden = !isHidden
         
         if isHidden {
             viewModel.searchResults.onNext([])
