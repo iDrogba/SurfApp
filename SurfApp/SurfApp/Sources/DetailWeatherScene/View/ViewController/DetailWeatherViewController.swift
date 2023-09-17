@@ -348,9 +348,16 @@ class DetailWeatherViewController: UIViewController {
             make.leading.equalTo(detailWeatherLabel.snp.trailing)
         }
         
+        TopBannerView.snp.makeConstraints { make in
+            make.leading.equalTo(detailImageView.snp.trailing).offset(5)
+            make.trailing.equalTo(weekWeatherCollectionView.snp.trailing)
+            make.top.equalTo(weekWeatherCollectionView.snp.bottom)
+            make.bottom.equalTo(dayWeatherContainerView.snp.top)
+        }
+        
         dayWeatherContainerView.snp.makeConstraints { make in
             make.top.equalTo(detailWeatherLabel.snp.bottom).offset(8)
-            make.bottom.equalToSuperview().inset(52)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.9)
         }
@@ -388,12 +395,6 @@ class DetailWeatherViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.95)
-        }
-        
-        TopBannerView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(50)
-            make.bottom.equalToSuperview()
         }
     }
     
