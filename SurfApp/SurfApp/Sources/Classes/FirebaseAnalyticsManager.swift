@@ -11,20 +11,26 @@ import FirebaseAnalytics
 class FirebaseAnalyticsManager {
     static let shared = FirebaseAnalyticsManager()
     let udid = UIDevice.current.identifierForVendor?.uuidString ?? "unknown"
+    
+    init() {
+        Analytics.setUserID("userID: \(udid)")
+    }
 
     func onTapFavoriteRegionCollectionView(region: RegionModel) {
-        let event = "Main_onTapFavoriteRegionCollectionView"
-        let parameter = region.asDictionary()
+        let event = "Main_onTapFavoriteRegionCell"
+        let parameter = region.asDictionary
         
-        Analytics.setUserID("userID: \(udid)")
         Analytics.logEvent(event, parameters: parameter)
     }
     
-    func onTapWeekWeatherCollectionView() {
-        let event = "DetailWeather_onTapWeekWeatherCollectionView"
+    func onTapWeekWeatherCollectionView(index: Int, day: String) {
+        let event = "DetailWeather_onTapWeekWeatherCell"
+        let parameter = [
+            "요일": day,
+            "몇일후": index.description
+        ]
 
-        Analytics.setUserID("userID: \(udid)")
-        Analytics.logEvent(event, parameters: nil)
+        Analytics.logEvent(event, parameters: parameter)
     }
     
 }

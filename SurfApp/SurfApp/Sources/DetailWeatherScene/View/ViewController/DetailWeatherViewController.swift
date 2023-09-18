@@ -209,7 +209,13 @@ class DetailWeatherViewController: UIViewController {
                 if let item = indexPath.element?.item {
                     self.viewModel.selectedDateIndex.onNext(item)
                     
-                    FirebaseAnalyticsManager.shared.onTapWeekWeatherCollectionView()
+                    self.viewModel.weekWeatherCellDatas
+                        .take(1)
+                        .subscribe {
+                            let weekWeatherModel = $0[item]
+                            FirebaseAnalyticsManager.shared.onTapWeekWeatherCollectionView(index: item, day: weekWeatherModel.day)
+                        }
+                        .disposed(by: self.disposeBag)
                 }
             }
             .disposed(by: disposeBag)

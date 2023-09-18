@@ -15,6 +15,13 @@ struct RegionModel: Equatable, Codable, Hashable {
     let latitude: String
     let longitude: String
     
+    var asDictionary: [String: String] {
+        return [
+            "RegionName": regionName,
+            "Locality": "\(locality) \(subLocality)"
+        ]
+    }
+    
     init(placeMark: MKPlacemark) {
         self.regionName = placeMark.name ?? ""
         self.locality = placeMark.locality ?? ""
@@ -29,20 +36,5 @@ struct RegionModel: Equatable, Codable, Hashable {
     
     public static func == (lhs: RegionModel, rhs: RegionModel) -> Bool {
         return lhs.regionName == rhs.regionName && lhs.locality == rhs.locality
-    }
-    
-    func asDictionary() -> [String:Any] {
-        let errorDictionary = ["Error":"dictionary parse error"]
-        do {
-            let jsonData = try self.jsonData()
-            let json = try JSONSerialization.jsonObject(with: jsonData, options: [])
-            guard let dictionary = json as? [String:Any] else {
-                return errorDictionary
-            }
-            
-            return dictionary
-        } catch {
-            return errorDictionary
-        }
     }
 }
