@@ -177,6 +177,8 @@ class MainViewController: UIViewController {
         viewModel.favoriteRegionCellData
             .bind(to: favoriteRegionCollectionView.rx.items(cellIdentifier: FavoriteRegionCollectionViewCell.identifier, cellType: FavoriteRegionCollectionViewCell.self)) { item, element, cell in
                 cell.setData(weather: element.value)
+                
+                FirebaseAnalyticsManager.shared.onTapFavoriteRegionCollectionView(region: element.value.region)
             }
             .disposed(by: disposeBag)
                 

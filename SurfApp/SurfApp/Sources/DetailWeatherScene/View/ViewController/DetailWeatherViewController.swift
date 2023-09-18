@@ -12,6 +12,7 @@ import RxCocoa
 import SnapKit
 import Charts
 import GoogleMobileAds
+import FirebaseAnalytics
 
 class DetailWeatherViewController: UIViewController {
     let disposeBag = DisposeBag()
@@ -207,6 +208,14 @@ class DetailWeatherViewController: UIViewController {
             .subscribe { indexPath in
                 if let item = indexPath.element?.item {
                     self.viewModel.selectedDateIndex.onNext(item)
+                    
+                    self.viewModel.weekWeatherCellDatas
+                        .take(1)
+                        .subscribe {
+                            let weekWeatherModel = $0[item]
+                            FirebaseAnalyticsManager.shared.onTapWeekWeatherCollectionView(index: item, day: weekWeatherModel.day)
+                        }
+                        .disposed(by: self.disposeBag)
                 }
             }
             .disposed(by: disposeBag)

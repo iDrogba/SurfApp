@@ -57,6 +57,10 @@
 		0A4AF10829B323850034E5D0 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF10729B323850034E5D0 /* UITableViewCell+.swift */; };
 		0A4AF10B29B332050034E5D0 /* DetailWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF10A29B332050034E5D0 /* DetailWeatherViewController.swift */; };
 		0A4AF11229BC5D4D0034E5D0 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AF11129BC5D4D0034E5D0 /* WeatherModel.swift */; };
+		0AB877C62AB6E55900FCBBBB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AB877C52AB6E55900FCBBBB /* GoogleService-Info.plist */; };
+		0AB877C92AB710E500FCBBBB /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0AB877C82AB710E500FCBBBB /* FirebaseAnalytics */; };
+		0AB877CB2AB7310D00FCBBBB /* FirebaseAnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB877CA2AB7310D00FCBBBB /* FirebaseAnalyticsManager.swift */; };
+		0AB877CD2AB735D700FCBBBB /* Codable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB877CC2AB735D700FCBBBB /* Codable+.swift */; };
 		0AE0E23929BFF4E800F5F0D6 /* SavedRegionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0E23829BFF4E800F5F0D6 /* SavedRegionManager.swift */; };
 		0AE0E23B29C07D0F00F5F0D6 /* Sequence+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0E23A29C07D0F00F5F0D6 /* Sequence+.swift */; };
 		3F343CA529C337F3006C8FE8 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F343CA429C337F3006C8FE8 /* Array+.swift */; };
@@ -128,6 +132,9 @@
 		0A4AF10729B323850034E5D0 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		0A4AF10A29B332050034E5D0 /* DetailWeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWeatherViewController.swift; sourceTree = "<group>"; };
 		0A4AF11129BC5D4D0034E5D0 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
+		0AB877C52AB6E55900FCBBBB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0AB877CA2AB7310D00FCBBBB /* FirebaseAnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAnalyticsManager.swift; sourceTree = "<group>"; };
+		0AB877CC2AB735D700FCBBBB /* Codable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+.swift"; sourceTree = "<group>"; };
 		0AE0E23829BFF4E800F5F0D6 /* SavedRegionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRegionManager.swift; sourceTree = "<group>"; };
 		0AE0E23A29C07D0F00F5F0D6 /* Sequence+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+.swift"; sourceTree = "<group>"; };
 		3F343CA429C337F3006C8FE8 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
@@ -138,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AB877C92AB710E500FCBBBB /* FirebaseAnalytics in Frameworks */,
 				0A39B8B52A15172B003B58DB /* GoogleMobileAds in Frameworks */,
 				0A39B89829D96BEF003B58DB /* Charts in Frameworks */,
 				0A4AF0E029B232690034E5D0 /* RxSwift in Frameworks */,
@@ -169,6 +177,7 @@
 			children = (
 				0AE0E23829BFF4E800F5F0D6 /* SavedRegionManager.swift */,
 				0A39B8A329EBE1B0003B58DB /* WeatherCondition.swift */,
+				0AB877CA2AB7310D00FCBBBB /* FirebaseAnalyticsManager.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -246,6 +255,7 @@
 		0A4AF0A829B231BF0034E5D0 /* SurfApp */ = {
 			isa = PBXGroup;
 			children = (
+				0AB877C52AB6E55900FCBBBB /* GoogleService-Info.plist */,
 				0A39B8B82A1E5095003B58DB /* DefaultRegionData.json */,
 				0A4AF0FA29B23B950034E5D0 /* APIKey.swift */,
 				0A4AF0E629B234190034E5D0 /* Sources */,
@@ -375,6 +385,7 @@
 				0A39B89F29E311AA003B58DB /* UIView+.swift */,
 				0A39B8A129E4439C003B58DB /* UIEdgeInsets+.swift */,
 				0A39B8BA2A2479D4003B58DB /* MKAnnotation+.swift */,
+				0AB877CC2AB735D700FCBBBB /* Codable+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -460,6 +471,7 @@
 				0A4AF0E229B232960034E5D0 /* SnapKit */,
 				0A39B89729D96BEF003B58DB /* Charts */,
 				0A39B8B42A15172B003B58DB /* GoogleMobileAds */,
+				0AB877C82AB710E500FCBBBB /* FirebaseAnalytics */,
 			);
 			productName = SurfApp;
 			productReference = 0A4AF0A629B231BF0034E5D0 /* SurfApp.app */;
@@ -539,6 +551,7 @@
 				0A4AF0E129B232960034E5D0 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				0A39B89629D96BEF003B58DB /* XCRemoteSwiftPackageReference "Charts" */,
 				0A39B8B32A15172B003B58DB /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				0AB877C72AB710E500FCBBBB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 0A4AF0A729B231BF0034E5D0 /* Products */;
 			projectDirPath = "";
@@ -557,6 +570,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A39B8B92A1E5095003B58DB /* DefaultRegionData.json in Resources */,
+				0AB877C62AB6E55900FCBBBB /* GoogleService-Info.plist in Resources */,
 				0A4AF0B629B231C00034E5D0 /* LaunchScreen.storyboard in Resources */,
 				0A4AF0B329B231C00034E5D0 /* Assets.xcassets in Resources */,
 			);
@@ -584,6 +598,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A4AF10229B316C50034E5D0 /* FavoriteRegionCollectionView.swift in Sources */,
+				0AB877CB2AB7310D00FCBBBB /* FirebaseAnalyticsManager.swift in Sources */,
 				0A39B88F29D5CDA5003B58DB /* WeekWeatherCollectionView.swift in Sources */,
 				0A39B8B72A189B96003B58DB /* FavoriteRegionCollectionBackgroundView.swift in Sources */,
 				0A4AF10029B243F90034E5D0 /* Date+.swift in Sources */,
@@ -597,6 +612,7 @@
 				0A39B88529CB3058003B58DB /* UILabel+.swift in Sources */,
 				0A39B89129D5CF68003B58DB /* WeekWeatherCellData.swift in Sources */,
 				0A39B89529D95F46003B58DB /* DayWeatherCellData.swift in Sources */,
+				0AB877CD2AB735D700FCBBBB /* Codable+.swift in Sources */,
 				0A4AF0FB29B23B950034E5D0 /* APIKey.swift in Sources */,
 				0A4AF0AA29B231BF0034E5D0 /* AppDelegate.swift in Sources */,
 				0A4AF10B29B332050034E5D0 /* DetailWeatherViewController.swift in Sources */,
@@ -1013,6 +1029,14 @@
 				minimumVersion = 5.0.1;
 			};
 		};
+		0AB877C72AB710E500FCBBBB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1045,6 +1069,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0A4AF0E129B232960034E5D0 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		0AB877C82AB710E500FCBBBB /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AB877C72AB710E500FCBBBB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

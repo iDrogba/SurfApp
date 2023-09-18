@@ -15,6 +15,13 @@ struct RegionModel: Equatable, Codable, Hashable {
     let latitude: String
     let longitude: String
     
+    var asDictionary: [String: String] {
+        return [
+            "RegionName": regionName,
+            "Locality": "\(locality) \(subLocality)"
+        ]
+    }
+    
     init(placeMark: MKPlacemark) {
         self.regionName = placeMark.name ?? ""
         self.locality = placeMark.locality ?? ""
