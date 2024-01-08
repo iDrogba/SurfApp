@@ -22,7 +22,7 @@
 ### Design
 |Leticia|
 |:---|
-|[Lau](https://github.com/KiYoonSu)|
+|[Leticia](https://github.com/KiYoonSu)|
 
 ## :fireworks: Screenshots
 <img src="https://github.com/iDrogba/SurfApp/assets/74828662/4d99bd48-af79-4345-9390-dd81d991688e" width="250" height="500"/> <img src="https://github.com/iDrogba/SurfApp/assets/74828662/a984ffd4-5615-4162-a9a8-fd2a485ee8f7" width="250" height="500"/> <img src="https://github.com/iDrogba/SurfApp/assets/74828662/c4384744-72f0-498b-927d-3fa9a21e1a03" width="250" height="500"/> 
